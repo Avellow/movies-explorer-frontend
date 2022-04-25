@@ -1,0 +1,22 @@
+@import url(./_theme/Button_theme_main.css);
+@import url(./_theme/Button_theme_light.css);
+@import url(./_theme/Button_theme_light-bordered.css);
+
+.button {
+    padding: 10px 20px;
+    border-radius: 3px;
+    border: none;
+    margin-right: 10px;
+    font-size: 12px;
+    line-height: 1.33;
+    font-weight: 500;
+}
+
+button:last-of-type {
+    margin: 0;
+}
+
+button:hover {
+    cursor: pointer;
+    opacity: .5;
+}
