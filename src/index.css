@@ -6,3 +6,9 @@
 @import url(./components/Button/_theme/Button_theme_main.css);
 @import url(./components/Button/_theme/Button_theme_light.css);
 @import url(./components/Button/_theme/Button_theme_light-bordered.css);
+
+@import url(./components/Promo/Promo.css);
+@import url(./components/Promo/__title/Promo__title.css);
+@import url(./components/Promo/__subtitle/Promo__subtitle.css);
+@import url(./components/Promo/__logo/Promo__logo.css);
+

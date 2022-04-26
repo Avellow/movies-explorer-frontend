@@ -1,8 +1,7 @@
 .app {
     min-width: 320px;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    margin: 0 auto;
     background-color: #FFF;
     font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     -webkit-font-smoothing: antialiased;

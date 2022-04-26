@@ -1,0 +1,8 @@
+.Promo {
+    padding: 75px var(--content-side-padding);
+    background-color: #073042;
+    color: white;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
