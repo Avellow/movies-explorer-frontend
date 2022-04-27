@@ -24,3 +24,10 @@
 @import url(./components/AboutProject/__info/AboutProject__info.css);
 @import url(./components/AboutProject/__info-title/AboutProject__info-title.css);
 @import url(./components/AboutProject/__info-subtitle/AboutProject__info-subtitle.css);
+
+@import url(./components/Techs/Techs.css);
+@import url(./components/Techs/__info-container/Techs__info-container.css);
+@import url(./components/Techs/__info-title/Techs__info-title.css);
+@import url(./components/Techs/__info-subtitle/Techs__info-subtitle.css);
+@import url(./components/Techs/__list/Techs__list.css);
+@import url(./components/Techs/__list-item/Techs__list-item.css);

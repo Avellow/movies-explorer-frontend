@@ -1,0 +1,16 @@
+.Techs__list-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90px;
+    height: 60px;
+    border-radius: 10px;
+    background-color: #E8E8E8;
+    margin-right: 10px;
+    font-size: 14px;
+    line-height: 1.21;
+}
+
+.Techs__list-item:last-of-type {
+    margin: 0;
+}
