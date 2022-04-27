@@ -7,8 +7,20 @@
 @import url(./components/Button/_theme/Button_theme_light.css);
 @import url(./components/Button/_theme/Button_theme_light-bordered.css);
 
+@import url(./components/section-title/section-title.css);
+
 @import url(./components/Promo/Promo.css);
 @import url(./components/Promo/__title/Promo__title.css);
 @import url(./components/Promo/__subtitle/Promo__subtitle.css);
 @import url(./components/Promo/__logo/Promo__logo.css);
 
+@import url(./components/AboutProject/AboutProject.css);
+@import url(./components/AboutProject/__title/AboutProject__title.css);
+@import url(./components/AboutProject/__progress-bar/AboutProject__progress-bar.css);
+@import url(./components/AboutProject/__back-bar/AboutProject__back-bar.css);
+@import url(./components/AboutProject/__front-bar/AboutProject__front-bar.css);
+@import url(./components/AboutProject/__bar-subtitle/AboutProject__bar-subtitle.css);
+@import url(./components/AboutProject/__info-container/AboutProject__info-container.css);
+@import url(./components/AboutProject/__info/AboutProject__info.css);
+@import url(./components/AboutProject/__info-title/AboutProject__info-title.css);
+@import url(./components/AboutProject/__info-subtitle/AboutProject__info-subtitle.css);
