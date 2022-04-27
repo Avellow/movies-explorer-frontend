@@ -1,4 +1,3 @@
-import './Button.css';
 import { useCallback } from 'react';
 
 function Button(props) {
