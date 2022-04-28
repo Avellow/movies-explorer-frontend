@@ -51,6 +51,7 @@
 
 @import url(./components/Footer/Footer.css);
 @import url(./components/Footer/__subtitle/Footer__subtitle.css);
+@import url(./components/Footer/__copyright/Footer__copyright.css);
 @import url(./components/Footer/__links/Footer__links.css);
 @import url(./components/Footer/__list-item/Footer__list-item.css);
 @import url(./components/Footer/__link/Footer__link.css);
