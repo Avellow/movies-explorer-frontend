@@ -1,0 +1,9 @@
+.MoviesCardList__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 360px);
+    justify-content: space-around;
+    grid-gap: 30px;
+}

@@ -16,6 +16,8 @@ function Button(props) {
                 return 'button_theme_light-bordered';
             case 'search':
                 return 'button_theme_search';
+            case 'save':
+                return 'button_theme_save';
             default:
                 return '';
         }

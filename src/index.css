@@ -7,6 +7,7 @@
 @import url(./components/Button/_theme/Button_theme_light.css);
 @import url(./components/Button/_theme/Button_theme_light-bordered.css);
 @import url(./components/Button/_theme/Button_theme_search.css);
+@import url(./components/Button/_theme/Button_theme_save.css);
 
 @import url(./components/section-title/section-title.css);
 
@@ -56,6 +57,15 @@
 @import url(./components/SearchForm/__form/SearchForm__form.css);
 @import url(./components/SearchForm/__input/SearchForm__input.css);
 @import url(./components/SearchForm/__switch/SearchForm__switch.css);
+
+@import url(./components/MoviesCardList/MoviesCardList.css);
+@import url(./components/MoviesCardList/__list/MoviesCardList__list.css);
+
+@import url(./components/MoviesCard/MoviesCard.css);
+@import url(./components/MoviesCard/__info/MoviesCard__info.css);
+@import url(./components/MoviesCard/__title/MoviesCard__title.css);
+@import url(./components/MoviesCard/__duration/MoviesCard__duration.css);
+@import url(./components/MoviesCard/__poster/MoviesCard__poster.css);
 
 @import url(./components/Footer/Footer.css);
 @import url(./components/Footer/__subtitle/Footer__subtitle.css);
