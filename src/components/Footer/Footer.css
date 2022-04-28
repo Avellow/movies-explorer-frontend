@@ -1,0 +1,8 @@
+.Footer {
+    padding: 79px var(--content-side-padding) 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    font-size: 13px;
+    line-height: 1.23;
+}

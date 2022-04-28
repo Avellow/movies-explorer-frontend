@@ -48,3 +48,9 @@
 @import url(./components/AboutMe/__project/AboutMe__project.css);
 @import url(./components/AboutMe/__project-name/AboutMe__project-name.css);
 @import url(./components/AboutMe/__arrow-icon/AboutMe__arrow-icon.css);
+
+@import url(./components/Footer/Footer.css);
+@import url(./components/Footer/__subtitle/Footer__subtitle.css);
+@import url(./components/Footer/__links/Footer__links.css);
+@import url(./components/Footer/__list-item/Footer__list-item.css);
+@import url(./components/Footer/__link/Footer__link.css);
