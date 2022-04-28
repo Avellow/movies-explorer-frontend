@@ -1,0 +1,11 @@
+.AboutMe__project {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    text-decoration: none;
+    color: black;
+}
+
+.AboutMe__project:hover {
+    background-color: #E8E8E8;
+}

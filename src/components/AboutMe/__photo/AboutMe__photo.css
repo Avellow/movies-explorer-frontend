@@ -1,0 +1,6 @@
+.AboutMe__photo {
+    width: 270px;
+    height: 327px;
+    object-fit: cover;
+    border-radius: 10px;
+}

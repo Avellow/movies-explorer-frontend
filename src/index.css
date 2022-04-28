@@ -31,3 +31,20 @@
 @import url(./components/Techs/__info-subtitle/Techs__info-subtitle.css);
 @import url(./components/Techs/__list/Techs__list.css);
 @import url(./components/Techs/__list-item/Techs__list-item.css);
+
+@import url(./components/AboutMe/AboutMe.css);
+@import url(./components/AboutMe/__info-container/AboutMe__info-container.css);
+@import url(./components/AboutMe/__bio/AboutMe__bio.css);
+@import url(./components/AboutMe/__title/AboutMe__title.css);
+@import url(./components/AboutMe/__subtitle/AboutMe__subtitle.css);
+@import url(./components/AboutMe/__text/AboutMe__text.css);
+@import url(./components/AboutMe/__contacts/AboutMe__contacts.css);
+@import url(./components/AboutMe/__contact/AboutMe__contact.css);
+@import url(./components/AboutMe/__contact-link/AboutMe__contact-link.css);
+@import url(./components/AboutMe/__photo/AboutMe__photo.css);
+@import url(./components/AboutMe/__portfolio-title/AboutMe__portfolio-title.css);
+@import url(./components/AboutMe/__projects/AboutMe__projects.css);
+@import url(./components/AboutMe/__list-item/AboutMe__list-item.css);
+@import url(./components/AboutMe/__project/AboutMe__project.css);
+@import url(./components/AboutMe/__project-name/AboutMe__project-name.css);
+@import url(./components/AboutMe/__arrow-icon/AboutMe__arrow-icon.css);
