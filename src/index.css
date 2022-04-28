@@ -6,6 +6,7 @@
 @import url(./components/Button/_theme/Button_theme_main.css);
 @import url(./components/Button/_theme/Button_theme_light.css);
 @import url(./components/Button/_theme/Button_theme_light-bordered.css);
+@import url(./components/Button/_theme/Button_theme_search.css);
 
 @import url(./components/section-title/section-title.css);
 
@@ -50,6 +51,11 @@
 @import url(./components/AboutMe/__arrow-icon/AboutMe__arrow-icon.css);
 
 @import url(./components/Movies/Movies.css);
+
+@import url(./components/SearchForm/SearchForm.css);
+@import url(./components/SearchForm/__form/SearchForm__form.css);
+@import url(./components/SearchForm/__input/SearchForm__input.css);
+@import url(./components/SearchForm/__switch/SearchForm__switch.css);
 
 @import url(./components/Footer/Footer.css);
 @import url(./components/Footer/__subtitle/Footer__subtitle.css);

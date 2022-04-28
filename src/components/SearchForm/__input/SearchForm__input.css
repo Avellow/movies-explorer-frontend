@@ -1,0 +1,16 @@
+.SearchForm__input {
+    border: none;
+    text-align: center;
+    padding: 3px;
+    margin: 0 10px;
+    width: 70%;
+    outline: none;
+    font-weight: 500;
+    font-size: 28px;
+}
+
+.SearchForm__input::placeholder {
+    color: #A0A0A0;
+    font-weight: 500;
+    font-size: 28px;
+}

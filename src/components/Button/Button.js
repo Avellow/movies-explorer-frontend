@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 
 function Button(props) {
     const {
-        text,
+        text = '',
         theme,
     } = props;
 
@@ -14,6 +14,8 @@ function Button(props) {
                 return 'button_theme_light';
             case 'light-bordered':
                 return 'button_theme_light-bordered';
+            case 'search':
+                return 'button_theme_search';
             default:
                 return '';
         }
