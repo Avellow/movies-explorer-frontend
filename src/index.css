@@ -90,3 +90,8 @@
 @import url(./components/Footer/__links/Footer__links.css);
 @import url(./components/Footer/__list-item/Footer__list-item.css);
 @import url(./components/Footer/__link/Footer__link.css);
+
+@import url(./components/NotFound/NotFound.css);
+@import url(./components/NotFound/__title/NotFound__title.css);
+@import url(./components/NotFound/__subtitle/NotFound__subtitle.css);
+@import url(./components/NotFound/__link/NotFound__link.css);
