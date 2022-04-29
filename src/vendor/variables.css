@@ -1,6 +1,7 @@
 :root {
     --content-side-padding: calc(50% - 570px);
     --card-width: 360px;
+    --form-side-padding: calc(50% - 198px)
 }
 
 @media screen and (max-width: 1235px) and (min-width: 768px) {

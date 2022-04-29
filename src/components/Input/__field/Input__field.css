@@ -1,0 +1,11 @@
+.Input__field {
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    padding: 5px 5px 10px 0;
+    border-bottom: 1px solid #E8E8E8;
+    font-size: 14px;
+    line-height: 1.21;
+    font-weight: 400;
+    outline: none;
+}

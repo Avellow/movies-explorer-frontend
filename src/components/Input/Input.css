@@ -1,0 +1,7 @@
+.Input {
+    margin-bottom: 24px;
+}
+
+.Input:last-of-type {
+    margin-bottom: 152px;
+}

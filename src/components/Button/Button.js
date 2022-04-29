@@ -18,6 +18,8 @@ function Button(props) {
                 return 'button_theme_search';
             case 'save':
                 return 'button_theme_save';
+            case 'auth':
+                return 'button_theme_auth';
             default:
                 return '';
         }
