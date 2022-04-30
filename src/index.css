@@ -9,10 +9,12 @@
 @import url(./components/Button/_theme/Button_theme_search.css);
 @import url(./components/Button/_theme/Button_theme_save.css);
 @import url(./components/Button/_theme/Button_theme_auth.css);
+@import url(./components/Button/_theme/Button_theme_loader.css);
 
 @import url(./components/section-title/section-title.css);
 
 @import url(./components/Promo/Promo.css);
+@import url(./components/Promo/__info-container/Promo__info-container.css);
 @import url(./components/Promo/__title/Promo__title.css);
 @import url(./components/Promo/__subtitle/Promo__subtitle.css);
 @import url(./components/Promo/__logo/Promo__logo.css);
@@ -55,6 +57,7 @@
 @import url(./components/Movies/Movies.css);
 
 @import url(./components/SearchForm/SearchForm.css);
+@import url(./components/SearchForm/__search-icon/SearchForm__search-icon.css);
 @import url(./components/SearchForm/__form/SearchForm__form.css);
 @import url(./components/SearchForm/__input/SearchForm__input.css);
 @import url(./components/SearchForm/__switch/SearchForm__switch.css);
@@ -86,9 +89,9 @@
 
 @import url(./components/Footer/Footer.css);
 @import url(./components/Footer/__subtitle/Footer__subtitle.css);
+@import url(./components/Footer/__container/Footer__container.css);
 @import url(./components/Footer/__copyright/Footer__copyright.css);
 @import url(./components/Footer/__links/Footer__links.css);
-@import url(./components/Footer/__list-item/Footer__list-item.css);
 @import url(./components/Footer/__link/Footer__link.css);
 
 @import url(./components/NotFound/NotFound.css);

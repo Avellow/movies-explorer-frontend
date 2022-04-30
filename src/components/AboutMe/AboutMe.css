@@ -1,3 +1,15 @@
 .AboutMe {
     padding: 110px var(--content-side-padding) 125px;
 }
+
+@media screen and (max-width: 860px) {
+    .AboutMe {
+        padding: 90px var(--content-side-padding);
+    }
+}
+
+@media screen and (max-width: 525px) {
+    .AboutMe {
+        padding: 70px var(--content-side-padding);
+    }
+}

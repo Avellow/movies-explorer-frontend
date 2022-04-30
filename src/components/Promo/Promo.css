@@ -6,3 +6,17 @@
     flex-direction: row-reverse;
     justify-content: space-between;
 }
+
+@media screen and (max-width: 860px) {
+    .Promo {
+        flex-direction: column;
+        padding-top: 140px;
+    }
+}
+
+@media screen and (max-width: 525px) {
+    .Promo {
+        flex-direction: column;
+        padding: 70px var(--content-side-padding) 30px;
+    }
+}

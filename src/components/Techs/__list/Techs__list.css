@@ -1,6 +1,23 @@
 .Techs__list {
     display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     list-style: none;
     padding: 0;
     margin: 0;
+    row-gap: 10px;
+    column-gap: 10px;
+}
+
+@media screen and (max-width: 750px) {
+    .Techs__list {
+        max-width: 500px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .Techs__list {
+        max-width: 178px;
+        justify-content: normal;
+    }
 }

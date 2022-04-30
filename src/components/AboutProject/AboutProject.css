@@ -1,3 +1,15 @@
 .AboutProject {
     padding: 110px var(--content-side-padding);
 }
+
+@media screen and (max-width: 860px) {
+    .AboutProject {
+        padding: 90px var(--content-side-padding);
+    }
+}
+
+@media screen and (max-width: 525px) {
+    .AboutProject {
+        padding: 70px var(--content-side-padding);
+    }
+}

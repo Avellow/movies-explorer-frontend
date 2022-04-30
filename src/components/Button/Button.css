@@ -8,10 +8,6 @@
     font-weight: 500;
 }
 
-button:last-of-type {
-    margin: 0;
-}
-
 button:hover {
     cursor: pointer;
     opacity: .5;

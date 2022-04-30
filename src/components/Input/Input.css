@@ -5,3 +5,9 @@
 .Input:last-of-type {
     margin-bottom: 152px;
 }
+
+@media screen and (max-width: 525px) {
+    .Input:last-of-type {
+        margin-bottom: 70px;
+    }
+}

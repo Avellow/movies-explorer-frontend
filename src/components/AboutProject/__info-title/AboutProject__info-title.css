@@ -4,3 +4,16 @@
     font-weight: 400;
     margin: 0 0 26px;
 }
+
+@media screen and (max-width: 860px) {
+    .AboutProject__info-title {
+        letter-spacing: -0.04em;
+    }
+}
+
+@media screen and (max-width: 525px) {
+    .AboutProject__info-title {
+        font-size: 18px;
+        margin: 0 0 16px;
+    }
+}

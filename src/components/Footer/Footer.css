@@ -1,8 +1,19 @@
 .Footer {
     padding: 79px var(--content-side-padding) 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
     font-size: 13px;
     line-height: 1.23;
+}
+
+@media screen and (max-width: 880px) {
+    .Footer {
+        padding: 79px 30px 20px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .Footer {
+        font-size: 12px;
+        line-height: 1.25;
+        padding: 79px 10px 10px;
+    }
 }

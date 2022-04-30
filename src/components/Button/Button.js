@@ -8,7 +8,7 @@ function Button(props) {
 
     const generateClassName = useCallback(() => {
         switch (theme) {
-            case 'main':
+            case 'main':  // перепишу ЭТОТ АД НА ТЕРНАРНИК с готовым в классе theme_${theme}
                 return 'button_theme_main';
             case 'light':
                 return 'button_theme_light';
@@ -20,6 +20,8 @@ function Button(props) {
                 return 'button_theme_save';
             case 'auth':
                 return 'button_theme_auth';
+            case 'loader':
+                return 'button_theme_loader';
             default:
                 return '';
         }

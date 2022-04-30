@@ -1,3 +1,10 @@
 .Auth__logo {
     margin-bottom: 40px;
 }
+
+@media screen and (max-width: 525px) {
+    .Auth__logo {
+        display: block;
+        margin: 0 auto 50px;
+    }
+}

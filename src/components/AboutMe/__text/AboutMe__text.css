@@ -3,3 +3,11 @@
     line-height: 1.57;
     margin: 0 0 99px;
 }
+
+@media screen and (max-width: 525px) {
+    .AboutMe__text {
+        font-size: 11px;
+        line-height: 1.5;
+        margin: 0 0 40px;
+    }
+}

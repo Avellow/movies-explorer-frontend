@@ -2,3 +2,12 @@
     color: white;
     background: none;
 }
+
+@media screen and (max-width: 860px) {
+    .button_theme_light {
+        font-size: 10px;
+        line-height: 1.6;
+        padding: 5px 0;
+        margin-right: 14px;
+    }
+}

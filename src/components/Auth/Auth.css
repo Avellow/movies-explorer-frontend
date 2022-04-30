@@ -1,4 +1,13 @@
 .Auth {
-
     padding: 70px var(--form-side-padding);
+}
+
+@media screen and (max-width: 525px) {
+    .Auth {
+        padding: 56px var(--form-side-padding) 30px;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        height: 100vh;
+    }
 }

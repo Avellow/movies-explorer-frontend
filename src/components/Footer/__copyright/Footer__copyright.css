@@ -1,3 +1,9 @@
 .Footer__copyright {
     margin: 0;
 }
+
+@media screen and (max-width: 450px) {
+    .Footer__copyright {
+        color: #A0A0A0;
+    }
+}

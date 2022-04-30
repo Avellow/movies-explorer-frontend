@@ -2,3 +2,16 @@
     padding: 100px var(--content-side-padding);
     background-color: #F5F5F5;
 }
+
+@media screen and (max-width: 860px) {
+    .Techs {
+        padding: 90px var(--content-side-padding);
+    }
+}
+
+@media screen and (max-width: 525px) {
+    .Techs {
+        background-color: white;
+        padding: 70px var(--content-side-padding);
+    }
+}

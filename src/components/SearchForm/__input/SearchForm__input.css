@@ -11,6 +11,12 @@
 
 .SearchForm__input::placeholder {
     color: #A0A0A0;
-    font-weight: 500;
-    font-size: 28px;
+}
+
+@media screen and (max-width: 525px) {
+    .SearchForm__input {
+        text-align: start;
+        margin: 0;
+        font-size: 18px;
+    }
 }

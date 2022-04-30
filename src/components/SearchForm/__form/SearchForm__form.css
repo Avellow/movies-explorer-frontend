@@ -3,5 +3,13 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 0 15px;
+    margin: 0 0 30px;
     border-bottom: 1px solid #E8E8E8;
 }
+
+@media screen and (max-width: 525px) {
+    .SearchForm__form {
+        margin: 0 0 43px;
+    }
+}
+

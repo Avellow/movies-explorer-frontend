@@ -1,0 +1,7 @@
+@media screen and (max-width: 860px) {
+    .Promo__info-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
