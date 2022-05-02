@@ -22,6 +22,8 @@
 @import url(./components/Button/_theme/Button_theme_acc.css);
 @import url(./components/Button/_theme/Button_theme_burger.css);
 @import url(./components/Button/_theme/Button_theme_close.css);
+@import url(./components/Button/_theme/Button_theme_delete.css);
+@import url(./components/Button/_theme/Button_theme_saved.css);
 
 @import url(./components/section-title/section-title.css);
 

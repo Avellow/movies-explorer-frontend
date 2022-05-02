@@ -1,0 +1,9 @@
+.button_theme_saved {
+    width: 100px;
+    height: 29px;
+    border-radius: 30px;
+    background-color: #FF3055;
+    background-image: url('../../../images/card/mark.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+}

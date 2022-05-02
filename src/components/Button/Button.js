@@ -30,6 +30,10 @@ function Button(props) {
                 return 'button_theme_burger';
             case 'close':
                 return 'button_theme_close';
+            case 'delete':
+                return 'button_theme_delete';
+            case 'saved':
+                return 'button_theme_saved';
             default:
                 return '';
         }
