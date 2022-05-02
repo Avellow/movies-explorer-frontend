@@ -1,0 +1,18 @@
+.button_theme_burger {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    background-image: url("../../../images/header/burger.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgba(0,0,0,0);
+    display: none;
+}
+
+@media screen and (max-width: 770px) {
+    .button_theme_burger {
+        display: inline-block;
+    }
+}
+
+

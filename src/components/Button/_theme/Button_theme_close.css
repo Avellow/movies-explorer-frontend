@@ -1,0 +1,9 @@
+.button_theme_close {
+    min-width: 32px;
+    min-height: 32px;
+    padding: 0;
+    align-self: flex-end;
+    background-color: rgba(0,0,0,0);
+    background-image: url('../../../images/popup/close.svg');
+    background-size: contain;
+}

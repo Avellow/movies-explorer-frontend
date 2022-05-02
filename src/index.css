@@ -2,6 +2,15 @@
 @import url(./vendor/variables.css);
 @import url(./vendor/fonts/inter.css);
 
+@import url(./components/Header/Header.css);
+@import url(./components/Header/_theme/Header_theme_light.css);
+
+@import url(./components/Navigation/Navigation.css);
+@import url(./components/Navigation/__popup-link-list/Navigation__popup-link-list.css);
+@import url(./components/Navigation/__header-link-list/Navigation__header-link-list.css);
+@import url(./components/Navigation/Navigation.css);
+@import url(./components/Navigation/__link/Navigation__link.css);
+
 @import url(./components/Button/Button.css);
 @import url(./components/Button/_theme/Button_theme_main.css);
 @import url(./components/Button/_theme/Button_theme_light.css);
@@ -10,6 +19,9 @@
 @import url(./components/Button/_theme/Button_theme_save.css);
 @import url(./components/Button/_theme/Button_theme_auth.css);
 @import url(./components/Button/_theme/Button_theme_loader.css);
+@import url(./components/Button/_theme/Button_theme_acc.css);
+@import url(./components/Button/_theme/Button_theme_burger.css);
+@import url(./components/Button/_theme/Button_theme_close.css);
 
 @import url(./components/section-title/section-title.css);
 
@@ -86,6 +98,11 @@
 @import url(./components/Input/__field/_errored/Input__field_erorred.css);
 @import url(./components/Input/__error/Input__error.css);
 @import url(./components/Input/__error/Input__error.css);
+
+@import url(./components/Popup/Popup.css);
+@import url(./components/Popup/_opened/Popup_opened.css);
+@import url(./components/Popup/__container/Popup__container.css);
+@import url(./components/Popup/__container/_type/Popup__container_type_menu.css);
 
 @import url(./components/Footer/Footer.css);
 @import url(./components/Footer/__subtitle/Footer__subtitle.css);

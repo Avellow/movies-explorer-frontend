@@ -3,7 +3,9 @@ import { useCallback } from 'react';
 function Button(props) {
     const {
         text = '',
+        icon,
         theme,
+        onClick,
     } = props;
 
     const generateClassName = useCallback(() => {
@@ -22,13 +24,25 @@ function Button(props) {
                 return 'button_theme_auth';
             case 'loader':
                 return 'button_theme_loader';
+            case 'acc':
+                return 'button_theme_acc';
+            case 'burger':
+                return 'button_theme_burger';
+            case 'close':
+                return 'button_theme_close';
             default:
                 return '';
         }
     }, [theme]);
 
     return (
-        <button className={`button ${generateClassName()}`}>{ text }</button>
+        <button
+            className={`button ${generateClassName()}`}
+            onClick={onClick}
+        >
+            { text }
+            { icon ? <img src={icon} alt='иконка кнопки' /> : '' }
+        </button>
     )
 }
 
