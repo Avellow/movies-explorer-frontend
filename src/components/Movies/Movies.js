@@ -3,11 +3,17 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Button from "../Button/Button";
 import SavedMovies from "../SavedMovies/SavedMovies";
 
-function Movies() {
+function Movies(props) {
+    const {
+        films,
+    } = props;
+
     return (
         <main className='Movies'>
             <SearchForm />
-            <SavedMovies />
+            <MoviesCardList
+                films={films}
+            />
             <Button
                 theme='loader'
                 text='Ещё'

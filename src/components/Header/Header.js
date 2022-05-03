@@ -11,10 +11,6 @@ function Header(props) {
         onBurgerClick,
     } = props;
 
-    function foo() {
-        console.log(onBurgerClick)
-    }
-
     return (
         <header className={`header${ loggedIn ? ' header_theme_light' : '' }`}>
             <img
@@ -23,7 +19,7 @@ function Header(props) {
                 alt='логотип'
             />
             <Navigation
-                loggedIn={true}
+                loggedIn={loggedIn}
                 location='header'
             >
                 {headerMenuLinks.map(({to, text}, i) => (

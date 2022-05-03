@@ -1,20 +1,19 @@
 import MoviesCard from "../MoviesCard/MoviesCard";
+import SearchForm from "../SearchForm/SearchForm";
+import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
-function SavedMovies() {
+function SavedMovies(props) {
+    const {
+        films,
+    } = props;
+
     return (
-        <section className='MoviesCardList'>
-            <ul className='MoviesCardList__list'>
-                <MoviesCard
-                    buttonType='delete'
-                />
-                <MoviesCard
-                    isSaved={true}
-                />
-                <MoviesCard
-
-                />
-            </ul>
-        </section>
+        <main className='Movies'>
+            <SearchForm />
+            <MoviesCardList
+                films={films}
+            />
+        </main>
     )
 }
 

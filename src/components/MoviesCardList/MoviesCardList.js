@@ -1,18 +1,21 @@
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList() {
+function MoviesCardList(props) {
+    const {
+        films,
+    } = props;
+
     return (
         <section className='MoviesCardList'>
             <ul className='MoviesCardList__list'>
-                <MoviesCard />
-                <MoviesCard />
-                <MoviesCard />
-                <MoviesCard />
-                <MoviesCard />
-                <MoviesCard />
-                <MoviesCard />
-                <MoviesCard />
-                <MoviesCard />
+                { films.map((film, i) => (
+                    <MoviesCard
+                        key={i}
+                        title={film.title}
+                        duration={film.duration}
+                        posterLink={film.posterLink}
+                    />
+                ))}
             </ul>
         </section>
     )
