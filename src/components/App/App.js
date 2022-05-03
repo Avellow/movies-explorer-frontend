@@ -4,7 +4,6 @@ import Main from '../Main/Main';
 import Footer from "../Footer/Footer";
 import Movies from "../Movies/Movies";
 import Form from "../Form/Form";
-import Auth from "../Auth/Auth";
 import Input from "../Input/Input";
 import NotFound from "../NotFound/NotFound";
 import {useEffect, useState} from "react";
@@ -15,6 +14,8 @@ import {NavLink} from "react-router-dom";
 import Button from "../Button/Button";
 import icon from "../../images/header/accbtn.svg";
 import Profile from "../Profile/Profile";
+import Login from "../Login/Login";
+import Register from "../Register/Register";
 
 function App() {
 
@@ -31,14 +32,14 @@ function App() {
 
     return (
         <div className="app">
-            <Header
+            {/*<Header
                 loggedIn={loggedIn}
                 onBurgerClick={openMenuPopup}
-            />
+            />*/}
 
-            <Profile />
+            <Register />
 
-            <Footer />
+            {/*<Footer /*>*/}
 
             <Popup
                 isOpened={isPopupMenuOpened}
@@ -64,43 +65,6 @@ function App() {
                 </Navigation>
             </Popup>
 
-
-            {/*<Auth>
-                <Form
-                    title='Добро пожаловать!'
-                    buttonText='Зарегистрироваться'
-                    hintText='Уже зарегистрированы?'
-                    hintLinkText='Войти'
-                >
-                    <Input name='Имя'/>
-                    <Input name='E-mail' type='email'/>
-                    <Input name='Пароль' type='password'/>
-                    <Button
-                        theme='auth'
-                        text='Зарегистрироваться'
-                    />
-                    <p className='Form__hint'>
-                        Уже зарегистрированы?
-                        <a className='Form__hint-link' href='/'> Войти</a>
-                    </p>
-                </Form>
-            </Auth>
-                <Auth>
-                <Form
-                title='Рады видеть!'
-                >
-                <Input name='E-mail' type='email' />
-                <Input name='Пароль' type='password' />
-                <Button
-                theme='auth'
-                text='Войти'
-                />
-                <p className='Form__hint'>
-                Ещё не зарегистрированы?
-                <a className='Form__hint-link' href='/'> Регистрация</a>
-                </p>
-                </Form>
-                </Auth>*/}
         </div>
     );
 }
