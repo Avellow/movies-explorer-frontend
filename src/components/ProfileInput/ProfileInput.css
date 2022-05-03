@@ -1,0 +1,25 @@
+.ProfileInput {
+    border-bottom: 1px solid #E8E8E8;
+    padding: 0 0 16px;
+    margin: 0 0 17px;
+    font-size: 13px;
+    line-height: 1.18;
+}
+
+.ProfileInput:first-of-type {
+    margin-top: 123px;
+}
+
+.ProfileInput:last-of-type {
+    border: none;
+}
+
+@media screen and (max-width: 770px) {
+    .ProfileInput {
+        font-size: 11px;
+    }
+
+    .ProfileInput:last-of-type {
+        margin-bottom: 200px;
+    }
+}

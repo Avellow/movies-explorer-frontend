@@ -1,6 +1,14 @@
+import {useLocation} from "react-router-dom";
+
 function Footer() {
+    const { pathname } = useLocation();
+
+
     return (
-        <footer className='Footer'>
+        <footer
+            className='Footer'
+            style={pathname === '/profile' ? { display: 'none'} : {}}
+        >
             <p className='Footer__subtitle'>Учебный проект Яндекс.Практикум х BeatFilm.</p>
             <div className='Footer__container'>
                 <p className='Footer__copyright'>&copy; {new Date().getFullYear()}</p>

@@ -34,6 +34,10 @@ function Button(props) {
                 return 'button_theme_delete';
             case 'saved':
                 return 'button_theme_saved';
+            case 'edit':
+                return 'button_theme_edit';
+            case 'exit':
+                return 'button_theme_exit';
             default:
                 return '';
         }

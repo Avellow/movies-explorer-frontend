@@ -11,3 +11,9 @@
     background-color: white;
     padding: 23px 23px 90px;
 }
+
+@media screen and (max-width: 525px){
+    .Popup__container_type_menu {
+        padding: 14px 14px 40px;
+    }
+}

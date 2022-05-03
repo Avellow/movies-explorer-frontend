@@ -1,5 +1,10 @@
 .Input {
     margin-bottom: 24px;
+    border-bottom: 1px solid #E8E8E8;
+}
+
+.Input:first-of-type {
+    margin-top: 40px;
 }
 
 .Input:last-of-type {

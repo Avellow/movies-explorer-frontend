@@ -2,6 +2,10 @@
     padding: 79px var(--content-side-padding) 20px;
     font-size: 13px;
     line-height: 1.23;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    flex: 0 0 auto;
 }
 
 @media screen and (max-width: 880px) {

@@ -1,0 +1,18 @@
+.Profile {
+    padding: 74px var(--content-side-padding) 70px;
+    display: flex;
+    justify-content: center;
+    flex: 1 0 auto;
+}
+
+@media screen and (max-width: 770px) {
+    .Profile {
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .Profile {
+        padding: 70px 30px 40px;
+    }
+}

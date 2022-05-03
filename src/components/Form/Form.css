@@ -6,7 +6,6 @@
 
 @media screen and (max-width: 525px) {
     .Form {
-        width: 260px;
         height: 100%;
         max-height: 700px;
         justify-content: flex-start;

@@ -1,0 +1,5 @@
+.ProfileInput__name {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+}

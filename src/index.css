@@ -24,6 +24,8 @@
 @import url(./components/Button/_theme/Button_theme_close.css);
 @import url(./components/Button/_theme/Button_theme_delete.css);
 @import url(./components/Button/_theme/Button_theme_saved.css);
+@import url(./components/Button/_theme/Button_theme_edit.css);
+@import url(./components/Button/_theme/Button_theme_exit.css);
 
 @import url(./components/section-title/section-title.css);
 
@@ -100,6 +102,12 @@
 @import url(./components/Input/__field/_errored/Input__field_erorred.css);
 @import url(./components/Input/__error/Input__error.css);
 @import url(./components/Input/__error/Input__error.css);
+
+@import url(./components/ProfileInput/ProfileInput.css);
+@import url(components/ProfileInput/__name/ProfileInput__name.css);
+@import url(components/ProfileInput/__field/ProfileInput__field.css);
+
+@import url(./components/Profile/Profile.css);
 
 @import url(./components/Popup/Popup.css);
 @import url(./components/Popup/_opened/Popup_opened.css);
