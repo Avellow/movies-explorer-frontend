@@ -1,27 +1,32 @@
 import Button from "../Button/Button";
+import {useState} from "react";
 
 function MoviesCard(props) {
     const {
-        isSaved,
         onSave,
         onDelete,
         buttonType,
         title,
         duration,
         posterLink,
+        listType,
     } = props;
 
+    const [isSaved, setIsSaved] = useState(false); // ВРЕМЕННОЕ РЕШЕНИЕ РЕАКЦИИ на нажатие
+    const onClick = () => setIsSaved(!isSaved);
+
     function generateButton() {
-        if (buttonType === 'delete') {
+        if (listType === 'saved') {
             return (
                 <Button
-                    theme={buttonType}
+                    theme='delete'
                 />
             )
         } else if (isSaved) {
             return (
                 <Button
                     theme='saved'
+                    onClick={onClick}
                 />
             )
         } else {
@@ -29,6 +34,7 @@ function MoviesCard(props) {
                 <Button
                     text='Сохранить'
                     theme='save'
+                    onClick={onClick}
                 />
             )
         }

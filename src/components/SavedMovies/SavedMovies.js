@@ -1,4 +1,3 @@
-import MoviesCard from "../MoviesCard/MoviesCard";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
@@ -12,6 +11,7 @@ function SavedMovies(props) {
             <SearchForm />
             <MoviesCardList
                 films={films}
+                listType='saved'
             />
         </main>
     )

@@ -3,6 +3,7 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 function MoviesCardList(props) {
     const {
         films,
+        listType = 'common',
     } = props;
 
     return (
@@ -14,6 +15,7 @@ function MoviesCardList(props) {
                         title={film.title}
                         duration={film.duration}
                         posterLink={film.posterLink}
+                        listType={listType}
                     />
                 ))}
             </ul>
