@@ -9,12 +9,12 @@ function Popup(props) {
     } = props;
 
     return (
-        <section className={`Popup${isOpened ? ` Popup_opened` : ''}`}>
+        <div className={`Popup${isOpened ? ` Popup_opened` : ''}`}>
             <div className={`Popup__container Popup__container_type_${name}`}>
                 <Button theme='close' onClick={onClose}/>
                 {children}
             </div>
-        </section>
+        </div>
     )
 }
 
