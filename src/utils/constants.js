@@ -1,10 +1,21 @@
+export const authLinks = [
+    {
+        to: '/signup',
+        text: 'Регистрация',
+    },
+    {
+        to: '/login',
+        text: 'Войти',
+    }
+];
+
 export const headerMenuLinks = [
     {
-        to: '/films',
+        to: '/movies',
         text: 'Фильмы',
     },
     {
-        to: '/saved-films',
+        to: '/savedmovies',
         text: 'Сохранённые фильмы',
     }
 ];
@@ -15,11 +26,11 @@ export const popupMenuLinks = [
         text: 'Главная'
     },
     {
-        to: '/films',
+        to: '/movies',
         text: 'Фильмы',
     },
     {
-        to: '/saved-films',
+        to: '/savedmovies',
         text: 'Сохранённые фильмы',
     }
 ];

@@ -1,0 +1,6 @@
+.Navigation__links_type_side {
+    display: flex;
+    flex-direction: column;
+    row-gap: 28px;
+    height: 100%;
+}

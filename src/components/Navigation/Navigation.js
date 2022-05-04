@@ -1,14 +1,14 @@
 function Navigation(props) {
     const {
-        loggedIn,
         location,
         children,
+        type,
     } = props;
 
     return (
         <nav className={`Navigation`}>
-            <ul className={`Navigation__${location}-link-list`}>
-                {children}
+            <ul className={`Navigation__links Navigation__links_type_${type}`}>
+                { children }
             </ul>
         </nav>
     )

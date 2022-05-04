@@ -8,8 +8,15 @@
 @import url(./components/Navigation/Navigation.css);
 @import url(./components/Navigation/__popup-link-list/Navigation__popup-link-list.css);
 @import url(./components/Navigation/__header-link-list/Navigation__header-link-list.css);
-@import url(./components/Navigation/Navigation.css);
+@import url(./components/Navigation/__links/Navigation__links.css);
+@import url(components/Navigation/__links/_type/Navigation__links_type_auth.css);
+@import url(components/Navigation/__links/_type/Navigation__links_type_movies.css);
+@import url(components/Navigation/__links/_type/Navigation__links_type_side.css);
 @import url(./components/Navigation/__link/Navigation__link.css);
+@import url(./components/Navigation/__link/_type/Navigation__link_type_signup.css);
+@import url(./components/Navigation/__link/_type/Navigation__link_type_login.css);
+@import url(./components/Navigation/__link/_type/Navigation__link_type_movie.css);
+@import url(./components/Navigation/__link/_type/Navigation__link_type_profile.css);
 
 @import url(./components/Button/Button.css);
 @import url(./components/Button/_theme/Button_theme_main.css);
@@ -19,7 +26,6 @@
 @import url(./components/Button/_theme/Button_theme_save.css);
 @import url(./components/Button/_theme/Button_theme_auth.css);
 @import url(./components/Button/_theme/Button_theme_loader.css);
-@import url(./components/Button/_theme/Button_theme_acc.css);
 @import url(./components/Button/_theme/Button_theme_burger.css);
 @import url(./components/Button/_theme/Button_theme_close.css);
 @import url(./components/Button/_theme/Button_theme_delete.css);

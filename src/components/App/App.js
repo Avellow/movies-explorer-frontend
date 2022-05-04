@@ -10,7 +10,7 @@ import {useEffect, useState} from "react";
 import Popup from "../Popup/Popup";
 import Navigation from "../Navigation/Navigation";
 import { popupMenuLinks } from "../../utils/constants";
-import {NavLink, Route, Switch, useHistory} from "react-router-dom";
+import {NavLink, Route, Switch, useHistory, useLocation} from "react-router-dom";
 import Button from "../Button/Button";
 import icon from "../../images/header/accbtn.svg";
 import Profile from "../Profile/Profile";
@@ -25,6 +25,7 @@ function App() {
     const [ isPopupMenuOpened, setIsPopupMenuOpened] = useState(false);
 
     const history = useHistory();
+    const location = useLocation();
 
     function closeAllPopups() {
         setIsPopupMenuOpened(false);
@@ -34,8 +35,22 @@ function App() {
         setIsPopupMenuOpened(true);
     }
 
+    const shouldHeaderBeShown = () => location.pathname !== '/login' && location.pathname !== '/signup';
+    const shouldFooterBeShown = () => (
+        location.pathname !== '/login' &&
+        location.pathname !== '/signup' &&
+        location.pathname !== '/profile'
+    );
+
+
     return (
         <div className="app">
+            {shouldHeaderBeShown() && (
+                <Header
+                    loggedIn={loggedIn}
+                    onBurgerClick={openMenuPopup}
+                />
+            )}
             <Switch>
                 <Route path='/login'>
                     <Login />
@@ -46,33 +61,20 @@ function App() {
                 </Route>
 
                 <Route path='/main'>
-                    <Header loggedIn={loggedIn} />
                     <Main />
-                    <Footer />
                 </Route>
 
-                <Route path='/films'>
-                    <Header loggedIn={loggedIn} />
-                    <Movies
-                        films={films}
-                    />
-                    <Footer />
+                <Route path='/movies'>
+                    <Movies films={films} />
                 </Route>
 
-                <Route path='/saved-films'>
-                    <Header loggedIn={loggedIn} />
-                    <SavedMovies
-                        films={savedFilms}
-                    />
-                    <Footer />
+                <Route path='/savedmovies'>
+                    <SavedMovies films={savedFilms} />
                 </Route>
 
-                <Route path='/profile'>
-                    <Header loggedIn={loggedIn} />
-                    <Profile />
-                </Route>
+                <Route path='/profile' component={Profile} />
             </Switch>
-
+            {shouldFooterBeShown() && <Footer/>}
 
             <Popup
                 isOpened={isPopupMenuOpened}
@@ -82,6 +84,7 @@ function App() {
                 <Navigation
                     loggedIn={true}
                     location='popup'
+                    type='side'
                 >
                     {popupMenuLinks.map(({to, text}, i) => (
                         <li key={i}>
@@ -94,7 +97,19 @@ function App() {
                             </NavLink>
                         </li>
                     ))}
-                    <li style={{ margin: 'auto 0 0' }}><Button text={`Аккаунт`} icon={icon} theme='acc' /></li>
+                    <li style={{ margin: 'auto 0 0' }}>
+                        <NavLink
+                            to='/profile'
+                            className='Navigation__link_type_profile'
+                            style={{ display: 'flex' }}
+                        >
+                            Аккаунт
+                            <img
+                                src={icon}
+                                alt='профиль'
+                            />
+                        </NavLink>
+                    </li>
                 </Navigation>
             </Popup>
 

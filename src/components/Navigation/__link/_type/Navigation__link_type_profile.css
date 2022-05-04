@@ -1,4 +1,4 @@
-.button_theme_acc {
+.Navigation__link_type_profile {
     box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
     background-color: white;
     border-radius: 40px;
@@ -9,4 +9,13 @@
     column-gap: 7px;
     line-height: .92;
     padding: 3px 3px 3px 11px;
+    text-decoration: none;
+    color: black;
+}
+
+@media screen and (max-width: 770px) {
+    .Navigation__link_type_profile {
+        display: none;
+
+    }
 }
