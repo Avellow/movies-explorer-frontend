@@ -12,18 +12,21 @@ function Footer() {
                             <a
                                 className='Footer__link'
                                 href='https://practicum.yandex.ru'
+                                target='_blank'
                             >Яндекс.Практикум</a>
                         </li>
                         <li className='Footer__list-item'>
                             <a
                                 className='Footer__link'
                                 href='https://github.com/Avellow'
+                                target='_blank'
                             >Github</a>
                         </li>
                         <li className='Footer__list-item'>
                             <a
                                 className='Footer__link'
                                 href='https://t.me/zellek'
+                                target='_blank'
                             >Telegram</a>
                         </li>
                     </ul>
