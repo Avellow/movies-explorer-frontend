@@ -22,7 +22,7 @@ export const headerMenuLinks = [
 
 export const popupMenuLinks = [
     {
-        to: '/main',
+        to: '/',
         text: 'Главная'
     },
     {

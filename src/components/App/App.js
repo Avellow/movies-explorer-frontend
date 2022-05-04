@@ -10,7 +10,7 @@ import {useEffect, useState} from "react";
 import Popup from "../Popup/Popup";
 import Navigation from "../Navigation/Navigation";
 import { popupMenuLinks } from "../../utils/constants";
-import {NavLink, Route, Switch, useHistory, useLocation} from "react-router-dom";
+import {NavLink, Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
 import Button from "../Button/Button";
 import icon from "../../images/header/accbtn.svg";
 import Profile from "../Profile/Profile";
@@ -22,7 +22,7 @@ import SideMenu from "../SideMenu/SideMenu";
 
 function App() {
 
-    const [ loggedIn, setLoggedIn ] = useState(false);
+    const [ loggedIn, setLoggedIn ] = useState(true);
     const [ isPopupMenuOpened, setIsPopupMenuOpened] = useState(false);
 
     const history = useHistory();
@@ -36,11 +36,16 @@ function App() {
         setIsPopupMenuOpened(true);
     }
 
-    const shouldHeaderBeShown = () => location.pathname !== '/signin' && location.pathname !== '/signup';
+    const shouldHeaderBeShown = () => (
+        location.pathname !== '/signin' &&
+        location.pathname !== '/signup' &&
+        location.pathname !== '/404'
+    );
     const shouldFooterBeShown = () => (
         location.pathname !== '/signin' &&
         location.pathname !== '/signup' &&
-        location.pathname !== '/profile'
+        location.pathname !== '/profile' &&
+        location.pathname !== '/404'
     );
 
     return (
@@ -73,6 +78,9 @@ function App() {
                 </Route>
 
                 <Route path='/profile' component={Profile} />
+
+                <Route path='/404' component={NotFound} />
+                <Route path="*"><Redirect to='/404'/></Route>
             </Switch>
 
             <SideMenu
