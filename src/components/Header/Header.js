@@ -3,6 +3,7 @@ import Navigation from "../Navigation/Navigation";
 import Button from "../Button/Button";
 import {NavLink} from "react-router-dom";
 import icon from "../../images/header/accbtn.svg";
+import Logo from "../Logo/Logo";
 
 function Header(props) {
     const {
@@ -12,13 +13,7 @@ function Header(props) {
 
     return (
         <header className={`header${ loggedIn ? ' header_theme_light' : '' }`}>
-            <NavLink to='/' style={{ fontSize: 0 }}>
-                <img
-                    className='header__logo'
-                    src={ logo }
-                    alt='логотип'
-                />
-            </NavLink>
+            <Logo />
 
             {!loggedIn && (
                 <Navigation

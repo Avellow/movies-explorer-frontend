@@ -5,6 +5,9 @@
 @import url(./components/Header/Header.css);
 @import url(./components/Header/_theme/Header_theme_light.css);
 
+@import url(./components/Logo/Logo.css);
+@import url(./components/Logo/__icon/Logo__icon.css);
+
 @import url(./components/Navigation/Navigation.css);
 @import url(./components/Navigation/__popup-link-list/Navigation__popup-link-list.css);
 @import url(./components/Navigation/__header-link-list/Navigation__header-link-list.css);

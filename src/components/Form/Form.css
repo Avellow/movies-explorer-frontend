@@ -1,5 +1,5 @@
 .Form {
-    width: 396px;
+    max-width: 396px;
     display: flex;
     flex-direction: column;
 }

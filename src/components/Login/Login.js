@@ -2,14 +2,13 @@ import logo from "../../images/header/logo.svg";
 import Form from "../Form/Form";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
+import Logo from "../Logo/Logo";
 
 function Login() {
     return (
         <section className='Auth'>
-            <img
-                className='Auth__logo'
-                src={ logo }
-                alt='логотип'
+            <Logo
+                marginBottom={40}
             />
             <Form
                 title='Рады видеть!'
