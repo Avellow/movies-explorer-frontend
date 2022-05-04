@@ -25,6 +25,7 @@ function SideMenu(props) {
                     {popupMenuLinks.map(({to, text}, i) => (
                         <li key={i}>
                             <NavLink
+                                exact
                                 to={to}
                                 className='Navigation__link'
                                 activeStyle={{ textDecoration: "underline" }}
