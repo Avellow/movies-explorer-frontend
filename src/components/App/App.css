@@ -3,6 +3,7 @@
     min-height: 100vh;
     margin: 0 auto;
     display: flex;
+    position: relative;
     flex-direction: column;
     background-color: #FFF;
     font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
