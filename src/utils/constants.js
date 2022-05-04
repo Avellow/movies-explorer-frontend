@@ -15,7 +15,7 @@ export const headerMenuLinks = [
         text: 'Фильмы',
     },
     {
-        to: '/savedmovies',
+        to: '/saved-movies',
         text: 'Сохранённые фильмы',
     }
 ];
@@ -30,7 +30,7 @@ export const popupMenuLinks = [
         text: 'Фильмы',
     },
     {
-        to: '/savedmovies',
+        to: '/saved-movies',
         text: 'Сохранённые фильмы',
     }
 ];
@@ -146,7 +146,7 @@ export const savedFilms = [
         posterLink: 'https://images.unsplash.com/photo-1574273509043-f94f45e5b164?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075&q=80'
     },
     {
-        title: 'СОХРАЕННЫЙ ФИЛЬМ',
+        title: 'СОХРАНЕННЫЙ ФИЛЬМ',
         duration: 27,
         posterLink: 'https://images.unsplash.com/photo-1574273509043-f94f45e5b164?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075&q=80'
     },

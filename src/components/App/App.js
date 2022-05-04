@@ -22,7 +22,7 @@ import SideMenu from "../SideMenu/SideMenu";
 
 function App() {
 
-    const [ loggedIn, setLoggedIn ] = useState(true);
+    const [ loggedIn, setLoggedIn ] = useState(false);
     const [ isPopupMenuOpened, setIsPopupMenuOpened] = useState(false);
 
     const history = useHistory();
@@ -36,13 +36,12 @@ function App() {
         setIsPopupMenuOpened(true);
     }
 
-    const shouldHeaderBeShown = () => location.pathname !== '/login' && location.pathname !== '/signup';
+    const shouldHeaderBeShown = () => location.pathname !== '/signin' && location.pathname !== '/signup';
     const shouldFooterBeShown = () => (
-        location.pathname !== '/login' &&
+        location.pathname !== '/signin' &&
         location.pathname !== '/signup' &&
         location.pathname !== '/profile'
     );
-
 
     return (
         <div className="app">
@@ -53,7 +52,11 @@ function App() {
                 />
             )}
             <Switch>
-                <Route path='/login'>
+                <Route exact path='/'>
+                    <Main />
+                </Route>
+
+                <Route path='/signin'>
                     <Login />
                 </Route>
 
@@ -61,15 +64,11 @@ function App() {
                     <Register />
                 </Route>
 
-                <Route path='/main'>
-                    <Main />
-                </Route>
-
                 <Route path='/movies'>
                     <Movies films={films} />
                 </Route>
 
-                <Route path='/savedmovies'>
+                <Route path='/saved-movies'>
                     <SavedMovies films={savedFilms} />
                 </Route>
 

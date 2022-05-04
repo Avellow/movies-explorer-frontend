@@ -1,7 +1,6 @@
 import logo from '../../images/header/logo.svg';
 import Navigation from "../Navigation/Navigation";
 import Button from "../Button/Button";
-import {authLinks, headerMenuLinks} from "../../utils/constants";
 import {NavLink} from "react-router-dom";
 import icon from "../../images/header/accbtn.svg";
 
@@ -13,7 +12,7 @@ function Header(props) {
 
     return (
         <header className={`header${ loggedIn ? ' header_theme_light' : '' }`}>
-            <NavLink to='/main' style={{ fontSize: 0 }}>
+            <NavLink to='/' style={{ fontSize: 0 }}>
                 <img
                     className='header__logo'
                     src={ logo }
@@ -29,7 +28,7 @@ function Header(props) {
                     <li><NavLink to='/signup' className='Navigation__link_type_signup'>
                         Регистрация
                     </NavLink></li>
-                    <li><NavLink to='/signup' className='Navigation__link_type_login'>
+                    <li><NavLink to='/signin' className='Navigation__link_type_login'>
                         Войти
                     </NavLink></li>
                 </Navigation>
@@ -48,7 +47,7 @@ function Header(props) {
                         Фильмы
                     </NavLink></li>
                     <li><NavLink
-                        to='/savedmovies'
+                        to='/saved-movies'
                         className='Navigation__link_type_movie'
                         activeStyle={{fontWeight: 500}}
                     >
@@ -62,6 +61,7 @@ function Header(props) {
                     Аккаунт
                     <img
                         src={icon}
+                        alt='иконка'
                     />
                 </NavLink>
             )}
