@@ -18,6 +18,7 @@ import Login from "../Login/Login";
 import Register from "../Register/Register";
 import {films, savedFilms} from "../../utils/constants";
 import SavedMovies from "../SavedMovies/SavedMovies";
+import SideMenu from "../SideMenu/SideMenu";
 
 function App() {
 
@@ -74,44 +75,13 @@ function App() {
 
                 <Route path='/profile' component={Profile} />
             </Switch>
-            {shouldFooterBeShown() && <Footer/>}
 
-            <Popup
+            <SideMenu
                 isOpened={isPopupMenuOpened}
-                name='menu'
                 onClose={closeAllPopups}
-            >
-                <Navigation
-                    loggedIn={true}
-                    location='popup'
-                    type='side'
-                >
-                    {popupMenuLinks.map(({to, text}, i) => (
-                        <li key={i}>
-                            <NavLink
-                                to={to}
-                                className='Navigation__link'
-                                activeStyle={{ textDecoration: "underline" }}
-                            >
-                                { text }
-                            </NavLink>
-                        </li>
-                    ))}
-                    <li style={{ margin: 'auto 0 0' }}>
-                        <NavLink
-                            to='/profile'
-                            className='Navigation__link_type_profile'
-                            style={{ display: 'flex' }}
-                        >
-                            Аккаунт
-                            <img
-                                src={icon}
-                                alt='профиль'
-                            />
-                        </NavLink>
-                    </li>
-                </Navigation>
-            </Popup>
+            />
+
+            {shouldFooterBeShown() && <Footer/>}
 
         </div>
     );

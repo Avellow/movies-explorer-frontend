@@ -18,6 +18,8 @@
 @import url(./components/Navigation/__link/_type/Navigation__link_type_movie.css);
 @import url(./components/Navigation/__link/_type/Navigation__link_type_profile.css);
 
+@import url(./components/SideMenu/SideMenu.css);
+
 @import url(./components/Button/Button.css);
 @import url(./components/Button/_theme/Button_theme_main.css);
 @import url(./components/Button/_theme/Button_theme_light.css);
