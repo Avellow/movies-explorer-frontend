@@ -6,6 +6,12 @@
     height: 100vh;
 }
 
+@media screen and (max-width: 770px) {
+    .Auth {
+        justify-content: center;
+    }
+}
+
 @media screen and (max-width: 525px) {
     .Auth {
         padding: 56px var(--form-side-padding) 30px;

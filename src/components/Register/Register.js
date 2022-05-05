@@ -17,8 +17,8 @@ function Register() {
                 hintLinkText='Войти'
             >
                 <Input name='Имя'/>
-                <Input name='E-mail' type='email'/>
-                <Input name='Пароль' type='password'/>
+                <Input name='E-mail' type='email' errored={true}/>
+                <Input name='Пароль' type='password' errored={true}/>
                 <Button
                     theme='auth'
                     text='Зарегистрироваться'
