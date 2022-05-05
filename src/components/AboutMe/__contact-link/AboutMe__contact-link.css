@@ -2,3 +2,7 @@
     text-decoration: none;
     color: black;
 }
+
+.AboutMe__contact-link:hover {
+    opacity: .8;
+}

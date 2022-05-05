@@ -2,3 +2,7 @@
     text-decoration: none;
     color: black;
 }
+
+.Footer__link:hover {
+    opacity: .8;
+}

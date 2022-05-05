@@ -2,3 +2,7 @@
     text-decoration: none;
     color: #3456F3;
 }
+
+.Form__hint-link:hover {
+    opacity: .8;
+}

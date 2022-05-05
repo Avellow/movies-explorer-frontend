@@ -1,0 +1,14 @@
+.Promo__link {
+    color: white;
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 1.33;
+    margin: 0;
+    padding: 10px 20px;
+    border: 1px solid white;
+    border-radius: 3px;
+}
+
+.Promo__link:hover {
+    opacity: .8;
+}

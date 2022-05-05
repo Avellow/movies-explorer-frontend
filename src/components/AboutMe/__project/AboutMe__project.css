@@ -7,5 +7,5 @@
 }
 
 .AboutMe__project:hover {
-    background-color: #E8E8E8;
+    opacity: .7;
 }
