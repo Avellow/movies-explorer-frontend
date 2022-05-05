@@ -1,5 +1,6 @@
 import searchIcon from '../../images/searchform/icon.svg';
 import Button from "../Button/Button";
+import ToogleSwitch from "../ToogleSwitch/ToogleSwitch";
 
 function SearchForm() {
     return (
@@ -19,14 +20,7 @@ function SearchForm() {
                     theme='search'
                 />
             </form>
-            <input
-                className='SearchForm__switch'
-                id='switch'
-                type='checkbox'
-            />
-            <label
-                for='switch'
-            >Короткометражки</label>
+            <ToogleSwitch text='Короткометражки'/>
         </section>
     )
 }

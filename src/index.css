@@ -87,7 +87,6 @@
 @import url(./components/SearchForm/__search-icon/SearchForm__search-icon.css);
 @import url(./components/SearchForm/__form/SearchForm__form.css);
 @import url(./components/SearchForm/__input/SearchForm__input.css);
-@import url(./components/SearchForm/__switch/SearchForm__switch.css);
 
 @import url(./components/MoviesCardList/MoviesCardList.css);
 @import url(./components/MoviesCardList/__list/MoviesCardList__list.css);
@@ -136,3 +135,9 @@
 @import url(./components/NotFound/__title/NotFound__title.css);
 @import url(./components/NotFound/__subtitle/NotFound__subtitle.css);
 @import url(./components/NotFound/__link/NotFound__link.css);
+
+@import url(./components/ToogleSwitch/ToogleSwitch.css);
+@import url(./components/ToogleSwitch/__container/ToogleSwitch__container.css);
+@import url(./components/ToogleSwitch/__input/ToogleSwitch__input.css);
+@import url(./components/ToogleSwitch/__slider/ToogleSwitch__slider.css);
+@import url(./components/ToogleSwitch/__text/ToogleSwitch__text.css);
