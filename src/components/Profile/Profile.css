@@ -2,7 +2,8 @@
     padding: 74px var(--content-side-padding) 70px;
     display: flex;
     justify-content: center;
-    flex: 1 0 auto;
+    box-sizing: border-box;
+    height: calc(100vh - 78px);
 }
 
 @media screen and (max-width: 770px) {

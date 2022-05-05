@@ -14,4 +14,8 @@
     .Input:last-of-type {
         margin-bottom: 70px;
     }
+
+    .Input:first-of-type {
+        margin-top: 80px;
+    }
 }

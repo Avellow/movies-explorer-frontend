@@ -26,7 +26,7 @@ function Login(props) {
                 />
                 <p className='Form__hint'>
                     Ещё не зарегистрированы?
-                    <a className='Form__hint-link' href='/'> Регистрация</a>
+                    <a className='Form__hint-link' href='/signup'> Регистрация</a>
                 </p>
             </Form>
         </section>

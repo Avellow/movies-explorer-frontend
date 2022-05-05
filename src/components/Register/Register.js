@@ -25,7 +25,7 @@ function Register() {
                 />
                 <p className='Form__hint'>
                     Уже зарегистрированы?
-                    <a className='Form__hint-link' href='/'> Войти</a>
+                    <a className='Form__hint-link' href='/signin'> Войти</a>
                 </p>
             </Form>
         </section>
