@@ -4,7 +4,11 @@ import Input from "../Input/Input";
 import Button from "../Button/Button";
 import Logo from "../Logo/Logo";
 
-function Login() {
+function Login(props) {
+    const {
+        onLogin,
+    } = props;
+
     return (
         <section className='Auth'>
             <Logo
@@ -18,6 +22,7 @@ function Login() {
                 <Button
                     theme='auth'
                     text='Войти'
+                    onClick={onLogin}
                 />
                 <p className='Form__hint'>
                     Ещё не зарегистрированы?

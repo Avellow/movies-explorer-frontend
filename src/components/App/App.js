@@ -16,7 +16,7 @@ import SideMenu from "../SideMenu/SideMenu";
 
 function App() {
 
-    const [ loggedIn, setLoggedIn ] = useState(true);
+    const [ loggedIn, setLoggedIn ] = useState(false);
     const [ isPopupMenuOpened, setIsPopupMenuOpened] = useState(false);
 
     const history = useHistory();
@@ -28,6 +28,16 @@ function App() {
 
     function openMenuPopup() {
         setIsPopupMenuOpened(true);
+    }
+
+    function login() { // ВРЕМЕННОЕ РЕШЕНИЕ
+        setLoggedIn(true);
+        history.push('/movies');
+    }
+
+    function logout() { // ВРЕМЕННОЕ РЕШЕНИЕ
+        setLoggedIn(false);
+        history.push('/');
     }
 
     const shouldHeaderBeShown = () => !pagesWithoutHeader.includes(location.pathname);
@@ -47,7 +57,9 @@ function App() {
                 </Route>
 
                 <Route path='/signin'>
-                    <Login />
+                    <Login
+                        onLogin={login}
+                    />
                 </Route>
 
                 <Route path='/signup'>
@@ -62,7 +74,11 @@ function App() {
                     <SavedMovies films={savedFilms} />
                 </Route>
 
-                <Route path='/profile' component={Profile} />
+                <Route path='/profile'>
+                    <Profile
+                        onLogout={logout}
+                    />
+                </Route>
 
                 <Route path='/404' component={NotFound} />
                 <Route path="*"><Redirect to='/404'/></Route>

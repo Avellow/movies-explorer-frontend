@@ -2,7 +2,11 @@ import Form from "../Form/Form";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 
-function Profile() {
+function Profile(props) {
+    const {
+        onLogout,
+    } = props;
+
     return (
         <section className='Profile'>
             <Form
@@ -19,6 +23,7 @@ function Profile() {
                 <Button
                     text='Выйти из аккаунта'
                     theme='exit'
+                    onClick={onLogout}
                 />
             </Form>
         </section>

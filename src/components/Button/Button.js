@@ -8,6 +8,11 @@ function Button(props) {
         onClick,
     } = props;
 
+    function clickHandler(e) {
+        e.preventDefault();
+        onClick();
+    }
+
     const generateClassName = useCallback(() => {
         switch (theme) {
             case 'main':  // перепишу ЭТОТ АД НА ТЕРНАРНИК с готовым в классе theme_${theme}
@@ -46,7 +51,7 @@ function Button(props) {
     return (
         <button
             className={`button ${generateClassName()}`}
-            onClick={onClick}
+            onClick={clickHandler}
         >
             { text }
             { icon ? <img src={icon} alt='иконка кнопки' /> : '' }
