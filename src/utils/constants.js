@@ -1,23 +1,14 @@
-export const authLinks = [
-    {
-        to: '/signup',
-        text: 'Регистрация',
-    },
-    {
-        to: '/login',
-        text: 'Войти',
-    }
+export const pagesWithoutHeader = [
+    '/signin',
+    '/signup',
+    '/404',
 ];
 
-export const headerMenuLinks = [
-    {
-        to: '/movies',
-        text: 'Фильмы',
-    },
-    {
-        to: '/saved-movies',
-        text: 'Сохранённые фильмы',
-    }
+export const pagesWithoutFooter = [
+    '/signin',
+    '/signup',
+    '/404',
+    '/profile',
 ];
 
 export const popupMenuLinks = [

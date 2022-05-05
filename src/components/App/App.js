@@ -3,16 +3,10 @@ import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from "../Footer/Footer";
 import Movies from "../Movies/Movies";
-import Form from "../Form/Form";
-import Input from "../Input/Input";
 import NotFound from "../NotFound/NotFound";
-import {useEffect, useState} from "react";
-import Popup from "../Popup/Popup";
-import Navigation from "../Navigation/Navigation";
-import { popupMenuLinks } from "../../utils/constants";
-import {NavLink, Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
-import Button from "../Button/Button";
-import icon from "../../images/header/accbtn.svg";
+import {useState} from "react";
+import {pagesWithoutFooter, pagesWithoutHeader } from "../../utils/constants";
+import { Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
 import Profile from "../Profile/Profile";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
@@ -36,17 +30,8 @@ function App() {
         setIsPopupMenuOpened(true);
     }
 
-    const shouldHeaderBeShown = () => (
-        location.pathname !== '/signin' &&
-        location.pathname !== '/signup' &&
-        location.pathname !== '/404'
-    );
-    const shouldFooterBeShown = () => (
-        location.pathname !== '/signin' &&
-        location.pathname !== '/signup' &&
-        location.pathname !== '/profile' &&
-        location.pathname !== '/404'
-    );
+    const shouldHeaderBeShown = () => !pagesWithoutHeader.includes(location.pathname);
+    const shouldFooterBeShown = () => !pagesWithoutFooter.includes(location.pathname);
 
     return (
         <div className="app">
