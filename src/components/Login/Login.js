@@ -1,4 +1,3 @@
-import logo from "../../images/header/logo.svg";
 import Form from "../Form/Form";
 import Input from "../Input/Input";
 import Button from "../Button/Button";

@@ -1,4 +1,3 @@
-import logo from '../../images/header/logo.svg';
 import Navigation from "../Navigation/Navigation";
 import Button from "../Button/Button";
 import {NavLink} from "react-router-dom";

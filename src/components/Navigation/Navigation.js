@@ -1,6 +1,5 @@
 function Navigation(props) {
     const {
-        location,
         children,
         type,
     } = props;

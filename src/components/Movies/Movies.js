@@ -1,7 +1,6 @@
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Button from "../Button/Button";
-import SavedMovies from "../SavedMovies/SavedMovies";
 
 function Movies(props) {
     const {

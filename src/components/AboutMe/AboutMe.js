@@ -4,7 +4,7 @@ import arrow from '../../images/arrow/arrow.svg';
 function AboutMe() {
     return (
         <section className='AboutMe'>
-            <h2 className='section__title'>Студент</h2>
+            <h2 className='section-title'>Студент</h2>
             <div className='AboutMe__info-container'>
                 <div className='AboutMe__bio'>
                     <h3 className='AboutMe__title'>Дмитрий</h3>

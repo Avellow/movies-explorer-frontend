@@ -3,9 +3,6 @@ import {useState} from "react";
 
 function MoviesCard(props) {
     const {
-        onSave,
-        onDelete,
-        buttonType,
         title,
         duration,
         posterLink,

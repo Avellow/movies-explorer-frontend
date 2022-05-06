@@ -1,29 +1,20 @@
-
-
 function Input(props) {
     const {
         name = 'Поле ввода',
-        className = 'Input',
         type = 'text',
         errored = false,
     } = props;
 
-    const generateClassName = (className, errored) => {
-        return errored
-            ? `${className} ${className}_errored`
-            : className;
-    }
-
     return (
-        <div className={ generateClassName(className, errored) }>
-            <label className={`${className}__name`}>
+        <div className='Input'>
+            <label className='Input__name'>
                 { name }
                 <input
-                    className={ generateClassName(`${className}__field`, errored) }
+                    className={`Input__field ${errored && 'Input__field_errored'}`}
                     type={ type }
                 />
             </label>
-            { errored && <span className={`${className}__error`}>Что-то пошло не так</span> }
+            { errored && <span className='Input__error'>Что-то пошло не так</span> }
         </div>
     )
 }
