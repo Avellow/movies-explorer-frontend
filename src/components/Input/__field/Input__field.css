@@ -9,3 +9,7 @@
     outline: none;
     border-bottom: 1px solid #E8E8E8;
 }
+
+.Input__field:focus {
+    border-bottom: 1px solid #3456F3;
+}

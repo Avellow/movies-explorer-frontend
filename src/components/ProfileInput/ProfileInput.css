@@ -1,7 +1,6 @@
 .ProfileInput {
-    border-bottom: 1px solid #E8E8E8;
-    padding: 0 0 16px;
-    margin: 0 0 17px;
+
+
     font-size: 13px;
     line-height: 1.18;
 }
@@ -10,7 +9,7 @@
     margin-top: 123px;
 }
 
-.ProfileInput:last-of-type {
+.ProfileInput:last-of-type .ProfileInput__name {
     border: none;
 }
 
