@@ -1,5 +1,3 @@
-import { useCallback } from 'react';
-
 function Button(props) {
     const {
         text = '',
