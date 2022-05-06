@@ -24,9 +24,6 @@
 @import url(./components/SideMenu/SideMenu.css);
 
 @import url(./components/Button/Button.css);
-@import url(./components/Button/_theme/Button_theme_main.css);
-@import url(./components/Button/_theme/Button_theme_light.css);
-@import url(./components/Button/_theme/Button_theme_light-bordered.css);
 @import url(./components/Button/_theme/Button_theme_search.css);
 @import url(./components/Button/_theme/Button_theme_save.css);
 @import url(./components/Button/_theme/Button_theme_auth.css);

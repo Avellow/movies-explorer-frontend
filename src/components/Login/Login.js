@@ -23,6 +23,7 @@ function Login(props) {
                     theme='auth'
                     text='Войти'
                     onClick={onLogin}
+                    type='submit'
                 />
                 <p className='Form__hint'>
                     Ещё не зарегистрированы?

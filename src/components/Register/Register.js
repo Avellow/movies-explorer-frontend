@@ -22,6 +22,7 @@ function Register() {
                 <Button
                     theme='auth'
                     text='Зарегистрироваться'
+                    type='submit'
                 />
                 <p className='Form__hint'>
                     Уже зарегистрированы?

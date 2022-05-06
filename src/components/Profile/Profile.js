@@ -19,6 +19,7 @@ function Profile(props) {
                 <Button
                     text='Редактировать'
                     theme='edit'
+                    type='submit'
                 />
                 <Button
                     text='Выйти из аккаунта'

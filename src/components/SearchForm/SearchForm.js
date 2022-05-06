@@ -18,6 +18,7 @@ function SearchForm() {
                 />
                 <Button
                     theme='search'
+                    type='submit'
                 />
             </form>
             <ToogleSwitch text='Короткометражки'/>
