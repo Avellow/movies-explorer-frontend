@@ -19,12 +19,14 @@ function AboutMe() {
                             <a
                                 className='AboutMe__contact-link'
                                 href='https://t.me/zellek'
+                                target='_blank'
                             >Telegram</a>
                         </li>
                         <li className='AboutMe__contact'>
                             <a
                                 className='AboutMe__contact-link'
                                 href='https://github.com/Avellow'
+                                target='_blank'
                             >Github</a>
                         </li>
                     </ul>
@@ -40,7 +42,8 @@ function AboutMe() {
                 <li className='AboutMe__list-item'>
                     <a
                         className='AboutMe__project'
-                        href='https://google.com'
+                        href='https://github.com/Avellow/how-to-learn'
+                        target='_blank'
                     >
                         <h4 className='AboutMe__project-name'>Статичный сайт</h4>
                         <img
@@ -53,7 +56,8 @@ function AboutMe() {
                 <li className='AboutMe__list-item'>
                     <a
                         className='AboutMe__project'
-                        href='https://google.com'
+                        href='https://github.com/Avellow/russian-travel'
+                        target='_blank'
                     >
                         <h4 className='AboutMe__project-name'>Адаптивный сайт</h4>
                         <img
@@ -66,7 +70,8 @@ function AboutMe() {
                 <li className='AboutMe__list-item'>
                     <a
                         className='AboutMe__project'
-                        href='https://google.com'
+                        href='https://github.com/Avellow/react-mesto-api-full'
+                        target='_blank'
                     >
                         <h4 className='AboutMe__project-name'>Одностраничное приложение</h4>
                         <img
