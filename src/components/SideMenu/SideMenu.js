@@ -27,7 +27,7 @@ function SideMenu(props) {
                             <NavLink
                                 exact
                                 to={to}
-                                className='Navigation__link'
+                                className='navigation__link'
                                 activeStyle={{ textDecoration: "underline" }}
                             >
                                 { text }
@@ -37,7 +37,7 @@ function SideMenu(props) {
                     <li style={{ margin: 'auto 0 0' }}>
                         <NavLink
                             to='/profile'
-                            className='Navigation__link_type_profile'
+                            className='navigation__link_type_profile'
                             style={{ display: 'flex' }}
                         >
                             Аккаунт

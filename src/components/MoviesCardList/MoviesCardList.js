@@ -1,3 +1,4 @@
+import './MoviesCardList.css';
 import MoviesCard from "../MoviesCard/MoviesCard";
 
 function MoviesCardList(props) {
@@ -7,8 +8,8 @@ function MoviesCardList(props) {
     } = props;
 
     return (
-        <section className='MoviesCardList'>
-            <ul className='MoviesCardList__list'>
+        <section className='movies-cards'>
+            <ul className='movies-cards__list'>
                 { films.map((film, i) => (
                     <MoviesCard
                         key={i}

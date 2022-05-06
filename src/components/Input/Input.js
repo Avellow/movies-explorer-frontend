@@ -1,7 +1,9 @@
+import './Input.css';
+
 function Input(props) {
     const {
         name = 'Поле ввода',
-        className = 'Input',
+        className = 'input',
         type = 'text',
         errored = false,
     } = props;

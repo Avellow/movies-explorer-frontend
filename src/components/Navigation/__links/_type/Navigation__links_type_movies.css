@@ -1,9 +1,0 @@
-.Navigation__links_type_movies {
-    column-gap: 16px;
-}
-
-@media screen and (max-width: 770px) {
-    .Navigation__links_type_movies {
-        display: none;
-    }
-}

@@ -7,7 +7,7 @@ function SavedMovies(props) {
     } = props;
 
     return (
-        <main className='Movies'>
+        <main className='movies'>
             <SearchForm />
             <MoviesCardList
                 films={films}

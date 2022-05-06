@@ -1,3 +1,4 @@
+import './Register.css';
 import Form from "../Form/Form";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
@@ -6,7 +7,7 @@ import {NavLink} from "react-router-dom";
 
 function Register() {
     return (
-        <section className='Auth'>
+        <section className='register'>
             <Logo
                 marginBottom={40}
             />
@@ -24,9 +25,9 @@ function Register() {
                     text='Зарегистрироваться'
                     type='submit'
                 />
-                <p className='Form__hint'>
+                <p className='form__hint'>
                     Уже зарегистрированы?
-                    <NavLink className='Form__hint-link' to='/signin'> Войти</NavLink>
+                    <NavLink className='form__hint-link' to='/signin'> Войти</NavLink>
                 </p>
             </Form>
         </section>

@@ -1,30 +1,31 @@
+import './AboutMe.css';
 import authorPhoto from '../../images/author-photo/IMG_1864.jpeg';
 import arrow from '../../images/arrow/arrow.svg';
 
 function AboutMe() {
     return (
-        <section className='AboutMe'>
+        <section className='about-me'>
             <h2 className='section-title'>Студент</h2>
-            <div className='AboutMe__info-container'>
-                <div className='AboutMe__bio'>
-                    <h3 className='AboutMe__title'>Дмитрий</h3>
-                    <p className='AboutMe__subtitle'>Фронтенд-разработчик, 28 лет</p>
-                    <p className='AboutMe__text'>Я родился и живу в Москве,
+            <div className='about-me__info-container'>
+                <div className='about-me__bio'>
+                    <h3 className='about-me__title'>Дмитрий</h3>
+                    <p className='about-me__subtitle'>Фронтенд-разработчик, 28 лет</p>
+                    <p className='about-me__text'>Я родился и живу в Москве,
                         текст текст текст текст текст текст текст текст текст текст
                         текст тексттекст тексттекст тексттекст тексттекст текст
                         текст тексттекст тексттекст тексттекст тексттекст текст
                         текст тексттекст тексттекст тексттекст тексттекст текст</p>
-                    <ul className='AboutMe__contacts'>
-                        <li className='AboutMe__contact'>
+                    <ul className='about-me__contacts'>
+                        <li className='about-me__contact'>
                             <a
-                                className='AboutMe__contact-link'
+                                className='about-me__contact-link'
                                 href='https://t.me/zellek'
                                 target='_blank'
                             >Telegram</a>
                         </li>
-                        <li className='AboutMe__contact'>
+                        <li className='about-me__contact'>
                             <a
-                                className='AboutMe__contact-link'
+                                className='about-me__contact-link'
                                 href='https://github.com/Avellow'
                                 target='_blank'
                             >Github</a>
@@ -32,20 +33,20 @@ function AboutMe() {
                     </ul>
                 </div>
                 <img
-                    className='AboutMe__photo'
+                    className='about-me__photo'
                     src={authorPhoto}
                     alt='фото автора'
                 />
             </div>
-            <h3 className='AboutMe__portfolio-title'>Портфолио</h3>
-            <ul className='AboutMe__projects'>
-                <li className='AboutMe__list-item'>
+            <h3 className='about-me__portfolio-title'>Портфолио</h3>
+            <ul className='about-me__projects'>
+                <li className='about-me__list-item'>
                     <a
-                        className='AboutMe__project'
+                        className='about-me__project'
                         href='https://github.com/Avellow/how-to-learn'
                         target='_blank'
                     >
-                        <h4 className='AboutMe__project-name'>Статичный сайт</h4>
+                        <h4 className='about-me__project-name'>Статичный сайт</h4>
                         <img
                             className='AboutMe__arrow-icon'
                             src={arrow}
@@ -53,13 +54,13 @@ function AboutMe() {
                         />
                     </a>
                 </li>
-                <li className='AboutMe__list-item'>
+                <li className='about-me__list-item'>
                     <a
-                        className='AboutMe__project'
+                        className='about-me__project'
                         href='https://github.com/Avellow/russian-travel'
                         target='_blank'
                     >
-                        <h4 className='AboutMe__project-name'>Адаптивный сайт</h4>
+                        <h4 className='about-me__project-name'>Адаптивный сайт</h4>
                         <img
                             className='AboutMe__arrow-icon'
                             src={arrow}
@@ -67,13 +68,13 @@ function AboutMe() {
                         />
                     </a>
                 </li>
-                <li className='AboutMe__list-item'>
+                <li className='about-me__list-item'>
                     <a
-                        className='AboutMe__project'
+                        className='about-me__project'
                         href='https://github.com/Avellow/react-mesto-api-full'
                         target='_blank'
                     >
-                        <h4 className='AboutMe__project-name'>Одностраничное приложение</h4>
+                        <h4 className='about-me__project-name'>Одностраничное приложение</h4>
                         <img
                             className='AboutMe__arrow-icon'
                             src={arrow}

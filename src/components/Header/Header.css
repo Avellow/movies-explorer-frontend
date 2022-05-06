@@ -7,6 +7,10 @@
     background-size: 100vw;
 }
 
+.header_theme_light {
+    background-color: white;
+}
+
 @media screen and (max-width: 860px) {
     .header {
         padding: 20px 30px;

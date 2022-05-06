@@ -1,3 +1,4 @@
+import './Movies.css';
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Button from "../Button/Button";
@@ -8,7 +9,7 @@ function Movies(props) {
     } = props;
 
     return (
-        <main className='Movies'>
+        <main className='movies'>
             <SearchForm />
             <MoviesCardList
                 films={films}

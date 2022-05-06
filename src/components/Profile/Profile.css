@@ -1,4 +1,4 @@
-.Profile {
+.profile {
     padding: 74px var(--content-side-padding) 70px;
     display: flex;
     justify-content: center;
@@ -7,13 +7,13 @@
 }
 
 @media screen and (max-width: 770px) {
-    .Profile {
+    .profile {
         align-items: center;
     }
 }
 
 @media screen and (max-width: 420px) {
-    .Profile {
+    .profile {
         padding: 70px 30px 40px;
     }
 }

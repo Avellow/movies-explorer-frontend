@@ -1,3 +1,5 @@
+import './Navigation.css';
+
 function Navigation(props) {
     const {
         children,
@@ -5,8 +7,8 @@ function Navigation(props) {
     } = props;
 
     return (
-        <nav className={`Navigation`}>
-            <ul className={`Navigation__links Navigation__links_type_${type}`}>
+        <nav className={`navigation`}>
+            <ul className={`navigation__links navigation__links_type_${type}`}>
                 { children }
             </ul>
         </nav>

@@ -1,3 +1,4 @@
+import './Popup.css';
 import Button from "../Button/Button";
 
 function Popup(props) {
@@ -9,8 +10,8 @@ function Popup(props) {
     } = props;
 
     return (
-        <div className={`Popup${isOpened ? ` Popup_opened` : ''}`}>
-            <div className={`Popup__container Popup__container_type_${name}`}>
+        <div className={`popup${isOpened ? ` popup_opened` : ''}`}>
+            <div className={`popup__container popup__container_type_${name}`}>
                 <Button theme='close' onClick={onClose}/>
                 {children}
             </div>

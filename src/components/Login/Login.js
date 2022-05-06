@@ -1,3 +1,4 @@
+import './Login.css';
 import Form from "../Form/Form";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
@@ -10,7 +11,7 @@ function Login(props) {
     } = props;
 
     return (
-        <section className='Auth'>
+        <section className='login'>
             <Logo
                 marginBottom={40}
             />
@@ -25,9 +26,9 @@ function Login(props) {
                     onClick={onLogin}
                     type='submit'
                 />
-                <p className='Form__hint'>
+                <p className='form__hint'>
                     Ещё не зарегистрированы?
-                    <NavLink className='Form__hint-link' to='/signup'> Регистрация</NavLink>
+                    <NavLink className='form__hint-link' to='/signup'> Регистрация</NavLink>
                 </p>
             </Form>
         </section>

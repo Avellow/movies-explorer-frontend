@@ -1,21 +1,103 @@
-.Input {
+.input {
     margin-bottom: 24px;
 }
 
-.Input:first-of-type {
+.input:first-of-type {
     margin-top: 40px;
 }
 
-.Input:last-of-type {
+.input:last-of-type {
     margin-bottom: 50px;
 }
 
+.input__name {
+    color: #A0A0A0;
+    font-size: 10px;
+    line-height: 1.2;
+    font-weight: 400;
+}
+
+.input__field {
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    padding: 5px 5px 10px 0;
+    font-size: 14px;
+    line-height: 1.21;
+    font-weight: 400;
+    outline: none;
+    border-bottom: 1px solid #E8E8E8;
+}
+
+.input__field:focus {
+    border-bottom: 1px solid #3456F3;
+}
+
+.input__field_errored {
+    color: #FF3055;
+    margin-bottom: 6px;
+}
+
+.input__error {
+    color: #FF3055;
+    font-size: 10px;
+    line-height: 1.2;
+}
+
+.profile-input {
+    font-size: 13px;
+    line-height: 1.18;
+}
+
+.profile-input:first-of-type {
+    margin-top: 123px;
+}
+
+.profile-input:last-of-type .profile-input__name {
+    border: none;
+}
+
+.profile-input__name {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+    border-bottom: 1px solid #E8E8E8;
+    padding: 0 0 16px;
+    margin: 0 0 17px;
+    text-wrap: none;
+}
+
+.profile-input__name:focus-within {
+    border-bottom: 1px solid #3456F3 !important;
+}
+
+.profile-input__field {
+    border: none;
+    outline: none;
+    padding: 0;
+    text-align: end;
+}
+
+@media screen and (max-width: 770px) {
+    .profile-input {
+        font-size: 11px;
+    }
+
+    .profile-input:last-of-type {
+        margin-bottom: 200px;
+    }
+}
+
 @media screen and (max-width: 525px) {
-    .Input:last-of-type {
+    .input:last-of-type {
         margin-bottom: 70px;
     }
 
-    .Input:first-of-type {
+    .input:first-of-type {
+        margin-top: 80px;
+    }
+
+    .profile-input:first-of-type {
         margin-top: 80px;
     }
 }

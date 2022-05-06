@@ -1,3 +1,4 @@
+import './Logo.css';
 import logo from "../../images/header/logo.svg";
 import {NavLink} from "react-router-dom";
 
@@ -7,9 +8,9 @@ function Logo(props) {
     } = props;
 
     return (
-        <NavLink to='/' style={{ fontSize: 0, marginBottom }} className='Logo'>
+        <NavLink to='/' style={{ fontSize: 0, marginBottom }} className='logo'>
             <img
-                className='Logo__icon'
+                className='logo__icon'
                 src={ logo }
                 alt='логотип'
             />

@@ -1,3 +1,4 @@
+import './MoviesCard.css';
 import Button from "../Button/Button";
 import {useState} from "react";
 
@@ -38,13 +39,13 @@ function MoviesCard(props) {
     }
 
     return (
-        <li className='MoviesCard'>
-            <div className='MoviesCard__info'>
-                <h3 className='MoviesCard__title'>{ title }</h3>
-                <p className='MoviesCard__duration'>{ duration }</p>
+        <li className='movies-card'>
+            <div className='movies-card__info'>
+                <h3 className='movies-card__title'>{ title }</h3>
+                <p className='movies-card__duration'>{ duration }</p>
             </div>
             <img
-                className='MoviesCard__poster'
+                className='movies-card__poster'
                 src={ posterLink }
                 alt='постер'
             />

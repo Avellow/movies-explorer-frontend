@@ -1,3 +1,4 @@
+import './Profile.css';
 import Form from "../Form/Form";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
@@ -8,13 +9,13 @@ function Profile(props) {
     } = props;
 
     return (
-        <section className='Profile'>
+        <section className='profile'>
             <Form
                 title='Привет, Дмитрий!'
                 isTitleCentered={true}
             >
-                <Input name='Имя' className='ProfileInput' />
-                <Input name='E-mail' type='email' className='ProfileInput' />
+                <Input name='Имя' className='profile-input' />
+                <Input name='E-mail' type='email' className='profile-input' />
 
                 <Button
                     text='Редактировать'

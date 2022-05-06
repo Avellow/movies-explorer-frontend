@@ -1,18 +1,19 @@
+import './SearchForm.css';
 import searchIcon from '../../images/searchform/icon.svg';
 import Button from "../Button/Button";
-import ToogleSwitch from "../ToogleSwitch/ToogleSwitch";
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
 function SearchForm() {
     return (
-        <section className='SearchForm'>
-            <form className='SearchForm__form'>
+        <section className='search-form'>
+            <form className='search-form__form'>
                 <img
-                    className='SearchForm__search-icon'
+                    className='search-form__search-icon'
                     src={searchIcon}
                     alt='иконка поиска'
                 />
                 <input
-                    className='SearchForm__input'
+                    className='search-form__input'
                     type='text'
                     placeholder='Фильм'
                 />
@@ -21,7 +22,7 @@ function SearchForm() {
                     type='submit'
                 />
             </form>
-            <ToogleSwitch text='Короткометражки'/>
+            <ToggleSwitch text='Короткометражки'/>
         </section>
     )
 }

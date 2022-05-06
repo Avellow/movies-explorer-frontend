@@ -1,9 +1,11 @@
+import './NotFound.css';
+
 function NotFound() {
     return (
-        <section className='NotFound'>
-            <h2 className='NotFound__title'>404</h2>
-            <p className='NotFound__subtitle'>Страница не найдена</p>
-            <a className='NotFound__link' href='/'>Назад</a>
+        <section className='not-found'>
+            <h2 className='not-found__title'>404</h2>
+            <p className='not-found__subtitle'>Страница не найдена</p>
+            <a className='not-found__link' href='/'>Назад</a>
         </section>
     )
 }

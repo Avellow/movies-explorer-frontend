@@ -1,30 +1,32 @@
+import './Footer.css';
+
 function Footer() {
     return (
         <footer
-            className='Footer'
+            className='footer'
         >
-            <p className='Footer__subtitle'>Учебный проект Яндекс.Практикум х BeatFilm.</p>
-            <div className='Footer__container'>
-                <p className='Footer__copyright'>&copy; {new Date().getFullYear()}</p>
+            <p className='footer__subtitle'>Учебный проект Яндекс.Практикум х BeatFilm.</p>
+            <div className='footer__container'>
+                <p className='footer__copyright'>&copy; {new Date().getFullYear()}</p>
                 <nav className='Footer__nav'>
-                    <ul className='Footer__links'>
+                    <ul className='footer__links'>
                         <li className='Footer__list-item'>
                             <a
-                                className='Footer__link'
+                                className='footer__link'
                                 href='https://practicum.yandex.ru'
                                 target='_blank'
                             >Яндекс.Практикум</a>
                         </li>
                         <li className='Footer__list-item'>
                             <a
-                                className='Footer__link'
+                                className='footer__link'
                                 href='https://github.com/Avellow'
                                 target='_blank'
                             >Github</a>
                         </li>
                         <li className='Footer__list-item'>
                             <a
-                                className='Footer__link'
+                                className='footer__link'
                                 href='https://t.me/zellek'
                                 target='_blank'
                             >Telegram</a>

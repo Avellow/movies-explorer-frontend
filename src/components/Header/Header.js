@@ -1,3 +1,4 @@
+import './Header.css';
 import Navigation from "../Navigation/Navigation";
 import Button from "../Button/Button";
 import {NavLink} from "react-router-dom";
@@ -19,10 +20,10 @@ function Header(props) {
                     location='header'
                     type='auth'
                 >
-                    <li><NavLink to='/signup' className='Navigation__link Navigation__link_type_signup'>
+                    <li><NavLink to='/signup' className='navigation__link navigation__link_type_signup'>
                         Регистрация
                     </NavLink></li>
-                    <li><NavLink to='/signin' className='Navigation__link Navigation__link_type_login'>
+                    <li><NavLink to='/signin' className='navigation__link navigation__link_type_login'>
                         Войти
                     </NavLink></li>
                 </Navigation>
@@ -35,14 +36,14 @@ function Header(props) {
                 >
                     <li><NavLink
                         to='/movies'
-                        className='Navigation__link Navigation__link_type_movie'
+                        className='navigation__link navigation__link_type_movie'
                         activeStyle={{fontWeight: 500}}
                     >
                         Фильмы
                     </NavLink></li>
                     <li><NavLink
                         to='/saved-movies'
-                        className='Navigation__link Navigation__link_type_movie'
+                        className='navigation__link navigation__link_type_movie'
                         activeStyle={{fontWeight: 500}}
                     >
                         Сохраненные фильмы
@@ -51,7 +52,7 @@ function Header(props) {
             )}
 
             {loggedIn && (
-                <NavLink to='/profile' className='Navigation__link Navigation__link_type_profile'>
+                <NavLink to='/profile' className='navigation__link navigation__link_type_profile'>
                     Аккаунт
                     <img
                         src={icon}

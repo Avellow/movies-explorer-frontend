@@ -1,3 +1,5 @@
+import './Form.css';
+
 function Form(props) {
     const {
         title,
@@ -6,9 +8,9 @@ function Form(props) {
     } = props;
 
     return (
-        <form className='Form'>
+        <form className='form'>
             <h2
-                className='Form__title'
+                className='form__title'
                 style={isTitleCentered ? { textAlign: 'center'} : {}}
             >
                 { title }

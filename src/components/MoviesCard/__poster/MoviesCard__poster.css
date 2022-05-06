@@ -1,7 +1,0 @@
-.MoviesCard__poster {
-    width: 100%;
-    height: calc(var(--card-width) / 1.8);
-    display: block;
-    object-fit: cover;
-    margin-bottom: 18px;
-}
