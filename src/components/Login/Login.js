@@ -2,6 +2,7 @@ import Form from "../Form/Form";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import Logo from "../Logo/Logo";
+import {NavLink} from "react-router-dom";
 
 function Login(props) {
     const {
@@ -25,7 +26,7 @@ function Login(props) {
                 />
                 <p className='Form__hint'>
                     Ещё не зарегистрированы?
-                    <a className='Form__hint-link' href='/signup'> Регистрация</a>
+                    <NavLink className='Form__hint-link' to='/signup'> Регистрация</NavLink>
                 </p>
             </Form>
         </section>

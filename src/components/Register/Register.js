@@ -2,6 +2,7 @@ import Form from "../Form/Form";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import Logo from "../Logo/Logo";
+import {NavLink} from "react-router-dom";
 
 function Register() {
     return (
@@ -24,7 +25,7 @@ function Register() {
                 />
                 <p className='Form__hint'>
                     Уже зарегистрированы?
-                    <a className='Form__hint-link' href='/signin'> Войти</a>
+                    <NavLink className='Form__hint-link' to='/signin'> Войти</NavLink>
                 </p>
             </Form>
         </section>
