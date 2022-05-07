@@ -1,4 +1,5 @@
 import './Navigation.css';
+import { Children } from "react";
 
 function Navigation(props) {
     const {
@@ -6,10 +7,15 @@ function Navigation(props) {
         type,
     } = props;
 
+
     return (
         <nav className={`navigation`}>
             <ul className={`navigation__links navigation__links_type_${type}`}>
-                { children }
+                { Children.map(children, (child, index) => (
+                    <li key={index} style={child.props.upperspace && {marginTop: 'auto'}}>
+                        { child }
+                    </li>
+                )) }
             </ul>
         </nav>
     )

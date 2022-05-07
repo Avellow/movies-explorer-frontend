@@ -23,30 +23,30 @@ function SideMenu(props) {
                     type='side'
                 >
                     {popupMenuLinks.map(({to, text}, i) => (
-                        <li key={i}>
-                            <NavLink
-                                exact
-                                to={to}
-                                className='navigation__link'
-                                activeStyle={{ textDecoration: "underline" }}
-                            >
-                                { text }
-                            </NavLink>
-                        </li>
-                    ))}
-                    <li style={{ margin: 'auto 0 0' }}>
                         <NavLink
-                            to='/profile'
-                            className='navigation__link_type_profile'
-                            style={{ display: 'flex' }}
+                            key={i}
+                            exact
+                            to={to}
+                            className='navigation__link'
+                            activeStyle={{textDecoration: "underline"}}
                         >
-                            Аккаунт
-                            <img
-                                src={icon}
-                                alt='профиль'
-                            />
+                            {text}
                         </NavLink>
-                    </li>
+
+                    ))}
+
+                    <NavLink
+                        to='/profile'
+                        className='navigation__link navigation__link_type_profile'
+                        style={{display: 'flex'}}
+                        upperspace='true'
+                    >
+                        Аккаунт
+                        <img
+                            src={icon}
+                            alt='профиль'
+                        />
+                    </NavLink>
                 </Navigation>
             </Popup>
         </aside>

@@ -20,12 +20,12 @@ function Header(props) {
                     location='header'
                     type='auth'
                 >
-                    <li><NavLink to='/signup' className='navigation__link navigation__link_type_signup'>
+                    <NavLink to='/signup' className='navigation__link navigation__link_type_signup'>
                         Регистрация
-                    </NavLink></li>
-                    <li><NavLink to='/signin' className='navigation__link navigation__link_type_login'>
+                    </NavLink>
+                    <NavLink to='/signin' className='navigation__link navigation__link_type_login'>
                         Войти
-                    </NavLink></li>
+                    </NavLink>
                 </Navigation>
             )}
 
@@ -34,20 +34,20 @@ function Header(props) {
                     location='header'
                     type='movies'
                 >
-                    <li><NavLink
+                    <NavLink
                         to='/movies'
                         className='navigation__link navigation__link_type_movie'
                         activeStyle={{fontWeight: 500}}
                     >
                         Фильмы
-                    </NavLink></li>
-                    <li><NavLink
+                    </NavLink>
+                    <NavLink
                         to='/saved-movies'
                         className='navigation__link navigation__link_type_movie'
                         activeStyle={{fontWeight: 500}}
                     >
                         Сохраненные фильмы
-                    </NavLink></li>
+                    </NavLink>
                 </Navigation>
             )}
 

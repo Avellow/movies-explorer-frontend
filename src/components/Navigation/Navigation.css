@@ -112,6 +112,7 @@
 
     .navigation__link_type_profile {
         display: none;
+        font-size: 13px;
     }
 
     .navigation__links_type_movies {
