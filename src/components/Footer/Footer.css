@@ -4,6 +4,7 @@
     line-height: 1.23;
     display: flex;
     flex-direction: column;
+    justify-content: end;
     flex: 1 0 auto;
 }
 
