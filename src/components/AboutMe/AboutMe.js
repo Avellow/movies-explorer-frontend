@@ -1,11 +1,12 @@
 import './AboutMe.css';
 import authorPhoto from '../../images/author-photo/IMG_1864.jpeg';
 import arrow from '../../images/arrow/arrow.svg';
+import SectionTitle from "../section-title/SectionTitle";
 
 function AboutMe() {
     return (
         <section className='about-me'>
-            <h2 className='section-title'>Студент</h2>
+            <SectionTitle text='О студенте' />
             <div className='about-me__info-container'>
                 <div className='about-me__bio'>
                     <h3 className='about-me__title'>Дмитрий</h3>
