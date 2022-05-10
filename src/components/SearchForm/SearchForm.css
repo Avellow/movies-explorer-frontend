@@ -29,7 +29,18 @@
 }
 
 .search-form__form:focus-within {
-    border-bottom: 1px solid #3456F3 !important;
+    border-bottom: 1px solid #3456F3;
+}
+
+.search-form__form_errored {
+    border-bottom: 1px solid #FF3055 !important;
+    margin-bottom: 5px;
+}
+
+.search-form__error {
+    text-align: center;
+    color: #FF3055;
+    margin-bottom: 7px;
 }
 
 @media screen and (max-width: 525px) {
@@ -39,6 +50,10 @@
 
     .search-form__form {
         margin: 0 0 43px;
+    }
+
+    .search-form__form_errored {
+        margin-bottom: 18px;
     }
 
     .search-form__input {

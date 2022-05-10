@@ -5,11 +5,14 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 function Movies(props) {
     const {
         movies = [],
+        onSearch,
     } = props;
 
     return (
         <main className='movies'>
-            <SearchForm />
+            <SearchForm
+                onSubmit={onSearch}
+            />
             <MoviesCardList
                 movies={ movies }
             />

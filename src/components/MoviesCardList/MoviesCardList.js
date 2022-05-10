@@ -31,11 +31,13 @@ function MoviesCardList(props) {
                         />)
                     )}
             </ul>
-            <Button
-                theme='loader'
-                text='Ещё'
-                onClick={loadMovies}
-            />
+            {movies.length > showedMoviesCount && (
+                <Button
+                    theme='loader'
+                    text='Ещё'
+                    onClick={loadMovies}
+                />)
+            }
         </section>
     )
 }

@@ -23,19 +23,32 @@ function App() {
     const [ loggedIn, setLoggedIn ] = useState(false);
     const [ isPopupMenuOpened, setIsPopupMenuOpened] = useState(false);
 
+    const [movies, setMovies] = useState([]);
+
     const history = useHistory();
     const location = useLocation();
 
     // сохраняет фильмы в localstorage при монтировании
     useEffect(() => {
-        moviesApi
+        /*
+          moviesApi
             .getFilms()
             .then((movies) => localStorage.setItem('movies', JSON.stringify(movies)))
             .catch((err) => console.log(err)) //НЕ ЗАБЫТЬ ПРО ОБРАБОТЧИК ОШИБОК -----------------------------!!!! ***
+
+         */
     })
 
 
-
+    function handleSearchSubmit(value) {
+        moviesApi
+            .getFilms()
+            .then((movies) => {
+                const filteredMovies = movies.filter(movie => movie.nameRU.toLowerCase().includes(value.toLowerCase()))
+                setMovies(filteredMovies);
+            })
+            .catch((err) => console.log(err)) //НЕ ЗАБЫТЬ ПРО ОБРАБОТЧИК ОШИБОК -----------------------------!!!! ***
+    }
 
     function closeAllPopups() {
         setIsPopupMenuOpened(false);
@@ -82,7 +95,10 @@ function App() {
                 </Route>
 
                 <Route path='/movies'>
-                    <Movies movies={ JSON.parse(localStorage.getItem('movies')) } />
+                    <Movies
+                        movies={ movies }
+                        onSearch={handleSearchSubmit}
+                    />
                 </Route>
 
                 <Route path='/saved-movies'>
