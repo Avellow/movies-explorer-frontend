@@ -1,7 +1,14 @@
 import MoviesApi from "./MoviesApi";
+import MainApi from "./MainApi";
 
+// api для получения всего списка фильмов
 export const moviesApi = new MoviesApi('https://api.nomoreparties.co/beatfilm-movies');
 
+// api для работы с основным сервером (логин, регистрация, сохраненные фильмы и др)
+export const mainApi = new MainApi({
+    url: 'https://api.movies-expl.nomoredomains.work/',
+    token: `Bearer ${localStorage.getItem('jwt')}`,
+});
 
 
 
