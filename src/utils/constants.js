@@ -1,3 +1,11 @@
+import MoviesApi from "./MoviesApi";
+
+export const moviesApi = new MoviesApi('https://api.nomoreparties.co/beatfilm-movies');
+
+
+
+
+
 export const pagesWithoutHeader = [
     '/signin',
     '/signup',
@@ -26,103 +34,12 @@ export const popupMenuLinks = [
     }
 ];
 
-export const films = [
+export const customfilms = [
     {
-        title: 'В погоне за Бенкси',
+        title: 'dsadsa',
         duration: 27,
         posterLink: 'https://images.unsplash.com/photo-1574273509043-f94f45e5b164?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075&q=80'
     },
-    {
-        title: 'В погоне за Бенкси',
-        duration: 27,
-        posterLink: 'https://images.unsplash.com/photo-1574273509043-f94f45e5b164?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075&q=80'
-    },
-    {
-        title: 'В погоне за Бенкси',
-        duration: 27,
-        posterLink: 'https://images.unsplash.com/photo-1574273509043-f94f45e5b164?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075&q=80'
-    },
-    {
-        title: 'В погоне за Бенкси',
-        duration: 27,
-        posterLink: 'https://images.unsplash.com/photo-1574273509043-f94f45e5b164?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075&q=80'
-    },
-    {
-        title: 'В погоне за Бенкси',
-        duration: 27,
-        posterLink: 'https://images.unsplash.com/photo-1574273509043-f94f45e5b164?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075&q=80'
-    },
-    {
-        title: 'В погоне за Бенкси',
-        duration: 27,
-        posterLink: 'https://images.unsplash.com/photo-1574273509043-f94f45e5b164?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075&q=80'
-    },
-    {
-        title: 'В погоне за Бенкси',
-        duration: 27,
-        posterLink: 'https://images.unsplash.com/photo-1574273509043-f94f45e5b164?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075&q=80'
-    },
-    {
-        title: 'В погоне за Бенкси',
-        duration: 27,
-        posterLink: 'https://images.unsplash.com/photo-1574273509043-f94f45e5b164?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075&q=80'
-    },
-    {
-        title: 'В погоне за Бенкси',
-        duration: 27,
-        posterLink: 'https://images.unsplash.com/photo-1574273509043-f94f45e5b164?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075&q=80'
-    },
-    {
-        title: 'В погоне за Бенкси',
-        duration: 27,
-        posterLink: 'https://images.unsplash.com/photo-1574273509043-f94f45e5b164?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075&q=80'
-    },
-    {
-        title: 'В погоне за Бенкси',
-        duration: 27,
-        posterLink: 'https://images.unsplash.com/photo-1574273509043-f94f45e5b164?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075&q=80'
-    },
-    {
-        title: 'В погоне за Бенкси',
-        duration: 27,
-        posterLink: 'https://images.unsplash.com/photo-1574273509043-f94f45e5b164?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075&q=80'
-    },
-    {
-        title: 'В погоне за Бенкси',
-        duration: 27,
-        posterLink: 'https://images.unsplash.com/photo-1574273509043-f94f45e5b164?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075&q=80'
-    },
-    {
-        title: 'В погоне за Бенкси',
-        duration: 27,
-        posterLink: 'https://images.unsplash.com/photo-1574273509043-f94f45e5b164?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075&q=80'
-    },
-    {
-        title: 'В погоне за Бенкси',
-        duration: 27,
-        posterLink: 'https://images.unsplash.com/photo-1574273509043-f94f45e5b164?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075&q=80'
-    },
-    {
-        title: 'В погоне за Бенкси',
-        duration: 27,
-        posterLink: 'https://images.unsplash.com/photo-1574273509043-f94f45e5b164?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075&q=80'
-    },
-    {
-        title: 'В погоне за Бенкси',
-        duration: 27,
-        posterLink: 'https://images.unsplash.com/photo-1574273509043-f94f45e5b164?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075&q=80'
-    },
-    {
-        title: 'В погоне за Бенкси',
-        duration: 27,
-        posterLink: 'https://images.unsplash.com/photo-1574273509043-f94f45e5b164?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075&q=80'
-    },
-    {
-        title: 'В погоне за Бенкси',
-        duration: 27,
-        posterLink: 'https://images.unsplash.com/photo-1574273509043-f94f45e5b164?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075&q=80'
-    },
-
 ];
 
 export const savedFilms = [

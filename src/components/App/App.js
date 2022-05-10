@@ -4,15 +4,19 @@ import Main from '../Main/Main';
 import Footer from "../Footer/Footer";
 import Movies from "../Movies/Movies";
 import NotFound from "../NotFound/NotFound";
-import {useState} from "react";
-import {pagesWithoutFooter, pagesWithoutHeader } from "../../utils/constants";
+import {useEffect, useState} from "react";
 import { Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
 import Profile from "../Profile/Profile";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
-import {films, savedFilms} from "../../utils/constants";
+import {customfilms, savedFilms} from "../../utils/constants";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import SideMenu from "../SideMenu/SideMenu";
+import {
+    moviesApi,
+    pagesWithoutFooter,
+    pagesWithoutHeader,
+} from "../../utils/constants";
 
 function App() {
 
@@ -21,6 +25,17 @@ function App() {
 
     const history = useHistory();
     const location = useLocation();
+
+    // сохраняет фильмы в localstorage при монтировании
+    useEffect(() => {
+        moviesApi
+            .getFilms()
+            .then((movies) => localStorage.setItem('movies', JSON.stringify(movies)))
+            .catch((err) => console.log(err)) //НЕ ЗАБЫТЬ ПРО ОБРАБОТЧИК ОШИБОК -----------------------------!!!! ***
+    })
+
+
+
 
     function closeAllPopups() {
         setIsPopupMenuOpened(false);
@@ -67,7 +82,7 @@ function App() {
                 </Route>
 
                 <Route path='/movies'>
-                    <Movies films={films} />
+                    <Movies films={customfilms} />
                 </Route>
 
                 <Route path='/saved-movies'>
