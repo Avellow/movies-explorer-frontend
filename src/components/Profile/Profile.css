@@ -1,0 +1,19 @@
+.profile {
+    padding: 74px var(--content-side-padding) 70px;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    height: calc(100vh - 78px);
+}
+
+@media screen and (max-width: 770px) {
+    .profile {
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .profile {
+        padding: 70px 30px 40px;
+    }
+}

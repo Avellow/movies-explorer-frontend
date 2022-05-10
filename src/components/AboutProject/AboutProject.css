@@ -1,0 +1,111 @@
+.about-project {
+    padding: 110px var(--content-side-padding);
+}
+
+.about-project__progress-bar {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    font-size: 14px;
+}
+
+.about-project__back-bar {
+    text-align: center;
+    background-color: #2BE080;
+    padding: 9px;
+}
+
+.about-project__front-bar {
+    text-align: center;
+    background-color: #F2F2F2;
+    padding: 9px;
+}
+
+.about-project__bar-subtitle {
+    text-align: center;
+    margin: 14px 0 0;
+    font-size: 14px;
+    line-height: 1.2;
+    color: #A0A0A0;
+}
+
+.about-project__info-container {
+    display: flex;
+    margin: 0 0 110px;
+}
+
+.about-project__info {
+    margin: 0 30px 0 0;
+}
+.about-project__info:last-of-type {
+    margin: 0;
+}
+
+.about-project__info-title {
+    font-size: 20px;
+    line-height: 1.2;
+    font-weight: 400;
+    margin: 0 0 26px;
+}
+
+.about-project__info-subtitle {
+    font-size: 14px;
+    line-height: 1.42;
+    margin: 0;
+}
+
+@media screen and (max-width: 860px) {
+    .about-project {
+        padding: 90px var(--content-side-padding);
+    }
+
+    .about-project__info-container {
+        margin: 0 0 93px;
+    }
+
+    .about-project__info-title {
+        letter-spacing: -0.04em;
+    }
+
+    .about-project__info-subtitle {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 525px) {
+    .about-project {
+        padding: 70px var(--content-side-padding);
+    }
+
+    .about-project__progress-bar {
+        font-size: 11px;
+    }
+
+    .about-project__bar-subtitle {
+        font-size: 11px;
+        margin: 10px 0 0;
+    }
+
+    .about-project__info-container {
+        display: block;
+        margin: 0 0 60px;
+    }
+
+    .about-project__info {
+        margin: 0 0 56px;
+    }
+
+    .about-project__info-title {
+        font-size: 18px;
+        margin: 0 0 16px;
+    }
+
+    .about-project__info-subtitle {
+        font-size: 11px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .about-project__progress-bar {
+        grid-template-columns: 2fr 4fr;
+    }
+}

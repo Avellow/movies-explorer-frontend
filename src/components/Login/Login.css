@@ -1,0 +1,20 @@
+.login {
+    padding: 70px var(--form-side-padding);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    height: 100vh;
+}
+
+@media screen and (max-width: 770px) {
+    .login {
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 525px) {
+    .login {
+        padding: 56px var(--form-side-padding) 30px;
+        align-items: center;
+    }
+}

@@ -1,0 +1,49 @@
+.form {
+    min-width: 396px;
+    max-height: 626px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.form__title {
+    margin: 0;
+    font-size: 24px;
+    line-height: 1.2;
+    font-weight: 500;
+}
+
+.form__hint {
+    font-size: 14px;
+    line-height: 1.21;
+    font-weight: 400;
+    color: #A0A0A0;
+    text-align: center;
+    margin: 16px 0 0;
+}
+
+.form__hint-link {
+    text-decoration: none;
+    color: #3456F3;
+}
+
+.form__hint-link:hover {
+    opacity: .8;
+}
+
+@media screen and (max-width: 525px) {
+    .form {
+        min-width: 260px;
+        height: 100%;
+        max-height: 700px;
+    }
+
+    .form__title {
+        text-align: center;
+    }
+
+    .form__hint {
+        font-size: 12px;
+        line-height: 1.25;
+    }
+}

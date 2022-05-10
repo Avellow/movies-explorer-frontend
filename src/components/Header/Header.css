@@ -1,0 +1,24 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px var(--content-side-padding);
+    background-color: #073042;
+    background-size: 100vw;
+}
+
+.header_theme_light {
+    background-color: white;
+}
+
+@media screen and (max-width: 860px) {
+    .header {
+        padding: 20px 30px;
+    }
+}
+
+@media screen and (max-width: 525px) {
+    .header {
+        padding: 18px 14px;
+    }
+}

@@ -1,0 +1,30 @@
+:root {
+    --content-side-padding: calc(50% - 570px);
+    --form-side-padding: calc(50% - 198px);
+    --card-width: 360px;
+}
+
+@media screen and (max-width: 1235px) and (min-width: 768px) {
+    :root {
+        --content-side-padding: min(calc(100vw*(50/768)), 70px);
+    }
+}
+
+@media screen and (max-width: 880px) {
+    :root {
+        --card-width: 340px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    :root {
+        --content-side-padding: min(calc(100vw*(14/320)), 50px);
+        --card-width: 300px;
+    }
+}
+
+@media screen and (max-width: 525px) {
+    :root {
+        --form-side-padding: calc(50% - 130px);
+    }
+}
