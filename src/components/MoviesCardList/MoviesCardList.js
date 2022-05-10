@@ -10,7 +10,7 @@ function MoviesCardList(props) {
         listType = 'common',
     } = props;
 
-    const [ showedMoviesCount, setShowedMoviesCount ] = useState(3);
+    const [ showedMoviesCount, setShowedMoviesCount ] = useState(12);
 
     function loadMovies() {
         setShowedMoviesCount((prevState => prevState += 3))

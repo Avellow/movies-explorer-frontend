@@ -28,6 +28,10 @@
     color: #A0A0A0;
 }
 
+.search-form__form:focus-within {
+    border-bottom: 1px solid #3456F3 !important;
+}
+
 @media screen and (max-width: 525px) {
     .search-form__search-icon {
         display: none;
