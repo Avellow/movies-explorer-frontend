@@ -82,7 +82,7 @@ function App() {
                 </Route>
 
                 <Route path='/movies'>
-                    <Movies films={customfilms} />
+                    <Movies movies={ JSON.parse(localStorage.getItem('movies')) } />
                 </Route>
 
                 <Route path='/saved-movies'>
