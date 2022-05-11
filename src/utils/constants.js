@@ -12,7 +12,15 @@ export const mainApi = new MainApi({
     token: `Bearer ${localStorage.getItem('jwt')}`,
 });
 
+export function searchMovies(movies, value) {
+    const filteredMovies = movies.filter(movie => movie.nameRU.toLowerCase().includes(value.toLowerCase()));
+    return filteredMovies.length ? filteredMovies : null;
+}
 
+// сообщения ошибок
+export const CONNECTION_ERROR = 'Во время запроса произошла ошибка. Возможно, ' +
+    'проблема с соединением или сервер недоступен. Подождите немного и ' +
+    'попробуйте ещё раз'
 
 
 export const pagesWithoutHeader = [
@@ -42,29 +50,3 @@ export const popupMenuLinks = [
         text: 'Сохранённые фильмы',
     }
 ];
-
-export const customfilms = [
-    {
-        title: 'dsadsa',
-        duration: 27,
-        posterLink: 'https://images.unsplash.com/photo-1574273509043-f94f45e5b164?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075&q=80'
-    },
-];
-
-export const savedFilms = [
-    {
-        title: 'СОХРАЕННЫЙ ФИЛЬМ',
-        duration: 27,
-        posterLink: 'https://images.unsplash.com/photo-1574273509043-f94f45e5b164?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075&q=80'
-    },
-    {
-        title: 'СОХРАЕННЫЙ ФИЛЬМ',
-        duration: 27,
-        posterLink: 'https://images.unsplash.com/photo-1574273509043-f94f45e5b164?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075&q=80'
-    },
-    {
-        title: 'СОХРАНЕННЫЙ ФИЛЬМ',
-        duration: 27,
-        posterLink: 'https://images.unsplash.com/photo-1574273509043-f94f45e5b164?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075&q=80'
-    },
-]

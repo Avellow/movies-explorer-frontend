@@ -12,6 +12,14 @@
     grid-gap: 30px;
 }
 
+.movies-cards__not-found {
+    font-size: 18px;
+    font-weight: 500;
+    padding: 15px;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
 @media screen and (max-width: 880px) {
     .movies-cards {
         padding: 70px 0 30px;

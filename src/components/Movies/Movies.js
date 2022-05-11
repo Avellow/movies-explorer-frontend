@@ -1,11 +1,15 @@
 import './Movies.css';
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import Preloader from "../Preloader/Preloader";
+import {CONNECTION_ERROR} from "../../utils/constants";
 
 function Movies(props) {
     const {
-        movies = [],
+        movies,
         onSearch,
+        isLoading,
+        isFetchErrored,
     } = props;
 
     return (
@@ -13,9 +17,8 @@ function Movies(props) {
             <SearchForm
                 onSubmit={onSearch}
             />
-            <MoviesCardList
-                movies={ movies }
-            />
+            {isFetchErrored && (<h4 className='movies-cards__not-found'>{CONNECTION_ERROR}</h4>)}
+            {!isFetchErrored && (isLoading ? <Preloader /> : <MoviesCardList movies={movies} />)}
         </main>
     )
 }

@@ -14,8 +14,9 @@ import SideMenu from "../SideMenu/SideMenu";
 import {
     moviesApi,
     pagesWithoutFooter,
-    pagesWithoutHeader,
+    pagesWithoutHeader, searchMovies,
 } from "../../utils/constants";
+
 
 function App() {
 
@@ -24,30 +25,29 @@ function App() {
 
     const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('movies')) || []);
 
+    const [isFetching, setIsFetching] = useState(false);
+    const [isFetchErrored, setIsFetchErrored] = useState(false);
+
     const history = useHistory();
     const location = useLocation();
 
-    // сохраняет фильмы в localstorage при монтировании
-    useEffect(() => {
-        /*
-          moviesApi
-            .getFilms()
-            .then((movies) => localStorage.setItem('movies', JSON.stringify(movies)))
-            .catch((err) => console.log(err)) //НЕ ЗАБЫТЬ ПРО ОБРАБОТЧИК ОШИБОК -----------------------------!!!! ***
-
-         */
-    })
 
 
     function handleSearchSubmit(value) {
+        setIsFetching(true);
         moviesApi
             .getFilms()
             .then((movies) => {
-                const filteredMovies = movies.filter(movie => movie.nameRU.toLowerCase().includes(value.toLowerCase()))
-                setMovies(filteredMovies);
-                localStorage.setItem('movies', JSON.stringify(filteredMovies));
+                const foundMovies = searchMovies(movies, value);
+                setMovies(foundMovies);
+                localStorage.setItem('movies', JSON.stringify(foundMovies || []));
             })
-            .catch((err) => console.log(err)) //НЕ ЗАБЫТЬ ПРО ОБРАБОТЧИК ОШИБОК -----------------------------!!!! ***
+            .catch((err) => {
+                setIsFetchErrored(true);
+                localStorage.setItem('movies', '[]')
+                console.log(err)
+            })
+            .finally(() => setIsFetching(false))
     }
 
     function closeAllPopups() {
@@ -98,6 +98,8 @@ function App() {
                     <Movies
                         movies={ movies }
                         onSearch={handleSearchSubmit}
+                        isLoading={isFetching}
+                        isFetchErrored={isFetchErrored}
                     />
                 </Route>
 

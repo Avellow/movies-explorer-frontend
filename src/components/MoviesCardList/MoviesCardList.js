@@ -6,7 +6,7 @@ import {useState} from "react";
 
 function MoviesCardList(props) {
     const {
-        movies = [],
+        movies,
         listType = 'common',
     } = props;
 
@@ -16,30 +16,36 @@ function MoviesCardList(props) {
         setShowedMoviesCount((prevState => prevState += 3))
     }
 
-    return (
-        <section className='movies-cards'>
-            <ul className='movies-cards__list'>
-                {movies
-                    .slice(0, showedMoviesCount)
-                    .map((movie) => (
-                        <MoviesCard
-                            key={movie.id}
-                            title={movie.nameRU}
-                            duration={movie.duration}
-                            posterLink={`${MOVIES_SERVER_URL}${movie.image.url}`}
-                            listType={listType}
-                        />)
-                    )}
-            </ul>
-            {movies.length > showedMoviesCount && (
-                <Button
-                    theme='loader'
-                    text='Ещё'
-                    onClick={loadMovies}
-                />)
-            }
-        </section>
-    )
+    return movies === null
+        ? (
+            <section className='movies-cards'>
+                <h4 className='movies-cards__not-found'>Ничего не найдено</h4>
+            </section>
+        )
+        : (
+            <section className='movies-cards'>
+                <ul className='movies-cards__list'>
+                    {movies
+                        .slice(0, showedMoviesCount)
+                        .map((movie) => (
+                            <MoviesCard
+                                key={movie.id}
+                                title={movie.nameRU}
+                                duration={movie.duration}
+                                posterLink={`${MOVIES_SERVER_URL}${movie.image.url}`}
+                                listType={listType}
+                            />)
+                        )}
+                </ul>
+                {movies.length > showedMoviesCount && (
+                    <Button
+                        theme='loader'
+                        text='Ещё'
+                        onClick={loadMovies}
+                    />)
+                }
+            </section>
+        )
 }
 
 export default MoviesCardList;
