@@ -9,7 +9,6 @@ import { Redirect, Route, Switch, useHistory, useLocation} from "react-router-do
 import Profile from "../Profile/Profile";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
-import {customfilms, savedFilms} from "../../utils/constants";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import SideMenu from "../SideMenu/SideMenu";
 import {
@@ -23,7 +22,7 @@ function App() {
     const [ loggedIn, setLoggedIn ] = useState(false);
     const [ isPopupMenuOpened, setIsPopupMenuOpened] = useState(false);
 
-    const [movies, setMovies] = useState([]);
+    const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('movies')) || []);
 
     const history = useHistory();
     const location = useLocation();
@@ -46,6 +45,7 @@ function App() {
             .then((movies) => {
                 const filteredMovies = movies.filter(movie => movie.nameRU.toLowerCase().includes(value.toLowerCase()))
                 setMovies(filteredMovies);
+                localStorage.setItem('movies', JSON.stringify(filteredMovies));
             })
             .catch((err) => console.log(err)) //НЕ ЗАБЫТЬ ПРО ОБРАБОТЧИК ОШИБОК -----------------------------!!!! ***
     }
@@ -102,7 +102,7 @@ function App() {
                 </Route>
 
                 <Route path='/saved-movies'>
-                    <SavedMovies films={savedFilms} />
+                    <SavedMovies films={[]} />
                 </Route>
 
                 <Route path='/profile'>
