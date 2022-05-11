@@ -9,12 +9,21 @@ function SearchForm(props) {
 
     const [value, setValue] = useState('');
     const [isErrored, setIsErrored] = useState(false);
+    const [
+        isShortFilmToggleChecked,
+        setIsShortFilmToggleChecked
+    ] = useState(!!JSON.parse(localStorage.getItem('isShortFilmToggleChecked')));
 
     function handleChange(e) {
         setValue(e.target.value)
     }
 
+    function handleShortFilmCheck() {
+        setIsShortFilmToggleChecked(!isShortFilmToggleChecked);
+    }
+
     function handleSubmit() {
+        localStorage.setItem('isShortFilmToggleChecked', `${isShortFilmToggleChecked}`)
         if (value) {
             setIsErrored(false);
             onSubmit(value);
@@ -50,7 +59,11 @@ function SearchForm(props) {
                 />
             </form>
             {isErrored && <span className='search-form__error'>Нужно ввести ключевое слово!</span>}
-            <ToggleSwitch text='Короткометражки'/>
+            <ToggleSwitch
+                text='Короткометражки'
+                onCheck={ handleShortFilmCheck }
+                isChecked={ isShortFilmToggleChecked }
+            />
         </section>
     )
 }
