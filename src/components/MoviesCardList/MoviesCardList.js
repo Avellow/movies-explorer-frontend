@@ -1,8 +1,8 @@
 import './MoviesCardList.css';
 import MoviesCard from "../MoviesCard/MoviesCard";
-import {MOVIES_SERVER_URL} from "../../utils/constants";
+import {generateCardsCount, initialCardsCount, MOVIES_SERVER_URL} from "../../utils/constants";
 import Button from "../Button/Button";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 function MoviesCardList(props) {
     const {
@@ -10,10 +10,31 @@ function MoviesCardList(props) {
         listType = 'common',
     } = props;
 
-    const [ showedMoviesCount, setShowedMoviesCount ] = useState(12);
+    // потратил много времени на это! ОТРЕФАКТОРЮ СО СВЕЖИМ ВЗГЛЯДОМ ПОЗЖЕ
+    const [ showedMovies, setShowedMovies ] = useState(generateCardsCount(window.innerWidth, initialCardsCount(window.innerWidth)));
+    const [currentWindowWidth, setCurrentWindowWidth] = useState(window.innerWidth)
+
+    useEffect(() => {
+
+        function handleResize() {
+            setTimeout(() => {
+                setCurrentWindowWidth(window.innerWidth);
+                setShowedMovies(prevState => generateCardsCount(window.innerWidth, prevState.inListCount))
+            }, 100)
+        }
+
+        window.addEventListener('resize', handleResize);
+
+        return () => window.removeEventListener('resize', handleResize);
+
+    }, [currentWindowWidth])
+
 
     function loadMovies() {
-        setShowedMoviesCount((prevState => prevState += 3))
+        setShowedMovies(prevState => ({
+            ...prevState,
+            inListCount: prevState.inListCount + prevState.cardIncrement
+        }))
     }
 
     return movies === null
@@ -26,7 +47,7 @@ function MoviesCardList(props) {
             <section className='movies-cards'>
                 <ul className='movies-cards__list'>
                     {movies
-                        .slice(0, showedMoviesCount)
+                        .slice(0, showedMovies.inListCount)
                         .map((movie) => (
                             <MoviesCard
                                 key={movie.id}
@@ -37,7 +58,7 @@ function MoviesCardList(props) {
                             />)
                         )}
                 </ul>
-                {movies.length > showedMoviesCount && (
+                {movies.length > showedMovies.inListCount && (
                     <Button
                         theme='loader'
                         text='Ещё'

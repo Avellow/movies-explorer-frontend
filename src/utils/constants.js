@@ -22,6 +22,36 @@ export const CONNECTION_ERROR = 'Во время запроса произошл
     'проблема с соединением или сервер недоступен. Подождите немного и ' +
     'попробуйте ещё раз'
 
+// зависимость отрисованных карточек от ширины экрана
+// функционал РАБОТАЕТ но гляну потом свежим взглядом на это безобразие :)
+export function generateCardsCount(width, count) {
+
+    const result = {
+        cardIncrement: 3,
+        inListCount: count < 12 ? 12 : count - count % 3
+    }
+
+    if (width < 1236 && width > 673) {
+        result.cardIncrement = 2
+        result.inListCount = count < 8 ? 8 : count - count % 2
+    } else if (width <= 673) {
+        result.cardIncrement = 2
+        result.inListCount = count < 5 ? 5 : count - count % 2
+    }
+    return result;
+}
+
+export const initialCardsCount = (width) => {
+    let result = 12;
+
+    if (width < 1236 && width > 673) {
+        result = 8
+    } else if (width <= 673) {
+        result = 5
+    }
+    return result;
+};
+
 
 export const pagesWithoutHeader = [
     '/signin',

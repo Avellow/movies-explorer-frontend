@@ -4,7 +4,7 @@ import Main from '../Main/Main';
 import Footer from "../Footer/Footer";
 import Movies from "../Movies/Movies";
 import NotFound from "../NotFound/NotFound";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import { Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
 import Profile from "../Profile/Profile";
 import Login from "../Login/Login";
@@ -27,6 +27,8 @@ function App() {
 
     const [isFetching, setIsFetching] = useState(false);
     const [isFetchErrored, setIsFetchErrored] = useState(false);
+
+
 
     const history = useHistory();
     const location = useLocation();
