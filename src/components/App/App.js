@@ -4,7 +4,7 @@ import Main from '../Main/Main';
 import Footer from "../Footer/Footer";
 import Movies from "../Movies/Movies";
 import NotFound from "../NotFound/NotFound";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import { Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
 import Profile from "../Profile/Profile";
 import Login from "../Login/Login";
@@ -40,7 +40,10 @@ function App() {
             .then((movies) => {
                 const foundMovies = searchMovies(movies, value);
                 setMovies(foundMovies);
-                localStorage.setItem('movies', JSON.stringify(foundMovies || []));
+                if (foundMovies) {
+                    localStorage.setItem('lastSearchedMovies', `${value}`);
+                    localStorage.setItem('movies', JSON.stringify(foundMovies));
+                }
             })
             .catch((err) => {
                 setIsFetchErrored(true);

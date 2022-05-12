@@ -7,7 +7,7 @@ import { useState } from "react";
 function SearchForm(props) {
     const { onSubmit } = props;
 
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState(localStorage.getItem('lastSearchedMovies') || '');
     const [isErrored, setIsErrored] = useState(false);
     const [
         isShortFilmToggleChecked,
