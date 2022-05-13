@@ -53,6 +53,7 @@ function MoviesCardList(props) {
                                 key={movie.id}
                                 title={movie.nameRU}
                                 duration={movie.duration}
+                                trailerLink={movie.trailerLink}
                                 posterLink={`${MOVIES_SERVER_URL}${movie.image.url}`}
                                 listType={listType}
                             />)

@@ -8,6 +8,7 @@ function MoviesCard(props) {
         title,
         duration,
         posterLink,
+        trailerLink = '',
         listType,
     } = props;
 
@@ -45,11 +46,17 @@ function MoviesCard(props) {
                 <h3 className='movies-card__title'>{ title }</h3>
                 <p className='movies-card__duration'>{ formDuration(duration) }</p>
             </div>
-            <img
-                className='movies-card__poster'
-                src={ posterLink }
-                alt='постер'
-            />
+            <a
+                href={trailerLink}
+                target='_blank'
+            >
+                <img
+                    className='movies-card__poster'
+                    src={ posterLink }
+                    alt='постер'
+                />
+            </a>
+
             { generateButton() }
         </li>
     )
