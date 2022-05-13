@@ -52,6 +52,19 @@ export const initialCardsCount = (width) => {
     return result;
 };
 
+// отображаемая длительность фильма
+
+export const formDuration = (duration) => {
+    let declension = ' минут';
+
+    const dozen = Number(('' + duration).slice(-2));
+
+    if (dozen > 9 && dozen < 21) declension = ' минут';
+    else if (dozen % 10 === 1) declension = ' минута';
+    else if (dozen % 10 < 5 && dozen % 10 > 0) declension = ' минуты';
+
+    return duration + declension;
+}
 
 export const pagesWithoutHeader = [
     '/signin',

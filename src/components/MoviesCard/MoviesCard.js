@@ -1,6 +1,7 @@
 import './MoviesCard.css';
 import Button from "../Button/Button";
 import {useState} from "react";
+import {formDuration} from "../../utils/constants";
 
 function MoviesCard(props) {
     const {
@@ -42,7 +43,7 @@ function MoviesCard(props) {
         <li className='movies-card'>
             <div className='movies-card__info'>
                 <h3 className='movies-card__title'>{ title }</h3>
-                <p className='movies-card__duration'>{ duration }</p>
+                <p className='movies-card__duration'>{ formDuration(duration) }</p>
             </div>
             <img
                 className='movies-card__poster'
