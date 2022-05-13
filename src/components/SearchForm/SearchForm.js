@@ -51,6 +51,7 @@ function SearchForm(props) {
                     onChange={handleChange}
                     name='search'
                     required={true}
+                    autoComplete='off'
                 />
                 <Button
                     theme='search'
