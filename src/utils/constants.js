@@ -99,8 +99,8 @@ export const formValidProps = (movie) => {
     duration = typeof duration === 'number' ? duration : 0
     year = String(year)
     description = String(description)
-    nameRU = String(nameRU)
-    nameEN = String(nameEN)
+    nameRU = String(nameRU) || 'no ru name'
+    nameEN = String(nameEN) || 'no en name'
     trailerLink = validateLink(trailerLink) ? trailerLink : 'https://youtube.com'
     image = typeof image === 'string' ? image : ''
     thumbnail = typeof thumbnail === 'string' ? thumbnail : ''
