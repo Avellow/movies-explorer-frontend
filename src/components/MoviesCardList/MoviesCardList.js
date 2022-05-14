@@ -1,13 +1,11 @@
 import './MoviesCardList.css';
-import MoviesCard from "../MoviesCard/MoviesCard";
-import {generateCardsCount, initialCardsCount, MOVIES_SERVER_URL} from "../../utils/constants";
+import { generateCardsCount, initialCardsCount } from "../../utils/constants";
 import Button from "../Button/Button";
 import {useEffect, useState} from "react";
 
 function MoviesCardList(props) {
     const {
         movies,
-        listType = 'common',
     } = props;
 
     // потратил много времени на это! ОТРЕФАКТОРЮ СО СВЕЖИМ ВЗГЛЯДОМ ПОЗЖЕ
@@ -46,18 +44,7 @@ function MoviesCardList(props) {
         : (
             <section className='movies-cards'>
                 <ul className='movies-cards__list'>
-                    {movies
-                        .slice(0, showedMovies.inListCount)
-                        .map((movie) => (
-                            <MoviesCard
-                                key={movie.id}
-                                title={movie.nameRU}
-                                duration={movie.duration}
-                                trailerLink={movie.trailerLink}
-                                posterLink={`${MOVIES_SERVER_URL}${movie.image.url}`}
-                                listType={listType}
-                            />)
-                        )}
+                    {movies.slice(0, showedMovies.inListCount)}
                 </ul>
                 {movies.length > showedMovies.inListCount && (
                     <Button

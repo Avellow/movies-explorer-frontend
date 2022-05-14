@@ -14,6 +14,27 @@ class MainApi {
             : Promise.reject(`Ошибка ${res.status}`)
     }
 
+    saveMovie(movie) {
+        return fetch(`${this._url}/movies`, {
+            method: 'POST',
+            headers: {
+                authorization: this._token,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(movie)
+        })
+            .then(this._checkResult)
+    }
+
+    deleteMovie(id) {
+        return fetch(`${this._url}/movies/${id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: this._token,
+            }
+        })
+            .then(this._checkResult)
+    }
 }
 
 export default MainApi;

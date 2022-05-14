@@ -12,6 +12,10 @@ import Register from "../Register/Register";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import SideMenu from "../SideMenu/SideMenu";
 import {
+    checkIdInList,
+    formValidProps,
+    mainApi,
+    MOVIES_SERVER_URL,
     moviesApi,
     pagesWithoutFooter,
     pagesWithoutHeader, searchMovies,
@@ -24,6 +28,7 @@ function App() {
     const [ isPopupMenuOpened, setIsPopupMenuOpened] = useState(false);
 
     const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('movies')) || []);
+    const [savedMovies, setSavedMovies] = useState([]);
 
     const [isFetching, setIsFetching] = useState(false);
     const [isFetchErrored, setIsFetchErrored] = useState(false);
@@ -33,14 +38,32 @@ function App() {
     const history = useHistory();
     const location = useLocation();
 
+    function handleMovieSave(movie) {
+        const formedMovie = formValidProps(movie);
+        mainApi
+            .saveMovie(formedMovie)
+            .then((savedMovie) => {
+                setSavedMovies(prevState => [...prevState, savedMovie])
+            })
+            .catch(console.log)
+    }
 
+    function handleMovieDelete(id) {
+        const movieToDelete = savedMovies.find(movie => movie.movieId === id)
+
+        mainApi
+            .deleteMovie(movieToDelete._id)
+            .then(({data: movie}) => {
+                setSavedMovies(prevState => prevState.filter(m => m.movieId !== movie.movieId))
+            })
+    }
 
     function handleSearchSubmit(value) {
         setIsFetching(true);
         moviesApi
             .getFilms()
             .then((movies) => {
-                const foundMovies = searchMovies(movies, value);
+                const foundMovies = searchMovies(movies, value)
                 setMovies(foundMovies);
                 if (foundMovies) {
                     localStorage.setItem('lastSearchedMovies', `${value}`);
@@ -102,9 +125,12 @@ function App() {
                 <Route path='/movies'>
                     <Movies
                         movies={ movies }
+                        savedMovies={ savedMovies }
                         onSearch={handleSearchSubmit}
                         isLoading={isFetching}
                         isFetchErrored={isFetchErrored}
+                        onMovieSave={handleMovieSave}
+                        onMovieDelete={handleMovieDelete}
                     />
                 </Route>
 

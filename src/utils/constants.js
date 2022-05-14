@@ -6,10 +6,10 @@ export const MOVIES_SERVER_URL = 'https://api.nomoreparties.co';
 export const moviesApi = new MoviesApi(MOVIES_SERVER_URL + '/beatfilm-movies');
 
 // api для работы с основным сервером (логин, регистрация, сохраненные фильмы и др)
-export const MAIN_SERVER_URL = 'https://api.movies-expl.nomoredomains.work';
+export const MAIN_SERVER_URL = 'http://localhost:3000';
 export const mainApi = new MainApi({
     url: MAIN_SERVER_URL,
-    token: `Bearer ${localStorage.getItem('jwt')}`,
+    token: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjdlM2ZlMTQwNjkwNjA4MzVhOWRjOTMiLCJpYXQiOjE2NTI0NDEwNzYsImV4cCI6MTY1MzA0NTg3Nn0.50yMHnd6JCPR5dkWiIS3StkJIod9N5QJ1rWXtiFQQn4`,
 });
 
 export function searchMovies(movies, value) {
@@ -65,6 +65,64 @@ export const formDuration = (duration) => {
 
     return duration + declension;
 }
+
+
+export const validateLink = (link) => {
+    const regex = /http[s]?:\/\/(www.)?[\S]+\.[a-z]+[\S]*/gi;
+    return regex.test(link);
+}
+
+// форматирует данные фильма для их сохранения на основном сервере
+export const formValidProps = (movie) => {
+    let {
+        country = 'country not filled',
+        director = 'director not filled',
+        duration = 0,
+        year = 'year not filled',
+        description = 'no description',
+        trailerLink = 'https://youtube.com',
+        nameRU = 'no ru name',
+        nameEN = 'no en name',
+        id: movieId = (new Date().getTime()).toString(10),
+        image: {
+            url: image = '',
+            formats: {
+                thumbnail: {
+                    url: thumbnail = '',
+                }
+            }
+        },
+    } = movie;
+
+    country = String(country)
+    director = String(director)
+    duration = typeof duration === 'number' ? duration : 0
+    year = String(year)
+    description = String(description)
+    nameRU = String(nameRU)
+    nameEN = String(nameEN)
+    trailerLink = validateLink(trailerLink) ? trailerLink : 'https://youtube.com'
+    image = typeof image === 'string' ? image : ''
+    thumbnail = typeof thumbnail === 'string' ? thumbnail : ''
+
+    return {
+        country,
+        director,
+        duration,
+        year,
+        description,
+        trailerLink,
+        nameRU,
+        nameEN,
+        movieId,
+        image: MOVIES_SERVER_URL + image,
+        thumbnail: MOVIES_SERVER_URL + thumbnail,
+    }
+}
+
+// проверяет еслть ли фильм с таким id в списке
+export const checkIdInList = (id, list) => list.some(item => item.movieId === id)
+
 
 export const pagesWithoutHeader = [
     '/signin',
