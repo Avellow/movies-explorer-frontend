@@ -24,7 +24,7 @@ import {
 
 function App() {
 
-    const [ loggedIn, setLoggedIn ] = useState(false);
+    const [ loggedIn, setLoggedIn ] = useState(true);
     const [ isPopupMenuOpened, setIsPopupMenuOpened] = useState(false);
 
     const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('movies')) || []);
@@ -33,10 +33,28 @@ function App() {
     const [isFetching, setIsFetching] = useState(false);
     const [isFetchErrored, setIsFetchErrored] = useState(false);
 
-
+    const [isFetchingMainServer, setIsFetchingMainServer] = useState(false);
+    const [isFetchMainServerErrored, setIsFetchMainServerErrored] = useState(false);
 
     const history = useHistory();
     const location = useLocation();
+
+    useEffect(() => {
+        // сюда проверка токена
+        setIsFetchingMainServer(true)
+        if (loggedIn) {
+            Promise
+                .all([mainApi.getMovies()])
+                .then(([movies]) => {
+                    setSavedMovies(movies);
+                })
+                .catch((err) => {
+                    console.log(err);
+                    setIsFetchMainServerErrored(true);
+                })
+                .finally(() => setIsFetchingMainServer(false))
+        }
+    }, [loggedIn])
 
     function handleMovieSave(movie) {
         const formedMovie = formValidProps(movie);
@@ -135,7 +153,13 @@ function App() {
                 </Route>
 
                 <Route path='/saved-movies'>
-                    <SavedMovies films={[]} />
+                    <SavedMovies
+                        movies={savedMovies}
+                        onMovieDelete={handleMovieDelete}
+                        isLoading={isFetchingMainServer}
+                        isFetchErrored={isFetchMainServerErrored}
+                        onSearch=''
+                    />
                 </Route>
 
                 <Route path='/profile'>

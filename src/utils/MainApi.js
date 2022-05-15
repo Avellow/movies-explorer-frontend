@@ -14,6 +14,16 @@ class MainApi {
             : Promise.reject(`Ошибка ${res.status}`)
     }
 
+    getMovies() {
+        return fetch(`${this._url}/movies`, {
+            method: 'GET',
+            headers: {
+                authorization: this._token,
+            }
+        })
+            .then(this._checkResult)
+    }
+
     saveMovie(movie) {
         return fetch(`${this._url}/movies`, {
             method: 'POST',

@@ -28,6 +28,7 @@ function MoviesCard(props) {
             return (
                 <Button
                     theme='delete'
+                    onClick={handleClick}
                 />
             )
         } else if (isSaved) {
