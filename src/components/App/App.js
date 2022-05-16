@@ -11,6 +11,7 @@ import Login from "../Login/Login";
 import Register from "../Register/Register";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import SideMenu from "../SideMenu/SideMenu";
+import * as auth from '../../utils/auth';
 import {
     checkIdInList,
     formValidProps,
@@ -35,6 +36,8 @@ function App() {
 
     const [isFetchingMainServer, setIsFetchingMainServer] = useState(false);
     const [isFetchMainServerErrored, setIsFetchMainServerErrored] = useState(false);
+
+    const [registrationSuccess, setRegistrationSuccess] = useState(false)
 
     const history = useHistory();
     const location = useLocation();
@@ -102,6 +105,19 @@ function App() {
         setIsPopupMenuOpened(true);
     }
 
+    function onRegister(name, email, password) {
+        setIsFetching(true)
+        auth
+            .register(name, email, password)
+            .then((user) => {
+                console.log(user);
+                setRegistrationSuccess(true)
+                history.push('/') // заменю попапом с результатом и таймером на перенаправление
+            })
+            .catch(console.log)
+            .finally(() => setIsFetching(false))
+    }
+
     function login() { // ВРЕМЕННОЕ РЕШЕНИЕ
         setLoggedIn(true);
         history.push('/movies');
@@ -135,7 +151,10 @@ function App() {
                 </Route>
 
                 <Route path='/signup'>
-                    <Register />
+                    <Register
+                        onRegister={onRegister}
+                        isFetching={isFetching}
+                    />
                 </Route>
 
                 <Route path='/movies'>

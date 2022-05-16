@@ -6,8 +6,12 @@ import Logo from "../Logo/Logo";
 import {NavLink} from "react-router-dom";
 import {useFormAndValidation} from "../../hooks/useFormAndValidation";
 import {NAME_VALIDATION_ERROR} from "../../utils/constants";
+import Preloader from "../Preloader/Preloader";
 
-function Register() {
+function Register(props) {
+    const { onRegister,
+        isFetching } = props;
+
     const {
         values,
         errors,
@@ -15,6 +19,15 @@ function Register() {
         isValid,
     } = useFormAndValidation();
 
+    function handleRegister() {
+        const {
+            email,
+            password,
+            username: name,
+        } = values;
+
+        onRegister(name, email, password)
+    }
 
     return (
         <section className='register'>
@@ -37,7 +50,7 @@ function Register() {
                     errorText={NAME_VALIDATION_ERROR}
                     required={true}
                     minLength={2}
-                    maxLength={50}
+                    maxLength={30}
                 />
                 <Input
                     labelTitle='E-mail'
@@ -57,12 +70,12 @@ function Register() {
                     errorText={errors['password']}
                     onChange={handleChange}
                     minLength={4}
-                    maxLength={20}
                 />
                 <Button
                     theme='auth'
                     text='Зарегистрироваться'
                     type='submit'
+                    onClick={handleRegister}
                     disabled={!isValid}
                 />
                 <p className='form__hint'>
