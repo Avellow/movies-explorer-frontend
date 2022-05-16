@@ -83,14 +83,12 @@ function App() {
             .then((movies) => {
                 const foundMovies = searchMovies(movies, value)
                 setMovies(foundMovies);
-                if (foundMovies) {
-                    localStorage.setItem('lastSearchedMovies', `${value}`);
-                    localStorage.setItem('movies', JSON.stringify(foundMovies));
-                }
+                localStorage.setItem('lastSearchedMovies', `${value}`);
+                localStorage.setItem('movies', JSON.stringify(foundMovies));
             })
             .catch((err) => {
                 setIsFetchErrored(true);
-                localStorage.setItem('movies', '[]')
+                localStorage.setItem('movies', null)
                 console.log(err)
             })
             .finally(() => setIsFetching(false))
