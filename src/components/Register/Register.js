@@ -4,8 +4,18 @@ import Input from "../Input/Input";
 import Button from "../Button/Button";
 import Logo from "../Logo/Logo";
 import {NavLink} from "react-router-dom";
+import {useFormAndValidation} from "../../hooks/useFormAndValidation";
+import {NAME_VALIDATION_ERROR} from "../../utils/constants";
 
 function Register() {
+    const {
+        values,
+        errors,
+        handleChange,
+        isValid,
+    } = useFormAndValidation();
+
+
     return (
         <section className='register'>
             <Logo
@@ -17,13 +27,43 @@ function Register() {
                 hintText='Уже зарегистрированы?'
                 hintLinkText='Войти'
             >
-                <Input name='Имя'/>
-                <Input name='E-mail' type='email' errored={true}/>
-                <Input name='Пароль' type='password' errored={true}/>
+                <Input
+                    labelTitle='Имя'
+                    name='username'
+                    onChange={handleChange}
+                    value={values['username'] || ''}
+                    pattern='[a-zA-Zа-яА-ЯёЁ]+[- a-zA-Zа-яА-ЯёЁ]{1,}'
+                    errored={errors['username']}
+                    errorText={NAME_VALIDATION_ERROR}
+                    required={true}
+                    minLength={2}
+                    maxLength={50}
+                />
+                <Input
+                    labelTitle='E-mail'
+                    name='email'
+                    type='email'
+                    errored={errors['email']}
+                    errorText={errors['email']}
+                    onChange={handleChange}
+                    required={true}
+                />
+                <Input
+                    labelTitle='Пароль'
+                    name='password'
+                    type='password'
+                    required={true}
+                    errored={errors['password']}
+                    errorText={errors['password']}
+                    onChange={handleChange}
+                    minLength={4}
+                    maxLength={20}
+                />
                 <Button
                     theme='auth'
                     text='Зарегистрироваться'
                     type='submit'
+                    disabled={!isValid}
                 />
                 <p className='form__hint'>
                     Уже зарегистрированы?
