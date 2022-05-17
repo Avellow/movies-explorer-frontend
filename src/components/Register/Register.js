@@ -5,12 +5,15 @@ import Button from "../Button/Button";
 import Logo from "../Logo/Logo";
 import {NavLink} from "react-router-dom";
 import {useFormAndValidation} from "../../hooks/useFormAndValidation";
-import {NAME_VALIDATION_ERROR} from "../../utils/constants";
+import {generateRegisterError, NAME_VALIDATION_ERROR} from "../../utils/constants";
 import Preloader from "../Preloader/Preloader";
 
 function Register(props) {
-    const { onRegister,
-        isFetching } = props;
+    const {
+        onRegister,
+        registrationStatus,
+        isFetching,
+    } = props;
 
     const {
         values,
@@ -71,6 +74,9 @@ function Register(props) {
                     onChange={handleChange}
                     minLength={4}
                 />
+                {!registrationStatus.success && (
+                    <p className='register__error'>{generateRegisterError(registrationStatus.err)}</p>
+                )}
                 <Button
                     theme='auth'
                     text='Зарегистрироваться'

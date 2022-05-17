@@ -23,6 +23,13 @@ export const CONNECTION_ERROR = 'Во время запроса произошл
     'попробуйте ещё раз'
 export const NAME_VALIDATION_ERROR = 'Запоните это поле (разрешаются латиница/кириллица/пробел/дефис)'
 
+export const generateRegisterError = (code = 500) => {
+    let result = 'Произошла ошибка на сервере. Пожалуйста, проверьте данные и повторите попытку'
+    if (code === 409)  result = 'Аккаунт с таким e-mail уже зарегистрирован'
+
+    return result;
+}
+
 // зависимость отрисованных карточек от ширины экрана
 // функционал РАБОТАЕТ но гляну потом свежим взглядом на это безобразие :)
 export function generateCardsCount(width, count) {

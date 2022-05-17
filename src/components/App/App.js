@@ -37,7 +37,7 @@ function App() {
     const [isFetchingMainServer, setIsFetchingMainServer] = useState(false);
     const [isFetchMainServerErrored, setIsFetchMainServerErrored] = useState(false);
 
-    const [registrationSuccess, setRegistrationSuccess] = useState(false)
+    const [registrationStatus, setRegistrationStatus] = useState({success: true, err: null})
 
     const history = useHistory();
     const location = useLocation();
@@ -111,10 +111,13 @@ function App() {
             .register(name, email, password)
             .then((user) => {
                 console.log(user);
-                setRegistrationSuccess(true)
+                setRegistrationStatus(prevState => ({...prevState, success: true, err: null}))
                 history.push('/') // заменю попапом с результатом и таймером на перенаправление
             })
-            .catch(console.log)
+            .catch(err => {
+                console.log(err);
+                setRegistrationStatus(prevState => ({...prevState, success: false, err}))
+            })
             .finally(() => setIsFetching(false))
     }
 
@@ -154,6 +157,7 @@ function App() {
                     <Register
                         onRegister={onRegister}
                         isFetching={isFetching}
+                        registrationStatus={registrationStatus}
                     />
                 </Route>
 
