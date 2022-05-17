@@ -40,7 +40,7 @@ function App() {
 
     const [authStatus, setAuthStatus] = useState({success: true, err: null}) //мб оптимизировать - просто err
 
-    const [currentUser, setCurrentUser] = useState(null)
+    const [currentUser, setCurrentUser] = useState({})
 
     const history = useHistory();
     const location = useLocation();
@@ -54,7 +54,6 @@ function App() {
                 .then((user) => {
                     setCurrentUser(prevUserInfo => ({...prevUserInfo, ...user}));
                     setLoggedIn(true);
-                    history.push('/movies');
                 })
                 .catch(console.log)
                 .finally(() => setIsFetchingMainServer(false));
@@ -222,7 +221,6 @@ function App() {
                             onMovieDelete={handleMovieDelete}
                             isLoading={isFetchingMainServer}
                             isFetchErrored={isFetchMainServerErrored}
-                            onSearch=''
                         />
                     </Route>
 
