@@ -4,7 +4,7 @@ import Main from '../Main/Main';
 import Footer from "../Footer/Footer";
 import Movies from "../Movies/Movies";
 import NotFound from "../NotFound/NotFound";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import { Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
 import Profile from "../Profile/Profile";
 import Login from "../Login/Login";
@@ -21,11 +21,12 @@ import {
     pagesWithoutFooter,
     pagesWithoutHeader, searchMovies,
 } from "../../utils/constants";
+import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 
 
 function App() {
 
-    const [ loggedIn, setLoggedIn ] = useState(true);
+    const [ loggedIn, setLoggedIn ] = useState(false);
     const [ isPopupMenuOpened, setIsPopupMenuOpened] = useState(false);
 
     const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('movies')) || []);
@@ -39,25 +40,46 @@ function App() {
 
     const [authStatus, setAuthStatus] = useState({success: true, err: null}) //мб оптимизировать - просто err
 
+    const [currentUser, setCurrentUser] = useState(null)
+
     const history = useHistory();
     const location = useLocation();
 
+    const handleTokenCheck = useCallback(() => {
+        if (localStorage.getItem('jwt')) {
+            const jwt = localStorage.getItem('jwt');
+            setIsFetchingMainServer(true);
+            auth
+                .checkToken(jwt)
+                .then((user) => {
+                    setCurrentUser(prevUserInfo => ({...prevUserInfo, ...user}));
+                    setLoggedIn(true);
+                    history.push('/movies');
+                })
+                .catch(console.log)
+                .finally(() => setIsFetchingMainServer(false));
+        }
+    }, [history]);
+
     useEffect(() => {
-        // сюда проверка токена
         setIsFetchingMainServer(true)
+        handleTokenCheck();
         if (loggedIn) {
             Promise
-                .all([mainApi.getMovies()])
-                .then(([movies]) => {
+                .all([mainApi.getMovies(), mainApi.getUserInfo()])
+                .then(([movies, user]) => {
                     setSavedMovies(movies);
+                    setCurrentUser(user);
                 })
                 .catch((err) => {
                     console.log(err);
                     setIsFetchMainServerErrored(true);
                 })
                 .finally(() => setIsFetchingMainServer(false))
+        } else {
+            setIsFetchingMainServer(false);
         }
-    }, [loggedIn])
+    }, [loggedIn, handleTokenCheck])
 
     function handleMovieSave(movie) {
         const formedMovie = formValidProps(movie);
@@ -141,9 +163,12 @@ function App() {
             .finally(() => setIsFetching(false))
     }
 
-    function logout() { // ВРЕМЕННОЕ РЕШЕНИЕ
-        setLoggedIn(false);
-        history.push('/');
+    function onSignOut() {
+        if (loggedIn) {
+            setLoggedIn(false);
+            localStorage.removeItem('jwt');
+            history.push('/')
+        }
     }
 
     const shouldHeaderBeShown = () => !pagesWithoutHeader.includes(location.pathname);
@@ -151,72 +176,73 @@ function App() {
 
     return (
         <div className="app">
-            {shouldHeaderBeShown() && (
-                <Header
-                    loggedIn={loggedIn}
-                    onBurgerClick={openMenuPopup}
+            <CurrentUserContext.Provider value={currentUser}>
+                {shouldHeaderBeShown() && (
+                    <Header
+                        loggedIn={loggedIn}
+                        onBurgerClick={openMenuPopup}
+                    />
+                )}
+                <Switch>
+                    <Route exact path='/'>
+                        <Main />
+                    </Route>
+
+                    <Route path='/signin'>
+                        <Login
+                            onLogin={onLogin}
+                            isFetching={isFetching}
+                            loginStatus={authStatus}
+                        />
+                    </Route>
+
+                    <Route path='/signup'>
+                        <Register
+                            onRegister={onRegister}
+                            isFetching={isFetching}
+                            registrationStatus={authStatus}
+                        />
+                    </Route>
+
+                    <Route path='/movies'>
+                        <Movies
+                            movies={ movies }
+                            savedMovies={ savedMovies }
+                            onSearch={handleSearchSubmit}
+                            isLoading={isFetching}
+                            isFetchErrored={isFetchErrored}
+                            onMovieSave={handleMovieSave}
+                            onMovieDelete={handleMovieDelete}
+                        />
+                    </Route>
+
+                    <Route path='/saved-movies'>
+                        <SavedMovies
+                            movies={savedMovies}
+                            onMovieDelete={handleMovieDelete}
+                            isLoading={isFetchingMainServer}
+                            isFetchErrored={isFetchMainServerErrored}
+                            onSearch=''
+                        />
+                    </Route>
+
+                    <Route path='/profile'>
+                        <Profile
+                            onLogout={onSignOut}
+                        />
+                    </Route>
+
+                    <Route path='/404' component={NotFound} />
+                    <Route path="*"><Redirect to='/404'/></Route>
+                </Switch>
+
+                <SideMenu
+                    isOpened={isPopupMenuOpened}
+                    onClose={closeAllPopups}
                 />
-            )}
-            <Switch>
-                <Route exact path='/'>
-                    <Main />
-                </Route>
 
-                <Route path='/signin'>
-                    <Login
-                        onLogin={onLogin}
-                        isFetching={isFetching}
-                        loginStatus={authStatus}
-                    />
-                </Route>
-
-                <Route path='/signup'>
-                    <Register
-                        onRegister={onRegister}
-                        isFetching={isFetching}
-                        registrationStatus={authStatus}
-                    />
-                </Route>
-
-                <Route path='/movies'>
-                    <Movies
-                        movies={ movies }
-                        savedMovies={ savedMovies }
-                        onSearch={handleSearchSubmit}
-                        isLoading={isFetching}
-                        isFetchErrored={isFetchErrored}
-                        onMovieSave={handleMovieSave}
-                        onMovieDelete={handleMovieDelete}
-                    />
-                </Route>
-
-                <Route path='/saved-movies'>
-                    <SavedMovies
-                        movies={savedMovies}
-                        onMovieDelete={handleMovieDelete}
-                        isLoading={isFetchingMainServer}
-                        isFetchErrored={isFetchMainServerErrored}
-                        onSearch=''
-                    />
-                </Route>
-
-                <Route path='/profile'>
-                    <Profile
-                        onLogout={logout}
-                    />
-                </Route>
-
-                <Route path='/404' component={NotFound} />
-                <Route path="*"><Redirect to='/404'/></Route>
-            </Switch>
-
-            <SideMenu
-                isOpened={isPopupMenuOpened}
-                onClose={closeAllPopups}
-            />
-
-            {shouldFooterBeShown() && <Footer/>}
-
+                {shouldFooterBeShown() && <Footer/>}
+            </CurrentUserContext.Provider>
         </div>
     );
 }

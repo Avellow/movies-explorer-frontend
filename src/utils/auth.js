@@ -27,3 +27,14 @@ export const authorize = (email, password) => {
     })
         .then(_checkResult)
 }
+
+export const checkToken = (jwt) => {
+    return fetch(`${MAIN_SERVER_URL}/users/me`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwt}`
+        }
+    })
+        .then(_checkResult)
+}

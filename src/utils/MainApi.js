@@ -45,6 +45,16 @@ class MainApi {
         })
             .then(this._checkResult)
     }
+
+    getUserInfo() {
+        return fetch(`${this._url}/users/me`, {
+            method: 'GET',
+            headers: {
+                authorization: this._token
+            }
+        })
+            .then(this._checkResult)
+    }
 }
 
 export default MainApi;

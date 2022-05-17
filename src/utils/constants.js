@@ -9,7 +9,7 @@ export const moviesApi = new MoviesApi(MOVIES_SERVER_URL + '/beatfilm-movies');
 export const MAIN_SERVER_URL = 'http://localhost:3000';
 export const mainApi = new MainApi({
     url: MAIN_SERVER_URL,
-    token: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjdlM2ZlMTQwNjkwNjA4MzVhOWRjOTMiLCJpYXQiOjE2NTI0NDEwNzYsImV4cCI6MTY1MzA0NTg3Nn0.50yMHnd6JCPR5dkWiIS3StkJIod9N5QJ1rWXtiFQQn4`,
+    token: `Bearer ${localStorage.getItem('jwt')}`
 });
 
 export function searchMovies(movies, value) {
