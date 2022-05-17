@@ -16,3 +16,14 @@ export const register = (name, email, password) => {
     })
         .then(_checkResult)
 }
+
+export const authorize = (email, password) => {
+    return fetch(`${MAIN_SERVER_URL}/signin`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password })
+    })
+        .then(_checkResult)
+}

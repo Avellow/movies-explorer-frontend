@@ -5,7 +5,7 @@ import Button from "../Button/Button";
 import Logo from "../Logo/Logo";
 import {NavLink} from "react-router-dom";
 import {useFormAndValidation} from "../../hooks/useFormAndValidation";
-import {generateRegisterError, NAME_VALIDATION_ERROR} from "../../utils/constants";
+import {generateAuthError, NAME_VALIDATION_ERROR} from "../../utils/constants";
 import Preloader from "../Preloader/Preloader";
 
 function Register(props) {
@@ -75,7 +75,7 @@ function Register(props) {
                     minLength={4}
                 />
                 {!registrationStatus.success && (
-                    <p className='register__error'>{generateRegisterError(registrationStatus.err)}</p>
+                    <p className='register__error'>{generateAuthError(registrationStatus.err)}</p>
                 )}
                 <Button
                     theme='auth'

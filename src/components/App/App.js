@@ -37,7 +37,7 @@ function App() {
     const [isFetchingMainServer, setIsFetchingMainServer] = useState(false);
     const [isFetchMainServerErrored, setIsFetchMainServerErrored] = useState(false);
 
-    const [registrationStatus, setRegistrationStatus] = useState({success: true, err: null})
+    const [authStatus, setAuthStatus] = useState({success: true, err: null}) //мб оптимизировать - просто err
 
     const history = useHistory();
     const location = useLocation();
@@ -111,19 +111,34 @@ function App() {
             .register(name, email, password)
             .then((user) => {
                 console.log(user);
-                setRegistrationStatus(prevState => ({...prevState, success: true, err: null}))
-                history.push('/') // заменю попапом с результатом и таймером на перенаправление
+                setAuthStatus(prevState => ({...prevState, success: true, err: null}))
+                history.push('/') // ЗАМЕНИТЬ НА ОНЛОГИН когда доделаю
             })
             .catch(err => {
                 console.log(err);
-                setRegistrationStatus(prevState => ({...prevState, success: false, err}))
+                setAuthStatus(prevState => ({...prevState, success: false, err}))
             })
             .finally(() => setIsFetching(false))
     }
 
-    function login() { // ВРЕМЕННОЕ РЕШЕНИЕ
-        setLoggedIn(true);
-        history.push('/movies');
+    function onLogin(email, password) { // ВРЕМЕННОЕ РЕШЕНИЕ
+        setIsFetching(true)
+        auth
+            .authorize(email, password)
+            .then((data) => {
+                if (data.token) {
+                    localStorage.setItem('jwt', data.token);
+                    mainApi.setToken(`Bearer ${data.token}`);
+                    setAuthStatus(prevState => ({...prevState, success: true, err: null}))
+                    setLoggedIn(true);
+                    history.push('/movies');
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                setAuthStatus(prevState => ({...prevState, success: false, err}))
+            })
+            .finally(() => setIsFetching(false))
     }
 
     function logout() { // ВРЕМЕННОЕ РЕШЕНИЕ
@@ -149,7 +164,9 @@ function App() {
 
                 <Route path='/signin'>
                     <Login
-                        onLogin={login}
+                        onLogin={onLogin}
+                        isFetching={isFetching}
+                        loginStatus={authStatus}
                     />
                 </Route>
 
@@ -157,7 +174,7 @@ function App() {
                     <Register
                         onRegister={onRegister}
                         isFetching={isFetching}
-                        registrationStatus={registrationStatus}
+                        registrationStatus={authStatus}
                     />
                 </Route>
 
