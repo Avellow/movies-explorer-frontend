@@ -62,6 +62,7 @@ function Register(props) {
                     errored={errors['email']}
                     errorText={errors['email']}
                     onChange={handleChange}
+                    value={values['email'] || ''}
                     required={true}
                 />
                 <Input
@@ -72,6 +73,7 @@ function Register(props) {
                     errored={errors['password']}
                     errorText={errors['password']}
                     onChange={handleChange}
+                    value={values['password'] || ''}
                     minLength={4}
                 />
                 {!registrationStatus.success && (

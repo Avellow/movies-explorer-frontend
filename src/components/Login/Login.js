@@ -40,6 +40,7 @@ function Login(props) {
                     type='email'
                     required={true}
                     onChange={handleChange}
+                    value={values['email'] || ''}
                     errored={errors['email']}
                     errorText={errors['email']}
                 />
@@ -49,6 +50,7 @@ function Login(props) {
                     type='password'
                     required={true}
                     onChange={handleChange}
+                    value={values['password'] || ''}
                     minLength={4}
                     errored={errors['password']}
                     errorText={errors['password']}
