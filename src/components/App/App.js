@@ -178,7 +178,6 @@ function App() {
 
     function onSignOut() {
         if (loggedIn) {
-            console.log(loggedIn)
             setLoggedIn(false);
             localStorage.removeItem('jwt');
             sessionStorage.removeItem('loggedIn');

@@ -1,7 +1,7 @@
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MoviesCard from "../MoviesCard/MoviesCard";
-import {CONNECTION_ERROR} from "../../utils/constants";
+import {CONNECTION_ERROR, shortDuration} from "../../utils/constants";
 import Preloader from "../Preloader/Preloader";
 import {useEffect, useState} from "react";
 
@@ -14,13 +14,26 @@ function SavedMovies(props) {
     } = props;
 
     const [searchValue, setSearchValue] = useState('')
+    const [
+        isShortFilmToggleChecked,
+        setIsShortFilmToggleChecked
+    ] = useState(JSON.parse(localStorage.getItem('isShortFilmToggleChecked')));
+
+    function onToggleCheck() {
+        setIsShortFilmToggleChecked(!isShortFilmToggleChecked);
+        localStorage.setItem('isShortFilmToggleChecked', `${!isShortFilmToggleChecked}`)
+    }
 
     function handleFilterMovies(value) {
         setSearchValue(value.toLowerCase())
     }
 
     const movieElementsList = movies
-        .filter(movie => movie.nameRU.toLowerCase().includes(searchValue))
+        .filter(movie => {
+            return isShortFilmToggleChecked
+                ? (movie.nameRU.toLowerCase().includes(searchValue) && movie.duration <= shortDuration)
+                : movie.nameRU.toLowerCase().includes(searchValue)
+        })
         .map(movie => (
             <MoviesCard
                 key={movie._id}
@@ -41,6 +54,8 @@ function SavedMovies(props) {
         <main className='movies'>
             <SearchForm
                 onSubmit={handleFilterMovies}
+                onToggleCheck={onToggleCheck}
+                isToggleChecked={isShortFilmToggleChecked}
             />
 
             {isFetchErrored && (<h4 className='movies-cards__not-found'>{CONNECTION_ERROR}</h4>)}

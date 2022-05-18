@@ -74,6 +74,7 @@ export const formDuration = (duration) => {
     return duration + declension;
 }
 
+export const shortDuration = 40;
 
 export const validateLink = (link) => {
     const regex = /http[s]?:\/\/(www.)?[\S]+\.[a-z]+[\S]*/gi;

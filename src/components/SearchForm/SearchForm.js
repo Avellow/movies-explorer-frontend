@@ -5,25 +5,20 @@ import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import { useState } from "react";
 
 function SearchForm(props) {
-    const { onSubmit } = props;
+    const {
+        onSubmit,
+        onToggleCheck,
+        isToggleChecked,
+    } = props;
 
     const [value, setValue] = useState(localStorage.getItem('lastSearchedMovies') || '');
     const [isErrored, setIsErrored] = useState(false);
-    const [
-        isShortFilmToggleChecked,
-        setIsShortFilmToggleChecked
-    ] = useState(!!JSON.parse(localStorage.getItem('isShortFilmToggleChecked')));
 
     function handleChange(e) {
         setValue(e.target.value)
     }
 
-    function handleShortFilmCheck() {
-        setIsShortFilmToggleChecked(!isShortFilmToggleChecked);
-    }
-
     function handleSubmit() {
-        localStorage.setItem('isShortFilmToggleChecked', `${isShortFilmToggleChecked}`)
         if (value) {
             setIsErrored(false);
             onSubmit(value);
@@ -62,8 +57,8 @@ function SearchForm(props) {
             {isErrored && <span className='search-form__error'>Нужно ввести ключевое слово!</span>}
             <ToggleSwitch
                 text='Короткометражки'
-                onCheck={ handleShortFilmCheck }
-                isChecked={ isShortFilmToggleChecked }
+                onCheck={ onToggleCheck }
+                isChecked={ isToggleChecked }
             />
         </section>
     )

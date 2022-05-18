@@ -2,8 +2,9 @@ import './Movies.css';
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
-import {checkIdInList, CONNECTION_ERROR, MOVIES_SERVER_URL} from "../../utils/constants";
+import {checkIdInList, CONNECTION_ERROR, MOVIES_SERVER_URL, shortDuration} from "../../utils/constants";
 import MoviesCard from "../MoviesCard/MoviesCard";
+import {useState} from "react";
 
 function Movies(props) {
     const {
@@ -15,6 +16,16 @@ function Movies(props) {
         onMovieDelete,
         savedMovies,
     } = props;
+
+    const [
+        isShortFilmToggleChecked,
+        setIsShortFilmToggleChecked
+    ] = useState(JSON.parse(localStorage.getItem('isShortFilmToggleChecked')));
+
+    function onToggleCheck() {
+        setIsShortFilmToggleChecked(!isShortFilmToggleChecked);
+        localStorage.setItem('isShortFilmToggleChecked', `${!isShortFilmToggleChecked}`)
+    }
 
     const movieElementsList = !movies
         ? null
@@ -37,12 +48,20 @@ function Movies(props) {
         <main className='movies'>
             <SearchForm
                 onSubmit={onSearch}
+                onToggleCheck={onToggleCheck}
+                isToggleChecked={isShortFilmToggleChecked}
             />
             {isFetchErrored && (<h4 className='movies-cards__not-found'>{CONNECTION_ERROR}</h4>)}
+
             {!isFetchErrored && (isLoading
                 ? (<Preloader />)
                 : (<MoviesCardList
-                        movies={movieElementsList}
+                        movies={
+                            isShortFilmToggleChecked
+                                ? movieElementsList
+                                    .filter(movieElement => movieElement.props.duration <= shortDuration)
+                                : movieElementsList
+                        }
                         onMovieSave={onMovieSave}
                         onMovieDelete={onMovieDelete}
                         savedMovies={savedMovies}
