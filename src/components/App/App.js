@@ -22,11 +22,12 @@ import {
     pagesWithoutHeader, searchMovies,
 } from "../../utils/constants";
 import {CurrentUserContext} from "../../contexts/CurrentUserContext";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 
 function App() {
 
-    const [ loggedIn, setLoggedIn ] = useState(false);
+    const [ loggedIn, setLoggedIn ] = useState(Boolean(sessionStorage.getItem('loggedIn')) || false);
     const [ isPopupMenuOpened, setIsPopupMenuOpened] = useState(false);
 
     const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('movies')) || []);
@@ -54,9 +55,14 @@ function App() {
                 .then((user) => {
                     setCurrentUser(prevUserInfo => ({...prevUserInfo, ...user}));
                     setLoggedIn(true);
+                    sessionStorage.setItem('loggedIn', 'true');
                 })
-                .catch(console.log)
+                .catch((err) => {
+                    console.log(err);
+                })
                 .finally(() => setIsFetchingMainServer(false));
+        } else {
+            onSignOut();
         }
     }, [history]);
 
@@ -173,9 +179,11 @@ function App() {
 
     function onSignOut() {
         if (loggedIn) {
+            console.log(loggedIn)
             setLoggedIn(false);
             localStorage.removeItem('jwt');
-            history.push('/')
+            sessionStorage.removeItem('loggedIn');
+            history.push('/');
         }
     }
 
@@ -212,33 +220,36 @@ function App() {
                         />
                     </Route>
 
-                    <Route path='/movies'>
-                        <Movies
-                            movies={ movies }
-                            savedMovies={ savedMovies }
-                            onSearch={handleSearchSubmit}
-                            isLoading={isFetching}
-                            isFetchErrored={isFetchErrored}
-                            onMovieSave={handleMovieSave}
-                            onMovieDelete={handleMovieDelete}
-                        />
-                    </Route>
+                    <ProtectedRoute
+                        component={Movies}
+                        loggedIn={loggedIn}
+                        movies={movies}
+                        exact path='/movies'
+                        savedMovies={ savedMovies }
+                        onSearch={handleSearchSubmit}
+                        isLoading={isFetching}
+                        isFetchErrored={isFetchErrored}
+                        onMovieSave={handleMovieSave}
+                        onMovieDelete={handleMovieDelete}
+                    />
 
-                    <Route path='/saved-movies'>
-                        <SavedMovies
-                            movies={savedMovies}
-                            onMovieDelete={handleMovieDelete}
-                            isLoading={isFetchingMainServer}
-                            isFetchErrored={isFetchMainServerErrored}
-                        />
-                    </Route>
+                    <ProtectedRoute
+                        exact path='/saved-movies'
+                        component={SavedMovies}
+                        loggedIn={loggedIn}
+                        movies={savedMovies}
+                        onMovieDelete={handleMovieDelete}
+                        isLoading={isFetchingMainServer}
+                        isFetchErrored={isFetchMainServerErrored}
+                    />
 
-                    <Route path='/profile'>
-                        <Profile
-                            onUpdate={onUserInfoUpdate}
-                            onLogout={onSignOut}
-                        />
-                    </Route>
+                    <ProtectedRoute
+                        exact path='/profile'
+                        component={Profile}
+                        loggedIn={loggedIn}
+                        onUpdate={onUserInfoUpdate}
+                        onLogout={onSignOut}
+                    />
 
                     <Route path='/404' component={NotFound} />
                     <Route path="*"><Redirect to='/404'/></Route>
