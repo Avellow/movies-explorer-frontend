@@ -136,10 +136,9 @@ function App() {
         setIsFetching(true)
         auth
             .register(name, email, password)
-            .then((user) => {
-                console.log(user);
+            .then(() => {
                 setAuthStatus(prevState => ({...prevState, success: true, err: null}))
-                history.push('/') // ЗАМЕНИТЬ НА ОНЛОГИН когда доделаю
+                onLogin(email, password)
             })
             .catch(err => {
                 console.log(err);
