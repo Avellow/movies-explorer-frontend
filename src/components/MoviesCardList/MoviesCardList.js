@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 function MoviesCardList(props) {
     const {
         movies,
+        shouldAllMoviesBeShown = false,
     } = props;
 
     // потратил много времени на это! ОТРЕФАКТОРЮ СО СВЕЖИМ ВЗГЛЯДОМ ПОЗЖЕ
@@ -44,14 +45,16 @@ function MoviesCardList(props) {
         : (
             <section className='movies-cards'>
                 <ul className='movies-cards__list'>
-                    {movies.slice(0, showedMovies.inListCount)}
+                    {movies.slice(0, shouldAllMoviesBeShown ? movies.length : showedMovies.inListCount)}
                 </ul>
-                {movies.length > showedMovies.inListCount && (
-                    <Button
-                        theme='loader'
-                        text='Ещё'
-                        onClick={loadMovies}
-                    />)
+                {shouldAllMoviesBeShown || (
+                    (movies.length > showedMovies.inListCount) && (
+                        <Button
+                            theme='loader'
+                            text='Ещё'
+                            onClick={loadMovies}
+                        />)
+                    )
                 }
             </section>
         )

@@ -50,6 +50,7 @@ function SavedMovies(props) {
                 : (<MoviesCardList
                       movies={movieElementsList.length ? movieElementsList : null}
                       listType='saved'
+                      shouldAllMoviesBeShown={true}
                    />)
                 )
             }
