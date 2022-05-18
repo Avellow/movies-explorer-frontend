@@ -29,6 +29,7 @@ function SideMenu(props) {
                             to={to}
                             className='navigation__link'
                             activeStyle={{textDecoration: "underline"}}
+                            onClick={onClose}
                         >
                             {text}
                         </NavLink>
@@ -40,6 +41,7 @@ function SideMenu(props) {
                         className='navigation__link navigation__link_type_profile'
                         style={{display: 'flex'}}
                         upperspace='true'
+                        onClick={onClose}
                     >
                         Аккаунт
                         <img
