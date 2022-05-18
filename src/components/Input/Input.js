@@ -26,7 +26,7 @@ function Input(props) {
                     {...inputProps}
                 />
             </label>
-            { errored && <span className={`${className}__error`}>{errorText}</span> }
+            { errored && <span className={`input__error`}>{errorText}</span> }
         </div>
     )
 }

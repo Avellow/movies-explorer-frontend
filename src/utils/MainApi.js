@@ -55,6 +55,18 @@ class MainApi {
         })
             .then(this._checkResult)
     }
+
+    updateUserInfo(name, email) {
+        return fetch(`${this._url}/users/me`, {
+            method: 'PATCH',
+            headers: {
+                authorization: this._token,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({name, email})
+        })
+            .then(this._checkResult)
+    }
 }
 
 export default MainApi;

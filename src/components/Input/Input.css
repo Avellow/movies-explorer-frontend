@@ -47,6 +47,11 @@
 .profile-input {
     font-size: 13px;
     line-height: 1.18;
+    max-width: 396px;
+}
+
+.profile-input_errored {
+    margin-bottom: 15px;
 }
 
 .profile-input:first-of-type {
@@ -76,6 +81,11 @@
     outline: none;
     padding: 0;
     text-align: end;
+    width: 100%;
+}
+
+.profile-input__field_errored {
+    color: #FF3055;
 }
 
 @media screen and (max-width: 770px) {

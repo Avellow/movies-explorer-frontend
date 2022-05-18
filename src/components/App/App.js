@@ -162,6 +162,15 @@ function App() {
             .finally(() => setIsFetching(false))
     }
 
+    function onUserInfoUpdate(name, email) {
+        mainApi
+            .updateUserInfo(name, email)
+            .then(({name, email}) => setCurrentUser(
+                prevState => ({... prevState, name, email}))
+            )
+            .catch(console.log)
+    }
+
     function onSignOut() {
         if (loggedIn) {
             setLoggedIn(false);
@@ -226,6 +235,7 @@ function App() {
 
                     <Route path='/profile'>
                         <Profile
+                            onUpdate={onUserInfoUpdate}
                             onLogout={onSignOut}
                         />
                     </Route>
