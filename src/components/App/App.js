@@ -184,7 +184,9 @@ function App() {
     function onSignOut() {
         if (loggedIn) {
             setLoggedIn(false);
-            localStorage.removeItem('jwt');
+            setMovies([]);
+            setSavedMovies([]);
+            localStorage.clear();
             sessionStorage.removeItem('loggedIn');
             history.push('/');
         }
