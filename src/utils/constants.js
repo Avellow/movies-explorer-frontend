@@ -150,14 +150,17 @@ export const pagesWithoutFooter = [
 
 export const popupMenuLinks = [
     {
+        id: 1,
         to: '/',
         text: 'Главная'
     },
     {
+        id: 2,
         to: '/movies',
         text: 'Фильмы',
     },
     {
+        id: 3,
         to: '/saved-movies',
         text: 'Сохранённые фильмы',
     }

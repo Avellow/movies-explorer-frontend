@@ -22,9 +22,9 @@ function SideMenu(props) {
                     location='popup'
                     type='side'
                 >
-                    {popupMenuLinks.map(({to, text}, i) => (
+                    {popupMenuLinks.map(({to, text, id}) => (
                         <NavLink
-                            key={i}
+                            key={id}
                             exact
                             to={to}
                             className='navigation__link'
