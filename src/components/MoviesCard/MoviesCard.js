@@ -52,10 +52,16 @@ function MoviesCard(props) {
     return (
         <li className='movies-card'>
             <div className='movies-card__info'>
-                <h3 className='movies-card__title'>{ title }</h3>
+                <h3
+                    className='movies-card__title'
+                >
+                    { title.trim() }
+                </h3>
+                <span className='movies-card__tooltip'>{ title.trim() }</span>
                 <p className='movies-card__duration'>{ formDuration(duration) }</p>
             </div>
             <a
+                className='movies-card__poster-link'
                 href={trailerLink}
                 target='_blank'
             >
@@ -65,8 +71,9 @@ function MoviesCard(props) {
                     alt='постер'
                 />
             </a>
-
-            { generateButton() }
+            <div className='movies-card__btn-container'>
+                { generateButton() }
+            </div>
         </li>
     )
 }
