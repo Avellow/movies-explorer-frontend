@@ -1,5 +1,5 @@
 .form {
-    min-width: 396px;
+    width: 396px;
     max-height: 626px;
     height: 100%;
     display: flex;
