@@ -1,6 +1,6 @@
 import './AboutMe.css';
-import authorPhoto from '../../images/author-photo/IMG_1864.jpeg';
-import arrow from '../../images/arrow/arrow.svg';
+import authorPhoto from '../../../images/author-photo/IMG_1864.jpeg';
+import arrow from '../../../images/arrow/arrow.svg';
 import SectionTitle from "../section-title/SectionTitle";
 
 function AboutMe() {

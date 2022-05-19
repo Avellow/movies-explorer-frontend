@@ -1,6 +1,6 @@
 import './App.css';
 import Header from '../Header/Header';
-import Main from '../Main/Main';
+import Main from '../landing/Main/Main';
 import Footer from "../Footer/Footer";
 import Movies from "../Movies/Movies";
 import NotFound from "../NotFound/NotFound";
