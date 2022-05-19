@@ -33,7 +33,7 @@
 
 @media screen and (max-width: 525px) {
     .form {
-        min-width: 260px;
+        width: 320px;
         height: 100%;
         max-height: 700px;
     }
@@ -45,5 +45,11 @@
     .form__hint {
         font-size: 12px;
         line-height: 1.25;
+    }
+}
+
+@media screen and (max-width: 390px) {
+    .form {
+        width: 260px;
     }
 }
