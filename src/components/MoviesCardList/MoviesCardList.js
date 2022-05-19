@@ -9,15 +9,15 @@ function MoviesCardList(props) {
         shouldAllMoviesBeShown = false,
     } = props;
 
-
-    const [ showedMovies, setShowedMovies ] = useState(generateCardsCount(window.innerWidth, initialCardsCount(window.innerWidth)));
-    const [currentWindowWidth, setCurrentWindowWidth] = useState(window.innerWidth)
+    const [
+        showedMovies,
+        setShowedMovies
+    ] = useState(generateCardsCount(window.innerWidth, initialCardsCount(window.innerWidth)));
 
     useEffect(() => {
 
         function handleResize() {
             setTimeout(() => {
-                setCurrentWindowWidth(window.innerWidth);
                 setShowedMovies(prevState => generateCardsCount(window.innerWidth, prevState.inListCount))
             }, 100)
         }
@@ -26,7 +26,7 @@ function MoviesCardList(props) {
 
         return () => window.removeEventListener('resize', handleResize);
 
-    }, [currentWindowWidth])
+    }, [])
 
 
     function loadMovies() {
