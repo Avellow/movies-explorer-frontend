@@ -223,19 +223,31 @@ function App() {
                     </Route>
 
                     <Route path='/signin'>
-                        <Login
-                            onLogin={onLogin}
-                            isFetching={isFetching}
-                            loginStatus={authStatus}
-                        />
+                        {
+                            loggedIn
+                                ? (<Redirect to='/'/>)
+                                : (
+                                    <Login
+                                        onLogin={onLogin}
+                                        isFetching={isFetching}
+                                        loginStatus={authStatus}
+                                    />
+                                )
+                        }
                     </Route>
 
                     <Route path='/signup'>
-                        <Register
-                            onRegister={onRegister}
-                            isFetching={isFetching}
-                            registrationStatus={authStatus}
-                        />
+                        {
+                            loggedIn
+                                ? (<Redirect to='/'/>)
+                                : (
+                                    <Register
+                                        onRegister={onRegister}
+                                        isFetching={isFetching}
+                                        registrationStatus={authStatus}
+                                    />
+                                )
+                        }
                     </Route>
 
                     <ProtectedRoute
