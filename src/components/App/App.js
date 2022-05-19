@@ -43,6 +43,11 @@ function App() {
 
     const [currentUser, setCurrentUser] = useState({})
 
+    const [
+        isShortFilmToggleChecked,
+        setIsShortFilmToggleChecked
+    ] = useState(JSON.parse(localStorage.getItem('isShortFilmToggleChecked')));
+
     const history = useHistory();
     const location = useLocation();
 
@@ -185,6 +190,11 @@ function App() {
         }
     }
 
+    function onToggleCheck() {
+        setIsShortFilmToggleChecked(!isShortFilmToggleChecked);
+        localStorage.setItem('isShortFilmToggleChecked', `${!isShortFilmToggleChecked}`)
+    }
+
     const shouldHeaderBeShown = () => !pagesWithoutHeader.includes(location.pathname);
     const shouldFooterBeShown = () => !pagesWithoutFooter.includes(location.pathname);
 
@@ -229,6 +239,8 @@ function App() {
                         isFetchErrored={isFetchErrored}
                         onMovieSave={handleMovieSave}
                         onMovieDelete={handleMovieDelete}
+                        onToggleCheck={onToggleCheck}
+                        isToggleChecked={isShortFilmToggleChecked}
                     />
 
                     <ProtectedRoute
@@ -239,6 +251,8 @@ function App() {
                         onMovieDelete={handleMovieDelete}
                         isLoading={isFetchingMainServer}
                         isFetchErrored={isFetchMainServerErrored}
+                        onToggleCheck={onToggleCheck}
+                        isToggleChecked={isShortFilmToggleChecked}
                     />
 
                     <ProtectedRoute

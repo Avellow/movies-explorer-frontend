@@ -11,18 +11,11 @@ function SavedMovies(props) {
         onMovieDelete,
         isLoading,
         isFetchErrored,
+        onToggleCheck,
+        isToggleChecked,
     } = props;
 
     const [searchValue, setSearchValue] = useState('')
-    const [
-        isShortFilmToggleChecked,
-        setIsShortFilmToggleChecked
-    ] = useState(JSON.parse(localStorage.getItem('isShortFilmToggleChecked')));
-
-    function onToggleCheck() {
-        setIsShortFilmToggleChecked(!isShortFilmToggleChecked);
-        localStorage.setItem('isShortFilmToggleChecked', `${!isShortFilmToggleChecked}`)
-    }
 
     function handleFilterMovies(value) {
         setSearchValue(value.toLowerCase())
@@ -30,7 +23,7 @@ function SavedMovies(props) {
 
     const movieElementsList = movies
         .filter(movie => {
-            return isShortFilmToggleChecked
+            return isToggleChecked
                 ? (movie.nameRU.toLowerCase().includes(searchValue) && movie.duration <= shortDuration)
                 : movie.nameRU.toLowerCase().includes(searchValue)
         })
@@ -55,7 +48,7 @@ function SavedMovies(props) {
             <SearchForm
                 onSubmit={handleFilterMovies}
                 onToggleCheck={onToggleCheck}
-                isToggleChecked={isShortFilmToggleChecked}
+                isToggleChecked={isToggleChecked}
             />
 
             {isFetchErrored && (<h4 className='movies-cards__not-found'>{CONNECTION_ERROR}</h4>)}

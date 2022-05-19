@@ -9,7 +9,7 @@ function MoviesCardList(props) {
         shouldAllMoviesBeShown = false,
     } = props;
 
-    // потратил много времени на это! ОТРЕФАКТОРЮ СО СВЕЖИМ ВЗГЛЯДОМ ПОЗЖЕ
+
     const [ showedMovies, setShowedMovies ] = useState(generateCardsCount(window.innerWidth, initialCardsCount(window.innerWidth)));
     const [currentWindowWidth, setCurrentWindowWidth] = useState(window.innerWidth)
 

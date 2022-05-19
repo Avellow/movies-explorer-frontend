@@ -15,17 +15,9 @@ function Movies(props) {
         onMovieSave,
         onMovieDelete,
         savedMovies,
+        onToggleCheck,
+        isToggleChecked,
     } = props;
-
-    const [
-        isShortFilmToggleChecked,
-        setIsShortFilmToggleChecked
-    ] = useState(JSON.parse(localStorage.getItem('isShortFilmToggleChecked')));
-
-    function onToggleCheck() {
-        setIsShortFilmToggleChecked(!isShortFilmToggleChecked);
-        localStorage.setItem('isShortFilmToggleChecked', `${!isShortFilmToggleChecked}`)
-    }
 
     const movieElementsList = !movies
         ? null
@@ -49,7 +41,7 @@ function Movies(props) {
             <SearchForm
                 onSubmit={onSearch}
                 onToggleCheck={onToggleCheck}
-                isToggleChecked={isShortFilmToggleChecked}
+                isToggleChecked={isToggleChecked}
             />
             {isFetchErrored && (<h4 className='movies-cards__not-found'>{CONNECTION_ERROR}</h4>)}
 
@@ -57,7 +49,7 @@ function Movies(props) {
                 ? (<Preloader />)
                 : (<MoviesCardList
                         movies={
-                            isShortFilmToggleChecked
+                            isToggleChecked
                                 ? movieElementsList
                                     .filter(movieElement => movieElement.props.duration <= shortDuration)
                                 : movieElementsList
