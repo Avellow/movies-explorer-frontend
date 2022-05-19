@@ -5,12 +5,13 @@ import Button from "../Button/Button";
 import {useContext, useEffect} from "react";
 import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 import {useFormAndValidation} from "../../hooks/useFormAndValidation";
-import {NAME_VALIDATION_ERROR} from "../../utils/constants";
+import {generateAuthError, NAME_VALIDATION_ERROR, userInfoUpdateSuccess} from "../../utils/constants";
 
 function Profile(props) {
     const {
         onLogout,
         onUpdate,
+        isUpdateSucceed = null
     } = props;
 
     const {
@@ -68,6 +69,11 @@ function Profile(props) {
                     errored={errors['email']}
                     errorText={errors['email']}
                 />
+
+                {
+                    (isUpdateSucceed === false && (<p className='profile__error'>{generateAuthError()}</p>))
+                    || (isUpdateSucceed === true && (<p className='profile__success'>{userInfoUpdateSuccess}</p>))
+                }
 
                 <Button
                     text='Редактировать'

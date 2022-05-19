@@ -6,6 +6,19 @@
     height: calc(100vh - 78px);
 }
 
+
+.profile__error {
+    color: #FF3055;
+    text-align: center;
+    font-weight: 500;
+}
+
+.profile__success {
+    color: #2BE080;
+    text-align: center;
+    font-weight: 500;
+}
+
 @media screen and (max-width: 770px) {
     .profile {
         align-items: center;

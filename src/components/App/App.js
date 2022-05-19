@@ -43,6 +43,8 @@ function App() {
 
     const [currentUser, setCurrentUser] = useState({})
 
+    const [isUserUpdateSucceed, setIsUserUpdateSucceed] = useState(null);
+
     const [
         isShortFilmToggleChecked,
         setIsShortFilmToggleChecked
@@ -175,10 +177,16 @@ function App() {
     function onUserInfoUpdate(name, email) {
         mainApi
             .updateUserInfo(name, email)
-            .then(({name, email}) => setCurrentUser(
-                prevState => ({... prevState, name, email}))
+            .then(({name, email}) => {
+                    setCurrentUser(prevState => ({...prevState, name, email}));
+                    setIsUserUpdateSucceed(true);
+                }
             )
-            .catch(console.log)
+            .catch((err) => {
+                console.log(err);
+                setIsUserUpdateSucceed(false);
+            })
+            .finally(() => setTimeout(() => {setIsUserUpdateSucceed(null)}, 10000))
     }
 
     function onSignOut() {
@@ -263,6 +271,7 @@ function App() {
                         loggedIn={loggedIn}
                         onUpdate={onUserInfoUpdate}
                         onLogout={onSignOut}
+                        isUpdateSucceed={isUserUpdateSucceed}
                     />
 
                     <Route path='/404' component={NotFound} />

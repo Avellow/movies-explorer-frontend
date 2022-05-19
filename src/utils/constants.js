@@ -17,7 +17,7 @@ export function searchMovies(movies, value) {
     return filteredMovies.length ? filteredMovies : null;
 }
 
-// сообщения ошибок
+// сообщения ошибок и результатов операций
 export const CONNECTION_ERROR = 'Во время запроса произошла ошибка. Возможно, ' +
     'проблема с соединением или сервер недоступен. Подождите немного и ' +
     'попробуйте ещё раз'
@@ -29,6 +29,8 @@ export const generateAuthError = (code = 500) => {
     if (code === 401) result = 'Неправильные почта/пароль.'
     return result;
 }
+
+export const userInfoUpdateSuccess = 'Данные профиля успешно обновлены'
 
 // зависимость отрисованных карточек от ширины экрана
 // функционал РАБОТАЕТ но гляну потом свежим взглядом на это безобразие :)
