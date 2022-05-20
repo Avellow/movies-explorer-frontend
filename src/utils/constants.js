@@ -30,6 +30,20 @@ export const generateAuthError = (code = 500) => {
     return result;
 }
 
+export const generateError = (err, defaultText = '') => {
+    console.log(err);
+    if (defaultText) return `${defaultText} (${err})`;
+
+    let result = 'Произошла неизвестная ошибка'
+    switch(err) {
+        case 401: result = 'Некорректный токен'; break;
+        case 404: result = 'Запрос по несуществующему пути'; break;
+
+    }
+
+    return result;
+}
+
 export const userInfoUpdateSuccess = 'Данные профиля успешно обновлены'
 
 // зависимость отрисованных карточек от ширины экрана

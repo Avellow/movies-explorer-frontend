@@ -12,18 +12,18 @@ import Register from "../Register/Register";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import SideMenu from "../SideMenu/SideMenu";
 import * as auth from '../../utils/auth';
-import {
-    checkIdInList,
-    formValidProps,
-    mainApi,
-    MOVIES_SERVER_URL,
-    moviesApi,
-    pagesWithoutFooter,
-    pagesWithoutHeader, searchMovies,
-} from "../../utils/constants";
 import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-
+import {
+    formValidProps, generateError,
+    mainApi,
+    moviesApi,
+    pagesWithoutFooter,
+    pagesWithoutHeader,
+    searchMovies,
+} from "../../utils/constants";
+import Popup from "../Popup/Popup";
+import PopupWithError from "../PopupWithError/PopupWithError";
 
 function App() {
 
@@ -45,6 +45,9 @@ function App() {
 
     const [isUserUpdateSucceed, setIsUserUpdateSucceed] = useState(null);
 
+    const [isErrorPopupOpened, setIsErrorPopupOpened] = useState(true);
+    const [errorText, setErrorText] = useState(null);
+
     const [
         isShortFilmToggleChecked,
         setIsShortFilmToggleChecked
@@ -65,7 +68,8 @@ function App() {
                     sessionStorage.setItem('loggedIn', 'true');
                 })
                 .catch((err) => {
-                    console.log(err);
+                    showError(err, 's');
+                    onSignOut();
                 })
                 .finally(() => setIsFetchingMainServer(false));
         } else {
@@ -84,7 +88,7 @@ function App() {
                     setCurrentUser(user);
                 })
                 .catch((err) => {
-                    console.log(err);
+                    showError(err, 'Не удалось получить информацию.');
                     setIsFetchMainServerErrored(true);
                 })
                 .finally(() => setIsFetchingMainServer(false))
@@ -100,7 +104,7 @@ function App() {
             .then((savedMovie) => {
                 setSavedMovies(prevState => [...prevState, savedMovie])
             })
-            .catch(console.log)
+            .catch(err => showError(err, 'Не удалось сохранить фильм.'))
     }
 
     function handleMovieDelete(id) {
@@ -111,6 +115,7 @@ function App() {
             .then(({data: movie}) => {
                 setSavedMovies(prevState => prevState.filter(m => m.movieId !== movie.movieId))
             })
+            .catch(err => showError(err, 'Не удалось удалить фильм.'))
     }
 
     function handleSearchSubmit(value) {
@@ -133,6 +138,7 @@ function App() {
 
     function closeAllPopups() {
         setIsPopupMenuOpened(false);
+        setIsErrorPopupOpened(false);
     }
 
     function openMenuPopup() {
@@ -154,7 +160,7 @@ function App() {
             .finally(() => setIsFetching(false))
     }
 
-    function onLogin(email, password) { // ВРЕМЕННОЕ РЕШЕНИЕ
+    function onLogin(email, password) {
         setIsFetching(true)
         auth
             .authorize(email, password)
@@ -190,19 +196,27 @@ function App() {
     }
 
     function onSignOut() {
-        if (loggedIn) {
-            setLoggedIn(false);
-            setMovies([]);
-            setSavedMovies([]);
-            localStorage.clear();
-            sessionStorage.removeItem('loggedIn');
-            history.push('/');
-        }
+        setLoggedIn(false);
+        setMovies([]);
+        setSavedMovies([]);
+        localStorage.clear();
+        sessionStorage.removeItem('loggedIn');
+        history.push('/');
     }
 
     function onToggleCheck() {
         setIsShortFilmToggleChecked(!isShortFilmToggleChecked);
         localStorage.setItem('isShortFilmToggleChecked', `${!isShortFilmToggleChecked}`)
+    }
+
+    function showError(err, text = '') {
+        setIsErrorPopupOpened(true);
+        setErrorText(generateError(err, text))
+    }
+
+    function onMainPageReturn() {
+        setErrorText(null)
+        closeAllPopups();
     }
 
     const shouldHeaderBeShown = () => !pagesWithoutHeader.includes(location.pathname);
@@ -297,6 +311,15 @@ function App() {
 
                 {shouldFooterBeShown() && <Footer/>}
             </CurrentUserContext.Provider>
+
+            {errorText && (
+                <PopupWithError
+                    onClose={closeAllPopups}
+                    isOpened={isErrorPopupOpened}
+                    errorText={errorText}
+                    onReturn={onMainPageReturn}
+                />)
+            }
         </div>
     );
 }

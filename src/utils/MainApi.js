@@ -11,7 +11,7 @@ class MainApi {
     _checkResult(res) {
         return res.ok
             ? res.json()
-            : Promise.reject(`Ошибка ${res.status}`)
+            : Promise.reject(res.status)
     }
 
     getMovies() {
