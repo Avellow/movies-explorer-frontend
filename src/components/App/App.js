@@ -177,9 +177,16 @@ function App() {
             })
             .catch(err => {
                 console.log(err);
-                setAuthStatus(prevState => ({...prevState, success: false, err}))
+                setAuthStatus(prevState => ({...prevState, success: false, err}));
+                setTimeout(() => {
+                    //setAuthStatus(prevState => ({...prevState, success: true, err: null}))
+                }, 5000)
             })
             .finally(() => setIsFetching(false))
+    }
+
+    function cleanErrorMessage() {
+        setAuthStatus(prevState => ({...prevState, success: true, err: null}))
     }
 
     function onUserInfoUpdate(name, email) {
@@ -253,6 +260,7 @@ function App() {
                                         onLogin={onLogin}
                                         isFetching={isFetching}
                                         loginStatus={authStatus}
+                                        cleanError={cleanErrorMessage}
                                     />
                                 )
                         }
@@ -267,6 +275,7 @@ function App() {
                                         onRegister={onRegister}
                                         isFetching={isFetching}
                                         registrationStatus={authStatus}
+                                        cleanError={cleanErrorMessage}
                                     />
                                 )
                         }

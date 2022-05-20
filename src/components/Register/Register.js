@@ -7,13 +7,17 @@ import {NavLink} from "react-router-dom";
 import {useFormAndValidation} from "../../hooks/useFormAndValidation";
 import {generateAuthError, NAME_VALIDATION_ERROR} from "../../utils/constants";
 import Preloader from "../Preloader/Preloader";
+import {useEffect} from "react";
 
 function Register(props) {
     const {
         onRegister,
         registrationStatus,
         isFetching,
+        cleanError
     } = props;
+
+    useEffect(() => cleanError(), []);
 
     const {
         values,

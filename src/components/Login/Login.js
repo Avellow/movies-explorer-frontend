@@ -6,13 +6,17 @@ import Logo from "../Logo/Logo";
 import {NavLink} from "react-router-dom";
 import {useFormAndValidation} from "../../hooks/useFormAndValidation";
 import {generateAuthError} from "../../utils/constants";
+import {useEffect} from "react";
 
 function Login(props) {
     const {
         onLogin,
         loginStatus,
         isFetching,
+        cleanError,
     } = props;
+
+    useEffect(() => cleanError(), []);
 
     const {
         values,
