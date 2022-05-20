@@ -43,6 +43,7 @@ function Login(props) {
                     value={values['email'] || ''}
                     errored={errors['email']}
                     errorText={errors['email']}
+                    disabled={isFetching}
                 />
                 <Input
                     labelTitle='Пароль'
@@ -54,6 +55,7 @@ function Login(props) {
                     minLength={4}
                     errored={errors['password']}
                     errorText={errors['password']}
+                    disabled={isFetching}
                 />
                 {!loginStatus.success && (
                     <p className='login__error'>{generateAuthError(loginStatus.err)}</p>
@@ -63,7 +65,7 @@ function Login(props) {
                     text='Войти'
                     onClick={handleLogin}
                     type='submit'
-                    disabled={!isValid}
+                    disabled={!isValid || isFetching}
                 />
                 <p className='form__hint'>
                     Ещё не зарегистрированы?

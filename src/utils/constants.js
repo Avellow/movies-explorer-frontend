@@ -148,6 +148,11 @@ export const formValidProps = (movie) => {
 // проверяет еслть ли фильм с таким id в списке
 export const checkIdInList = (id, list) => list.some(item => item.movieId === id)
 
+// задержка для промисов
+export function delay(ms, passValue = null) {
+    return new Promise((resolve) =>
+        setTimeout(() => resolve(passValue), ms))
+}
 
 export const pagesWithoutHeader = [
     '/signin',

@@ -11,7 +11,8 @@ function Profile(props) {
     const {
         onLogout,
         onUpdate,
-        isUpdateSucceed = null
+        isUpdateSucceed = null,
+        isFetching,
     } = props;
 
     const {
@@ -57,6 +58,7 @@ function Profile(props) {
                     errored={errors['name']}
                     errorText={NAME_VALIDATION_ERROR}
                     pattern='[a-zA-Zа-яА-ЯёЁ]+[- a-zA-Zа-яА-ЯёЁ]{1,}'
+                    disabled={isFetching}
                 />
                 <Input
                     name='email'
@@ -68,6 +70,7 @@ function Profile(props) {
                     onChange={handleChange}
                     errored={errors['email']}
                     errorText={errors['email']}
+                    disabled={isFetching}
                 />
 
                 {
@@ -80,7 +83,7 @@ function Profile(props) {
                     theme='edit'
                     type='submit'
                     onClick={handleSubmit}
-                    disabled={!isValid}
+                    disabled={!isValid || isFetching}
                 />
                 <Button
                     text='Выйти из аккаунта'

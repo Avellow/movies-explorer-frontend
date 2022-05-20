@@ -54,6 +54,7 @@ function Register(props) {
                     required={true}
                     minLength={2}
                     maxLength={30}
+                    disabled={isFetching}
                 />
                 <Input
                     labelTitle='E-mail'
@@ -64,6 +65,7 @@ function Register(props) {
                     onChange={handleChange}
                     value={values['email'] || ''}
                     required={true}
+                    disabled={isFetching}
                 />
                 <Input
                     labelTitle='Пароль'
@@ -75,7 +77,9 @@ function Register(props) {
                     onChange={handleChange}
                     value={values['password'] || ''}
                     minLength={4}
+                    disabled={isFetching}
                 />
+                {isFetching && (<Preloader isSmall={true}/>)}
                 {!registrationStatus.success && (
                     <p className='register__error'>{generateAuthError(registrationStatus.err)}</p>
                 )}
@@ -84,7 +88,7 @@ function Register(props) {
                     text='Зарегистрироваться'
                     type='submit'
                     onClick={handleRegister}
-                    disabled={!isValid}
+                    disabled={!isValid || isFetching}
                 />
                 <p className='form__hint'>
                     Уже зарегистрированы?

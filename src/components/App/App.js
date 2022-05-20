@@ -15,6 +15,7 @@ import * as auth from '../../utils/auth';
 import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import {
+    delay,
     formValidProps, generateError,
     mainApi,
     moviesApi,
@@ -149,6 +150,7 @@ function App() {
         setIsFetching(true)
         auth
             .register(name, email, password)
+            .then(() => delay(2000))
             .then(() => {
                 setAuthStatus(prevState => ({...prevState, success: true, err: null}))
                 onLogin(email, password)
@@ -181,6 +183,7 @@ function App() {
     }
 
     function onUserInfoUpdate(name, email) {
+        setIsFetching(true)
         mainApi
             .updateUserInfo(name, email)
             .then(({name, email}) => {
@@ -192,7 +195,12 @@ function App() {
                 console.log(err);
                 setIsUserUpdateSucceed(false);
             })
-            .finally(() => setTimeout(() => {setIsUserUpdateSucceed(null)}, 10000))
+            .finally(() => {
+                setIsFetching(false);
+                setTimeout(() => {
+                    setIsUserUpdateSucceed(null)
+                }, 10000)
+            })
     }
 
     function onSignOut() {
@@ -298,6 +306,7 @@ function App() {
                         onUpdate={onUserInfoUpdate}
                         onLogout={onSignOut}
                         isUpdateSucceed={isUserUpdateSucceed}
+                        isFetching={isFetching}
                     />
 
                     <Route path='/404' component={NotFound} />
