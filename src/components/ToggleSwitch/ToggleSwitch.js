@@ -14,7 +14,7 @@ function ToggleSwitch(props) {
                     type='checkbox'
                     className='toggle-switch__input'
                     onChange={onCheck}
-                    checked={isChecked}
+                    checked={isChecked || false}
                 />
                 <span className='toggle-switch__slider' />
             </label>
