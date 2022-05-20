@@ -49,7 +49,7 @@ function Movies(props) {
                 ? (<Preloader />)
                 : (<MoviesCardList
                         movies={
-                            isToggleChecked
+                            (movieElementsList && isToggleChecked)
                                 ? movieElementsList
                                     .filter(movieElement => movieElement.props.duration <= shortDuration)
                                 : movieElementsList
