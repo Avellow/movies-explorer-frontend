@@ -5,6 +5,7 @@ function ToggleSwitch(props) {
         text = '',
         onCheck,
         isChecked,
+        ...restProps
     } = props;
 
     return (
@@ -15,6 +16,7 @@ function ToggleSwitch(props) {
                     className='toggle-switch__input'
                     onChange={onCheck}
                     checked={isChecked || false}
+                    {...restProps}
                 />
                 <span className='toggle-switch__slider' />
             </label>

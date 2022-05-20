@@ -42,6 +42,7 @@ function Movies(props) {
                 onSubmit={onSearch}
                 onToggleCheck={onToggleCheck}
                 isToggleChecked={isToggleChecked}
+                isLoading={isLoading}
             />
             {isFetchErrored && (<h4 className='movies-cards__not-found'>{CONNECTION_ERROR}</h4>)}
 

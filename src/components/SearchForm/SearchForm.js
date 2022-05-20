@@ -9,6 +9,7 @@ function SearchForm(props) {
         onSubmit,
         onToggleCheck,
         isToggleChecked,
+        isLoading,
     } = props;
 
     const [value, setValue] = useState(localStorage.getItem('lastSearchedMovies') || '');
@@ -47,11 +48,13 @@ function SearchForm(props) {
                     name='search'
                     required={true}
                     autoComplete='off'
+                    disabled={isLoading}
                 />
                 <Button
                     theme='search'
                     type='submit'
                     onClick={handleSubmit}
+                    disabled={isLoading}
                 />
             </form>
             {isErrored && <span className='search-form__error'>Нужно ввести ключевое слово!</span>}
@@ -59,6 +62,7 @@ function SearchForm(props) {
                 text='Короткометражки'
                 onCheck={ onToggleCheck }
                 isChecked={ isToggleChecked }
+                disabled={isLoading}
             />
         </section>
     )
