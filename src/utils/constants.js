@@ -13,7 +13,7 @@ export const mainApi = new MainApi({
 });
 
 export function searchMovies(movies, value) {
-    const filteredMovies = movies.filter(movie => movie.nameRU.toLowerCase().includes(value.toLowerCase()));
+    const filteredMovies = movies.filter(movie => movie.nameRU.toLowerCase().includes(value.trim().toLowerCase()));
     return filteredMovies.length ? filteredMovies : null;
 }
 
