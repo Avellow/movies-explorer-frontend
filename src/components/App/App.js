@@ -23,12 +23,11 @@ import {
     pagesWithoutHeader,
     searchMovies,
 } from "../../utils/constants";
-import Popup from "../Popup/Popup";
 import PopupWithError from "../PopupWithError/PopupWithError";
 
 function App() {
 
-    const [ loggedIn, setLoggedIn ] = useState(Boolean(sessionStorage.getItem('loggedIn')) || false);
+    const [ loggedIn, setLoggedIn ] = useState(JSON.parse(sessionStorage.getItem('loggedIn')) || false);
     const [ isPopupMenuOpened, setIsPopupMenuOpened] = useState(false);
 
     const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('movies')) || []);
@@ -69,14 +68,14 @@ function App() {
                     sessionStorage.setItem('loggedIn', 'true');
                 })
                 .catch((err) => {
-                    showError(err, 's');
-                    onSignOut();
+                    showError(err,);
+                    setLoggedIn(false);
+                    sessionStorage.setItem('loggedIn', 'false');
+                    localStorage.removeItem('jwt');
                 })
                 .finally(() => setIsFetchingMainServer(false));
-        } else {
-            onSignOut();
         }
-    }, [history]);
+    }, []);
 
     useEffect(() => {
         setIsFetchingMainServer(true)
