@@ -3,7 +3,7 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import {CONNECTION_ERROR, shortDuration} from "../../utils/constants";
 import Preloader from "../Preloader/Preloader";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 
 function SavedMovies(props) {
     const {
