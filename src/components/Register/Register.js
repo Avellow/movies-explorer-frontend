@@ -17,7 +17,7 @@ function Register(props) {
         cleanError
     } = props;
 
-    useEffect(() => cleanError(), []);
+    useEffect(() => cleanError(), [cleanError]);
 
     const {
         values,

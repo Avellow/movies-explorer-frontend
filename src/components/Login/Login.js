@@ -16,7 +16,7 @@ function Login(props) {
         cleanError,
     } = props;
 
-    useEffect(() => cleanError(), []);
+    useEffect(() => cleanError(), [cleanError]);
 
     const {
         values,

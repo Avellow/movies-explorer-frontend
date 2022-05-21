@@ -184,9 +184,9 @@ function App() {
             .finally(() => setIsFetching(false))
     }
 
-    function cleanErrorMessage() {
+    const cleanErrorMessage = useCallback(() => {
         setAuthStatus(prevState => ({...prevState, success: true, err: null}))
-    }
+    }, [setAuthStatus])
 
     function onUserInfoUpdate(name, email) {
         setIsFetching(true)
