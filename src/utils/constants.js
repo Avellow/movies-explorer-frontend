@@ -34,11 +34,11 @@ export const generateError = (err, defaultText = '') => {
     console.log(err);
     if (defaultText) return `${defaultText} (${err})`;
 
-    let result = 'Произошла неизвестная ошибка'
+    let result;
     switch(err) {
         case 401: result = 'Некорректный токен'; break;
         case 404: result = 'Запрос по несуществующему пути'; break;
-
+        default: result = `Произошла неизвестная ошибка ${err}`
     }
 
     return result;
