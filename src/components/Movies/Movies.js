@@ -41,7 +41,7 @@ function Movies(props) {
             return shortFilms.length ? shortFilms : null;
         }
         return result;
-    }, [movies, isToggleChecked])
+    }, [movies, isToggleChecked, onMovieSave, onMovieDelete, savedMovies])
 
 
     return (
