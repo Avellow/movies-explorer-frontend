@@ -2,6 +2,7 @@ import './AboutMe.css';
 import authorPhoto from '../../../images/author-photo/IMG_1864.jpeg';
 import arrow from '../../../images/arrow/arrow.svg';
 import SectionTitle from "../section-title/SectionTitle";
+import {calculateAge} from "../../../utils/constants";
 
 function AboutMe() {
     return (
@@ -10,7 +11,9 @@ function AboutMe() {
             <div className='about-me__info-container'>
                 <div className='about-me__bio'>
                     <h3 className='about-me__title'>Дмитрий</h3>
-                    <p className='about-me__subtitle'>Фронтенд-разработчик, 28 лет</p>
+                    <p className='about-me__subtitle'>
+                        {`Фронтенд - разработчик, ${calculateAge('1993-5-12')} лет`}
+                    </p>
                     <p className='about-me__text'>Я родился и живу в Москве,
                         закончил факультет строительства МГСУ. Есть жена и сын.
                         Люблю заниматься спортом, а в частности тренажерный зал.
