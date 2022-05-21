@@ -15,6 +15,7 @@ function Footer() {
                                 className='footer__link'
                                 href='https://practicum.yandex.ru'
                                 target='_blank'
+                                rel="noreferrer"
                             >Яндекс.Практикум</a>
                         </li>
                         <li className='Footer__list-item'>
@@ -22,6 +23,7 @@ function Footer() {
                                 className='footer__link'
                                 href='https://github.com/Avellow'
                                 target='_blank'
+                                rel="noreferrer"
                             >Github</a>
                         </li>
                         <li className='Footer__list-item'>
@@ -29,6 +31,7 @@ function Footer() {
                                 className='footer__link'
                                 href='https://t.me/zellek'
                                 target='_blank'
+                                rel="noreferrer"
                             >Telegram</a>
                         </li>
                     </ul>

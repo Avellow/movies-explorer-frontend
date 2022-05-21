@@ -26,6 +26,7 @@ function AboutMe() {
                                 className='about-me__contact-link'
                                 href='https://t.me/zellek'
                                 target='_blank'
+                                rel="noreferrer"
                             >Telegram</a>
                         </li>
                         <li className='about-me__contact'>
@@ -33,6 +34,7 @@ function AboutMe() {
                                 className='about-me__contact-link'
                                 href='https://github.com/Avellow'
                                 target='_blank'
+                                rel="noreferrer"
                             >Github</a>
                         </li>
                     </ul>
@@ -50,6 +52,7 @@ function AboutMe() {
                         className='about-me__project'
                         href='https://github.com/Avellow/how-to-learn'
                         target='_blank'
+                        rel="noreferrer"
                     >
                         <h4 className='about-me__project-name'>Статичный сайт</h4>
                         <img
@@ -64,6 +67,7 @@ function AboutMe() {
                         className='about-me__project'
                         href='https://github.com/Avellow/russian-travel'
                         target='_blank'
+                        rel="noreferrer"
                     >
                         <h4 className='about-me__project-name'>Адаптивный сайт</h4>
                         <img
@@ -78,6 +82,7 @@ function AboutMe() {
                         className='about-me__project'
                         href='https://github.com/Avellow/react-mesto-api-full'
                         target='_blank'
+                        rel="noreferrer"
                     >
                         <h4 className='about-me__project-name'>Одностраничное приложение</h4>
                         <img

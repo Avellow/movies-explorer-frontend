@@ -1,6 +1,5 @@
 import './MoviesCard.css';
 import Button from "../Button/Button";
-import {useState} from "react";
 import {formDuration} from "../../utils/constants";
 
 function MoviesCard(props) {
@@ -64,6 +63,7 @@ function MoviesCard(props) {
                 className='movies-card__poster-link'
                 href={trailerLink}
                 target='_blank'
+                rel="noreferrer"
             >
                 <img
                     className='movies-card__poster'
