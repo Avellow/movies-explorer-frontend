@@ -5,7 +5,7 @@ import Button from "../Button/Button";
 import Logo from "../Logo/Logo";
 import {NavLink} from "react-router-dom";
 import {useFormAndValidation} from "../../hooks/useFormAndValidation";
-import {generateAuthError} from "../../utils/constants";
+import {EMAIL_VALIDATION_ERROR, generateAuthError} from "../../utils/constants";
 import {useEffect} from "react";
 
 function Login(props) {
@@ -43,10 +43,11 @@ function Login(props) {
                     name='email'
                     type='email'
                     required={true}
+                    pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'
                     onChange={handleChange}
                     value={values['email'] || ''}
                     errored={errors['email']}
-                    errorText={errors['email']}
+                    errorText={EMAIL_VALIDATION_ERROR}
                     disabled={isFetching}
                 />
                 <Input

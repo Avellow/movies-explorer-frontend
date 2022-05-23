@@ -17,6 +17,7 @@ export const CONNECTION_ERROR = 'Во время запроса произошл
     'проблема с соединением или сервер недоступен. Подождите немного и ' +
     'попробуйте ещё раз'
 export const NAME_VALIDATION_ERROR = 'Запоните это поле (разрешаются латиница/кириллица/пробел/дефис)'
+export const EMAIL_VALIDATION_ERROR = 'Неправильный формат почты'
 
 export const generateAuthError = (code = 500) => {
     let result = 'Произошла ошибка на сервере. Пожалуйста, проверьте данные и повторите попытку.'

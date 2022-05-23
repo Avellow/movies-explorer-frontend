@@ -5,7 +5,7 @@ import Button from "../Button/Button";
 import Logo from "../Logo/Logo";
 import {NavLink} from "react-router-dom";
 import {useFormAndValidation} from "../../hooks/useFormAndValidation";
-import {generateAuthError, NAME_VALIDATION_ERROR} from "../../utils/constants";
+import {EMAIL_VALIDATION_ERROR, generateAuthError, NAME_VALIDATION_ERROR} from "../../utils/constants";
 import Preloader from "../Preloader/Preloader";
 import {useEffect} from "react";
 
@@ -64,8 +64,9 @@ function Register(props) {
                     labelTitle='E-mail'
                     name='email'
                     type='email'
+                    pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'
                     errored={errors['email']}
-                    errorText={errors['email']}
+                    errorText={EMAIL_VALIDATION_ERROR}
                     onChange={handleChange}
                     value={values['email'] || ''}
                     required={true}
