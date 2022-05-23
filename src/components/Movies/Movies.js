@@ -86,9 +86,7 @@ function Movies(props) {
                 const moviesToRender = loadedMovies ? loadedMovies : movies;
 
                 const filteredMovies = moviesToRender.filter(movie =>
-                    isToggleChecked
-                        ? (movie.nameRU.toLowerCase().includes(processedValue) && movie.duration <= shortDuration)
-                        : movie.nameRU.toLowerCase().includes(processedValue))
+                    movie.nameRU.toLowerCase().includes(processedValue))
 
                 localStorage.setItem('searchedMovies', JSON.stringify(filteredMovies))
                 setSearchedMovies(filteredMovies)
