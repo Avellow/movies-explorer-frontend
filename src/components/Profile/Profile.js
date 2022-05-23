@@ -2,10 +2,15 @@ import './Profile.css';
 import Form from "../Form/Form";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useState} from "react";
 import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 import {useFormAndValidation} from "../../hooks/useFormAndValidation";
-import {generateAuthError, NAME_VALIDATION_ERROR, userInfoUpdateSuccess} from "../../utils/constants";
+import {
+    EMAIL_VALIDATION_ERROR,
+    generateAuthError,
+    NAME_VALIDATION_ERROR,
+    userInfoUpdateSuccess
+} from "../../utils/constants";
 
 function Profile(props) {
     const {
@@ -14,6 +19,8 @@ function Profile(props) {
         isUpdateSucceed = null,
         isFetching,
     } = props;
+
+    const [isDataChanged, setIsDataChanged] = useState(false)
 
     const {
         resetForm,
@@ -35,6 +42,17 @@ function Profile(props) {
             true,
         )
     }, [currentUser, resetForm])
+
+    useEffect(() => {
+        if (
+            currentUser.name === values.name &&
+            currentUser.email === values.email
+        ) {
+           setIsDataChanged(false)
+        } else {
+            setIsDataChanged(true)
+        }
+    }, [values.name, values.email, currentUser.name, currentUser.email])
 
     function handleSubmit() {
         const {name, email} = values;
@@ -65,11 +83,12 @@ function Profile(props) {
                     type='email'
                     className='profile-input'
                     labelTitle='Почта'
+                    pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'
+                    errorText={EMAIL_VALIDATION_ERROR}
                     required={true}
                     value={values['email'] || ''}
                     onChange={handleChange}
                     errored={errors['email']}
-                    errorText={errors['email']}
                     disabled={isFetching}
                 />
 
@@ -83,7 +102,7 @@ function Profile(props) {
                     theme='edit'
                     type='submit'
                     onClick={handleSubmit}
-                    disabled={!isValid || isFetching}
+                    disabled={!isValid || isFetching || !isDataChanged}
                 />
                 <Button
                     text='Выйти из аккаунта'
