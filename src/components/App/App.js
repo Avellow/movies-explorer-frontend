@@ -44,7 +44,7 @@ function App() {
 
     const [isUserUpdateSucceed, setIsUserUpdateSucceed] = useState(null);
 
-    const [isErrorPopupOpened, setIsErrorPopupOpened] = useState(true);
+    const [isErrorPopupOpened, setIsErrorPopupOpened] = useState(false);
     const [errorText, setErrorText] = useState(null);
 
     const history = useHistory();
@@ -203,9 +203,10 @@ function App() {
 
     function onSignOut() {
         setLoggedIn(false);
-
-        setSavedMovies([]);
-        localStorage.removeItem('jwt');
+        setMovies(null);
+        setSavedMovies(null);
+        setCurrentUser(null);
+        localStorage.clear();
         sessionStorage.removeItem('loggedIn');
         history.push('/');
     }
