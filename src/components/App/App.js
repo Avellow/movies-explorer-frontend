@@ -21,7 +21,6 @@ import {
     moviesApi,
     pagesWithoutFooter,
     pagesWithoutHeader,
-    searchMovies,
 } from "../../utils/constants";
 import PopupWithError from "../PopupWithError/PopupWithError";
 
@@ -30,7 +29,7 @@ function App() {
     const [ loggedIn, setLoggedIn ] = useState(JSON.parse(sessionStorage.getItem('loggedIn')) || false);
     const [ isPopupMenuOpened, setIsPopupMenuOpened] = useState(false);
 
-    const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('movies')) || []);
+    const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('movies')));
     const [savedMovies, setSavedMovies] = useState([]);
 
     const [isFetching, setIsFetching] = useState(false);
@@ -47,11 +46,6 @@ function App() {
 
     const [isErrorPopupOpened, setIsErrorPopupOpened] = useState(true);
     const [errorText, setErrorText] = useState(null);
-
-    const [
-        isShortFilmToggleChecked,
-        setIsShortFilmToggleChecked
-    ] = useState(JSON.parse(localStorage.getItem('isShortFilmToggleChecked')));
 
     const history = useHistory();
     const location = useLocation();
@@ -118,15 +112,15 @@ function App() {
             .catch(err => showError(err, 'Не удалось удалить фильм.'))
     }
 
-    function handleSearchSubmit(value) {
+    function loadMovies() {
         setIsFetching(true);
-        moviesApi
+
+        return moviesApi
             .getFilms()
-            .then((movies) => {
-                const foundMovies = searchMovies(movies, value)
-                setMovies(foundMovies);
-                localStorage.setItem('lastSearchedMovies', `${value}`);
-                localStorage.setItem('movies', JSON.stringify(foundMovies));
+            .then((loadedMovies) => {
+                setMovies(loadedMovies);
+                localStorage.setItem('movies', JSON.stringify(loadedMovies));
+                return loadedMovies
             })
             .catch((err) => {
                 setIsFetchErrored(true);
@@ -134,6 +128,7 @@ function App() {
                 console.log(err)
             })
             .finally(() => setIsFetching(false))
+
     }
 
     function closeAllPopups() {
@@ -177,9 +172,6 @@ function App() {
             .catch(err => {
                 console.log(err);
                 setAuthStatus(prevState => ({...prevState, success: false, err}));
-                setTimeout(() => {
-                    //setAuthStatus(prevState => ({...prevState, success: true, err: null}))
-                }, 5000)
             })
             .finally(() => setIsFetching(false))
     }
@@ -211,16 +203,11 @@ function App() {
 
     function onSignOut() {
         setLoggedIn(false);
-        setMovies([]);
+
         setSavedMovies([]);
-        localStorage.clear();
+        localStorage.removeItem('jwt');
         sessionStorage.removeItem('loggedIn');
         history.push('/');
-    }
-
-    function onToggleCheck() {
-        setIsShortFilmToggleChecked(!isShortFilmToggleChecked);
-        localStorage.setItem('isShortFilmToggleChecked', `${!isShortFilmToggleChecked}`)
     }
 
     function showError(err, text = '') {
@@ -286,13 +273,11 @@ function App() {
                         movies={movies}
                         exact path='/movies'
                         savedMovies={ savedMovies }
-                        onSearch={handleSearchSubmit}
+                        loadMovies={loadMovies}
                         isLoading={isFetching}
                         isFetchErrored={isFetchErrored}
                         onMovieSave={handleMovieSave}
                         onMovieDelete={handleMovieDelete}
-                        onToggleCheck={onToggleCheck}
-                        isToggleChecked={isShortFilmToggleChecked}
                     />
 
                     <ProtectedRoute
@@ -303,8 +288,6 @@ function App() {
                         onMovieDelete={handleMovieDelete}
                         isLoading={isFetchingMainServer}
                         isFetchErrored={isFetchMainServerErrored}
-                        onToggleCheck={onToggleCheck}
-                        isToggleChecked={isShortFilmToggleChecked}
                     />
 
                     <ProtectedRoute

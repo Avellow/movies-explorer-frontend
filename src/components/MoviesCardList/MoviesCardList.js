@@ -36,7 +36,9 @@ function MoviesCardList(props) {
         }))
     }
 
-    return movies === null
+    if (!movies) return null;
+
+    return !movies.length
         ? (
             <section className='movies-cards'>
                 <h4 className='movies-cards__not-found'>Ничего не найдено</h4>

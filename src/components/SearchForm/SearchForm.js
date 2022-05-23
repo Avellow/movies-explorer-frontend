@@ -10,9 +10,10 @@ function SearchForm(props) {
         onToggleCheck,
         isToggleChecked,
         isLoading,
+        storageKey = '',
     } = props;
 
-    const [value, setValue] = useState(localStorage.getItem('lastSearchedMovies') || '');
+    const [value, setValue] = useState(localStorage.getItem(storageKey) || '');
     const [isErrored, setIsErrored] = useState(false);
 
     function handleChange(e) {
