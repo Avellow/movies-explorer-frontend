@@ -1,7 +1,8 @@
 import './AboutMe.css';
-import authorPhoto from '../../images/author-photo/IMG_1864.jpeg';
-import arrow from '../../images/arrow/arrow.svg';
+import authorPhoto from '../../../images/author-photo/IMG_1864.jpeg';
+import arrow from '../../../images/arrow/arrow.svg';
 import SectionTitle from "../section-title/SectionTitle";
+import {calculateAge} from "../../../utils/constants";
 
 function AboutMe() {
     return (
@@ -10,7 +11,9 @@ function AboutMe() {
             <div className='about-me__info-container'>
                 <div className='about-me__bio'>
                     <h3 className='about-me__title'>Дмитрий</h3>
-                    <p className='about-me__subtitle'>Фронтенд-разработчик, 28 лет</p>
+                    <p className='about-me__subtitle'>
+                        {`Фронтенд - разработчик, ${calculateAge('1993-5-12')} лет`}
+                    </p>
                     <p className='about-me__text'>Я родился и живу в Москве,
                         закончил факультет строительства МГСУ. Есть жена и сын.
                         Люблю заниматься спортом, а в частности тренажерный зал.
@@ -26,6 +29,7 @@ function AboutMe() {
                                 className='about-me__contact-link'
                                 href='https://t.me/zellek'
                                 target='_blank'
+                                rel="noreferrer"
                             >Telegram</a>
                         </li>
                         <li className='about-me__contact'>
@@ -33,6 +37,7 @@ function AboutMe() {
                                 className='about-me__contact-link'
                                 href='https://github.com/Avellow'
                                 target='_blank'
+                                rel="noreferrer"
                             >Github</a>
                         </li>
                     </ul>
@@ -50,6 +55,7 @@ function AboutMe() {
                         className='about-me__project'
                         href='https://github.com/Avellow/how-to-learn'
                         target='_blank'
+                        rel="noreferrer"
                     >
                         <h4 className='about-me__project-name'>Статичный сайт</h4>
                         <img
@@ -64,6 +70,7 @@ function AboutMe() {
                         className='about-me__project'
                         href='https://github.com/Avellow/russian-travel'
                         target='_blank'
+                        rel="noreferrer"
                     >
                         <h4 className='about-me__project-name'>Адаптивный сайт</h4>
                         <img
@@ -78,6 +85,7 @@ function AboutMe() {
                         className='about-me__project'
                         href='https://github.com/Avellow/react-mesto-api-full'
                         target='_blank'
+                        rel="noreferrer"
                     >
                         <h4 className='about-me__project-name'>Одностраничное приложение</h4>
                         <img

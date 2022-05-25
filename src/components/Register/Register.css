@@ -6,6 +6,12 @@
     height: 100vh;
 }
 
+.register__error {
+    color: #FF3055;
+    text-align: center;
+    font-weight: 500;
+}
+
 @media screen and (max-width: 770px) {
     .register {
         justify-content: center;

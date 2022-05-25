@@ -1,30 +1,40 @@
 import './MoviesCard.css';
 import Button from "../Button/Button";
-import {useState} from "react";
+import {formDuration} from "../../utils/constants";
 
 function MoviesCard(props) {
     const {
         title,
+        id,
         duration,
         posterLink,
+        trailerLink = '',
         listType,
+        onMovieSave,
+        onMovieDelete,
+        movieProps,
+        isSaved
     } = props;
 
-    const [isSaved, setIsSaved] = useState(false); // ВРЕМЕННОЕ РЕШЕНИЕ РЕАКЦИИ на нажатие
-    const onClick = () => setIsSaved(!isSaved);
+    const handleClick = () => {
+        isSaved
+            ? onMovieDelete(id)
+            : onMovieSave(movieProps)
+    };
 
     function generateButton() {
         if (listType === 'saved') {
             return (
                 <Button
                     theme='delete'
+                    onClick={handleClick}
                 />
             )
         } else if (isSaved) {
             return (
                 <Button
                     theme='saved'
-                    onClick={onClick}
+                    onClick={handleClick}
                 />
             )
         } else {
@@ -32,7 +42,7 @@ function MoviesCard(props) {
                 <Button
                     text='Сохранить'
                     theme='save'
-                    onClick={onClick}
+                    onClick={handleClick}
                 />
             )
         }
@@ -41,15 +51,29 @@ function MoviesCard(props) {
     return (
         <li className='movies-card'>
             <div className='movies-card__info'>
-                <h3 className='movies-card__title'>{ title }</h3>
-                <p className='movies-card__duration'>{ duration }</p>
+                <h3
+                    className='movies-card__title'
+                >
+                    { title.trim() }
+                </h3>
+                <span className='movies-card__tooltip'>{ title.trim() }</span>
+                <p className='movies-card__duration'>{ formDuration(duration) }</p>
             </div>
-            <img
-                className='movies-card__poster'
-                src={ posterLink }
-                alt='постер'
-            />
-            { generateButton() }
+            <a
+                className='movies-card__poster-link'
+                href={trailerLink}
+                target='_blank'
+                rel="noreferrer"
+            >
+                <img
+                    className='movies-card__poster'
+                    src={ posterLink }
+                    alt='постер'
+                />
+            </a>
+            <div className='movies-card__btn-container'>
+                { generateButton() }
+            </div>
         </li>
     )
 }

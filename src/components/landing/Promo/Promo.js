@@ -1,5 +1,5 @@
 import './Promo.css';
-import mainLogo from '../../images/main/worldweb.png';
+import mainLogo from '../../../images/main/worldweb.png';
 
 function Promo() {
     return (

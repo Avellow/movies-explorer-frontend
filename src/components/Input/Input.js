@@ -2,10 +2,12 @@ import './Input.css';
 
 function Input(props) {
     const {
-        name = 'Поле ввода',
+        labelTitle = 'Поле ввода',
         className = 'input',
         type = 'text',
         errored = false,
+        errorText,
+        ...inputProps
     } = props;
 
     const generateClassName = (className) => {
@@ -17,13 +19,14 @@ function Input(props) {
     return (
         <div className={ generateClassName(className) }>
             <label className={`${className}__name`}>
-                { name }
+                { labelTitle }
                 <input
                     className={ generateClassName(`${className}__field`) }
                     type={ type }
+                    {...inputProps}
                 />
             </label>
-            { errored && <span className={`${className}__error`}>Что-то пошло не так</span> }
+            { errored && <span className={`input__error`}>{errorText}</span> }
         </div>
     )
 }

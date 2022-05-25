@@ -22,13 +22,14 @@ function SideMenu(props) {
                     location='popup'
                     type='side'
                 >
-                    {popupMenuLinks.map(({to, text}, i) => (
+                    {popupMenuLinks.map(({to, text, id}) => (
                         <NavLink
-                            key={i}
+                            key={id}
                             exact
                             to={to}
                             className='navigation__link'
                             activeStyle={{textDecoration: "underline"}}
+                            onClick={onClose}
                         >
                             {text}
                         </NavLink>
@@ -40,6 +41,7 @@ function SideMenu(props) {
                         className='navigation__link navigation__link_type_profile'
                         style={{display: 'flex'}}
                         upperspace='true'
+                        onClick={onClose}
                     >
                         Аккаунт
                         <img

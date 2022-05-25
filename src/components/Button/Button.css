@@ -101,6 +101,16 @@ button:hover {
     opacity: .8;
 }
 
+button:disabled {
+    background-color: #F5F5F5;
+    color:#a0a0a0;
+}
+
+button:disabled:hover {
+    cursor: not-allowed;
+    opacity: 1;
+}
+
 @media screen and (max-width: 770px) {
     .button_theme_burger {
         display: inline-block;

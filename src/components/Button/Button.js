@@ -7,6 +7,7 @@ function Button(props) {
         theme = 'default',
         type = 'button',
         onClick,
+        ...buttonProps
     } = props;
 
     function clickHandler(e) {
@@ -19,6 +20,7 @@ function Button(props) {
             className={`button button_theme_${theme}`}
             onClick={clickHandler}
             type={type}
+            {...buttonProps}
         >
             { text }
             { icon ? <img src={icon} alt='иконка кнопки' /> : '' }
