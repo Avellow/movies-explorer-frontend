@@ -7,7 +7,7 @@
     padding: 0;
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(auto-fill, 360px);
+    grid-template-columns: repeat(auto-fill, var(--card-width));
     justify-content: space-around;
     grid-gap: 30px;
 }
@@ -26,7 +26,6 @@
     }
 
     .movies-cards__list {
-        grid-template-columns: repeat(auto-fill, 340px);
         justify-content: space-around;
         grid-gap: 24px;
     }
@@ -39,7 +38,6 @@
     }
 
     .movies-cards__list {
-        grid-template-columns: repeat(auto-fill, 300px);
         justify-content: space-around;
         grid-gap: 14px;
     }
