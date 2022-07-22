@@ -1,6 +1,6 @@
 export const saveMoviesToLocalStorage = (movies) => {
     try {
-        localStorage.setItem('new-movies', JSON.stringify(movies))
+        localStorage.setItem('movies', JSON.stringify(movies))
     } catch (e) {
         console.log(e)
         return undefined
@@ -9,7 +9,7 @@ export const saveMoviesToLocalStorage = (movies) => {
 
 export const getMoviesFromLocalStorage = () => {
     try {
-        const movies = localStorage.getItem('new-movies')
+        const movies = localStorage.getItem('movies')
         return movies ? JSON.parse(movies) : undefined
     } catch (e) {
         console.log(e)

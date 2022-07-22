@@ -23,13 +23,21 @@ import {
     pagesWithoutHeader,
 } from "../../utils/constants";
 import PopupWithError from "../PopupWithError/PopupWithError";
+import {useDispatch, useSelector} from 'react-redux';
+import {addMovies} from '../../store/reducers/movies-reducer';
+import {saveMoviesToLocalStorage} from '../../localStorage/movies';
 
 function App() {
+    // redux
+    const dispatch = useDispatch();
 
+    const movies2 = useSelector(state => state.movies.movies)
+
+    //
     const [ loggedIn, setLoggedIn ] = useState(JSON.parse(sessionStorage.getItem('loggedIn')) || false);
     const [ isPopupMenuOpened, setIsPopupMenuOpened] = useState(false);
 
-    const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('movies')));
+    //const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('movies')));
     const [savedMovies, setSavedMovies] = useState([]);
 
     const [isFetching, setIsFetching] = useState(false);
@@ -118,9 +126,8 @@ function App() {
         return moviesApi
             .getFilms()
             .then((loadedMovies) => {
-                setMovies(loadedMovies);
-                localStorage.setItem('movies', JSON.stringify(loadedMovies));
-                return loadedMovies
+                dispatch(addMovies(loadedMovies))
+                saveMoviesToLocalStorage(loadedMovies)
             })
             .catch((err) => {
                 setIsFetchErrored(true);
@@ -203,7 +210,7 @@ function App() {
 
     function onSignOut() {
         setLoggedIn(false);
-        setMovies(null);
+        //setMovies(null);
         setSavedMovies(null);
         setCurrentUser(null);
         localStorage.clear();
@@ -271,7 +278,7 @@ function App() {
                     <ProtectedRoute
                         component={Movies}
                         loggedIn={loggedIn}
-                        movies={movies}
+                        movies={movies2}
                         exact path='/movies'
                         savedMovies={ savedMovies }
                         loadMovies={loadMovies}
