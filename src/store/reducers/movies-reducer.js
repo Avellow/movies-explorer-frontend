@@ -1,7 +1,7 @@
 import {getMoviesFromLocalStorage} from '../../localStorage/movies';
 
 const defaultState = {
-    movies: getMoviesFromLocalStorage() || [],
+    movies: [],
 }
 
 const ADD_MOVIES = 'thirdParty/ADD_MOVIES'

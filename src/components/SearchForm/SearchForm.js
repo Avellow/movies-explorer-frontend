@@ -7,13 +7,13 @@ import { useState } from "react";
 function SearchForm(props) {
     const {
         onSubmit,
+        defaultValue = '',
         onToggleCheck,
         isToggleChecked,
         isLoading,
-        storageKey = '',
     } = props;
 
-    const [value, setValue] = useState(localStorage.getItem(storageKey) || '');
+    const [value, setValue] = useState(defaultValue);
     const [isErrored, setIsErrored] = useState(false);
 
     function handleChange(e) {

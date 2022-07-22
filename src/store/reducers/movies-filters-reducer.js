@@ -1,8 +1,8 @@
 import {getFromLocalStorage} from '../../localStorage/movies-filter';
 
 const defaultState = {
-    isShortFilmActive: getFromLocalStorage('isToggleChecked', true) || false,
-    queryString: getFromLocalStorage('queryString') || ''
+    isShortFilmActive: false,
+    queryString: ''
 }
 
 const CHANGE_QUERY_STRING = 'localMovies/CHANGE_QUERY_STRING'

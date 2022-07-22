@@ -27,7 +27,7 @@ function Movies(props) {
     } = props;
 
     const dispatch = useDispatch();
-    const { isShortFilmActive } = useSelector(selectMoviesFilter)
+    const { queryString, isShortFilmActive } = useSelector(selectMoviesFilter)
     const filteredMovies = useSelector(selectMoviesByFilter)
     const movies = useSelector(selectAllMovies)
 
@@ -51,7 +51,6 @@ function Movies(props) {
     )) || []
 
     function onToggleCheck() {
-        setToLocalStorage('isToggleChecked', !isShortFilmActive)
         dispatch(toggleShortFilmSwitcherAction(!isShortFilmActive))
     }
 
@@ -59,7 +58,6 @@ function Movies(props) {
         if (!movies || movies.length === 0) {
             await loadMovies();
         }
-        setToLocalStorage('queryString', value)
         dispatch(changeQueryStringAction(value))
     }
 
@@ -71,6 +69,7 @@ function Movies(props) {
                 isToggleChecked={isShortFilmActive}
                 isLoading={isLoading || isDelayed}
                 storageKey='queryString'
+                defaultValue={queryString}
             />
             {isFetchErrored && (<h4 className='movies-cards__not-found'>{CONNECTION_ERROR}</h4>)}
 
