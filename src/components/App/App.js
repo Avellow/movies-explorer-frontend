@@ -26,6 +26,7 @@ import PopupWithError from "../PopupWithError/PopupWithError";
 import {useDispatch, useSelector} from 'react-redux';
 import {addMovies} from '../../store/reducers/movies-reducer';
 import {saveMoviesToLocalStorage} from '../../localStorage/movies';
+import {userLogoutAction} from '../../store';
 
 function App() {
     // redux
@@ -210,7 +211,7 @@ function App() {
 
     function onSignOut() {
         setLoggedIn(false);
-        //setMovies(null);
+        dispatch(userLogoutAction())
         setSavedMovies(null);
         setCurrentUser(null);
         localStorage.clear();

@@ -18,10 +18,19 @@ const persistConfig = {
     storage,
 }
 
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
     movies: moviesReducer,
     moviesFilters: moviesFiltersReducer,
 })
+
+const rootReducer = (state, action) => {
+    if (action.type === 'USER_LOGOUT') {
+        storage.removeItem('persist:root')
+        return appReducer(undefined, action)
+    }
+
+    return appReducer(state, action)
+}
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
@@ -37,3 +46,5 @@ const store = configureStore({
 
 export const persistor = persistStore(store);
 export default store;
+
+export const userLogoutAction = () => ({type: 'USER_LOGOUT'})
