@@ -10,11 +10,8 @@ import {
 import MoviesCard from "../MoviesCard/MoviesCard";
 import {useState} from "react";
 import {useDispatch, useSelector} from 'react-redux';
-import {changeQueryStringAction, toggleShortFilmSwitcherAction} from '../../store/reducers/movies-filters-reducer';
-import {selectAllMovies, selectMoviesByFilter, selectMoviesFilter} from '../../store/selectors';
-import {
-    setToLocalStorage
-} from '../../localStorage/movies-filter';
+import {changeQueryStringAction, toggleShortFilmSwitcherAction} from '../../store/reducers/movies/filters/movies-filter-reducer';
+import {selectAllMovies, selectMoviesByFilter, selectMoviesFilter} from '../../store/selectors/movies/movies-selectors';
 
 function Movies(props) {
     const {
@@ -27,9 +24,9 @@ function Movies(props) {
     } = props;
 
     const dispatch = useDispatch();
-    const { queryString, isShortFilmActive } = useSelector(selectMoviesFilter)
-    const filteredMovies = useSelector(selectMoviesByFilter)
-    const movies = useSelector(selectAllMovies)
+    const { queryString, isShortFilmActive } = useSelector(selectMoviesFilter('apiMovies'))
+    const filteredMovies = useSelector(selectMoviesByFilter('apiMovies'))
+    const movies = useSelector(selectAllMovies('apiMovies'))
 
     // искусственная задержка при фильтрации, временно не используется
     const [isDelayed, setIsDelayed] = useState(false);
@@ -51,14 +48,14 @@ function Movies(props) {
     )) || []
 
     function onToggleCheck() {
-        dispatch(toggleShortFilmSwitcherAction(!isShortFilmActive))
+        dispatch(toggleShortFilmSwitcherAction('apiMovies', !isShortFilmActive))
     }
 
     async function onMovieSearch(value) {
         if (!movies || movies.length === 0) {
             await loadMovies();
         }
-        dispatch(changeQueryStringAction(value))
+        dispatch(changeQueryStringAction('apiMovies', value))
     }
 
     return (

@@ -4,6 +4,7 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 import {CONNECTION_ERROR, delay, shortDuration} from "../../utils/constants";
 import Preloader from "../Preloader/Preloader";
 import {useCallback, useState} from "react";
+import {useDispatch, useSelector} from 'react-redux';
 
 function SavedMovies(props) {
     const {
@@ -12,6 +13,11 @@ function SavedMovies(props) {
         isLoading,
         isFetchErrored,
     } = props;
+
+    //redux
+    const dispatch = useDispatch();
+    //const userMovies = useSelector();
+    // end redux
 
     // для того чтобы пользователь видел что поиск выполняется после сабмита его запроса
     // особенно для моментов когда фильмы фильтруются из локального хранилища

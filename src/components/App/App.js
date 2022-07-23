@@ -23,16 +23,16 @@ import {
     pagesWithoutHeader,
 } from "../../utils/constants";
 import PopupWithError from "../PopupWithError/PopupWithError";
-import {useDispatch, useSelector} from 'react-redux';
-import {addMovies} from '../../store/reducers/movies-reducer';
-import {saveMoviesToLocalStorage} from '../../localStorage/movies';
+import {useDispatch} from 'react-redux';
+import {addMoviesAction} from '../../store/reducers/movies/data/movies-data-reducer';
 import {userLogoutAction} from '../../store';
+import {selectAllMovies} from '../../store/selectors/movies/movies-selectors';
 
 function App() {
     // redux
     const dispatch = useDispatch();
 
-    const movies2 = useSelector(state => state.movies.movies)
+    const movies2 = selectAllMovies('apiMovies')
 
     //
     const [ loggedIn, setLoggedIn ] = useState(JSON.parse(sessionStorage.getItem('loggedIn')) || false);
@@ -127,8 +127,7 @@ function App() {
         return moviesApi
             .getFilms()
             .then((loadedMovies) => {
-                dispatch(addMovies(loadedMovies))
-                saveMoviesToLocalStorage(loadedMovies)
+                dispatch(addMoviesAction('apiMovies', loadedMovies))
             })
             .catch((err) => {
                 setIsFetchErrored(true);

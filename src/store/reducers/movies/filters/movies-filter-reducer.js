@@ -1,5 +1,3 @@
-import {getFromLocalStorage} from '../../localStorage/movies-filter';
-
 const defaultState = {
     isShortFilmActive: false,
     queryString: ''
@@ -19,5 +17,7 @@ export const moviesFiltersReducer = (state = defaultState, action) => {
     }
 }
 
-export const changeQueryStringAction = (queryString) => ({ type: CHANGE_QUERY_STRING, payload: queryString })
-export const toggleShortFilmSwitcherAction = (isActive) => ({ type: TOGGLE_SHORTFILM_SWITCHER, payload: isActive })
+export const changeQueryStringAction = (movieType, queryString) =>
+    ({ type: CHANGE_QUERY_STRING, payload: queryString, name: movieType })
+export const toggleShortFilmSwitcherAction = (movieType, isActive) =>
+    ({ type: TOGGLE_SHORTFILM_SWITCHER, payload: isActive, name: movieType })

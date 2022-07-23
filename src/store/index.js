@@ -1,6 +1,4 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
-import {moviesReducer} from './reducers/movies-reducer';
-import {moviesFiltersReducer} from './reducers/movies-filters-reducer';
 import {
     persistStore,
     persistReducer,
@@ -12,6 +10,7 @@ import {
     REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import moviesReducer from './reducers/movies/index'
 
 const persistConfig = {
     key: 'root',
@@ -19,8 +18,7 @@ const persistConfig = {
 }
 
 const appReducer = combineReducers({
-    movies: moviesReducer,
-    moviesFilters: moviesFiltersReducer,
+    movies: moviesReducer
 })
 
 const rootReducer = (state, action) => {

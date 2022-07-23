@@ -1,13 +1,14 @@
 import {createSelector} from '@reduxjs/toolkit';
-import {shortDuration} from '../utils/constants';
+import {shortDuration} from '../../../utils/constants';
 
-export const selectAllMovies = state => state.movies.movies
-export const selectMoviesFilter = state => state.moviesFilters
+export const selectAllMovies = (movieType) => (state) => state.movies[movieType]['data']
+export const selectMoviesFilter = (movieType) => (state) => state.movies[movieType][`filters`]
 
-// фильтрация на уровне Redux. Имеет небольшой сайд эффект - не учитывается регистр
-export const selectMoviesByFilter = createSelector(
-    [selectAllMovies, selectMoviesFilter],
+// фильтрация на уровне Redux. Не учитывается регистр
+export const selectMoviesByFilter = (movieType) => createSelector(
+    [selectAllMovies(movieType), selectMoviesFilter(movieType)],
     (movies, activeFilter) => {
+        console.log(activeFilter)
         const { queryString, isShortFilmActive } = activeFilter;
         return movies
             .filter(movie => {
