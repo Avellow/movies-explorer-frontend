@@ -8,7 +8,6 @@ export const selectMoviesFilter = (movieType) => (state) => state.movies[movieTy
 export const selectMoviesByFilter = (movieType) => createSelector(
     [selectAllMovies(movieType), selectMoviesFilter(movieType)],
     (movies, activeFilter) => {
-        console.log(activeFilter)
         const { queryString, isShortFilmActive } = activeFilter;
         return movies
             .filter(movie => {

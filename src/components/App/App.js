@@ -26,13 +26,10 @@ import PopupWithError from "../PopupWithError/PopupWithError";
 import {useDispatch} from 'react-redux';
 import {addMoviesAction} from '../../store/reducers/movies/data/movies-data-reducer';
 import {userLogoutAction} from '../../store';
-import {selectAllMovies} from '../../store/selectors/movies/movies-selectors';
 
 function App() {
     // redux
     const dispatch = useDispatch();
-
-    const movies2 = selectAllMovies('apiMovies')
 
     //
     const [ loggedIn, setLoggedIn ] = useState(JSON.parse(sessionStorage.getItem('loggedIn')) || false);
@@ -88,6 +85,7 @@ function App() {
                 .all([mainApi.getMovies(), mainApi.getUserInfo()])
                 .then(([movies, user]) => {
                     setSavedMovies(movies);
+                    dispatch(addMoviesAction('userMovies', movies))
                     setCurrentUser(user);
                 })
                 .catch((err) => {
@@ -278,7 +276,6 @@ function App() {
                     <ProtectedRoute
                         component={Movies}
                         loggedIn={loggedIn}
-                        movies={movies2}
                         exact path='/movies'
                         savedMovies={ savedMovies }
                         loadMovies={loadMovies}
@@ -292,7 +289,6 @@ function App() {
                         exact path='/saved-movies'
                         component={SavedMovies}
                         loggedIn={loggedIn}
-                        movies={savedMovies}
                         onMovieDelete={handleMovieDelete}
                         isLoading={isFetchingMainServer}
                         isFetchErrored={isFetchMainServerErrored}
