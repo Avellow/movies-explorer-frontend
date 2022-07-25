@@ -3,11 +3,13 @@ import Form from "../Form/Form";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import Logo from "../Logo/Logo";
-import {NavLink} from "react-router-dom";
+import {NavLink, useHistory} from 'react-router-dom';
 import {useFormAndValidation} from "../../hooks/useFormAndValidation";
 import {EMAIL_VALIDATION_ERROR, generateAuthError, NAME_VALIDATION_ERROR} from "../../utils/constants";
 import Preloader from "../Preloader/Preloader";
 import {useEffect} from "react";
+import { useDispatch, useSelector } from 'react-redux'
+import {registerUser} from '../../store/reducers/auth/user/userAction';
 
 function Register(props) {
     const {
@@ -18,6 +20,17 @@ function Register(props) {
     } = props;
 
     useEffect(() => cleanError(), [cleanError]);
+
+    // redux
+    const { loading, userInfo, error, success } = useSelector((state) => state.user)
+    const dispatch = useDispatch()
+    const history = useHistory();
+
+    useEffect(() => {
+        if (success) history.push('/signin')
+    },[history, success])
+
+    // end redux
 
     const {
         values,
@@ -32,8 +45,8 @@ function Register(props) {
             password,
             username: name,
         } = values;
-
-        onRegister(name, email, password)
+        dispatch(registerUser({ name, email, password}))
+        //onRegister(name, email, password)
     }
 
     return (

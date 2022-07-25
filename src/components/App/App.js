@@ -23,16 +23,22 @@ import {
     pagesWithoutHeader,
 } from "../../utils/constants";
 import PopupWithError from "../PopupWithError/PopupWithError";
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {addMoviesAction} from '../../store/reducers/movies/data/movies-data-reducer';
 import {userLogoutAction} from '../../store';
+import {getUserDetails} from '../../store/reducers/auth/user/userAction';
 
 function App() {
     // redux
     const dispatch = useDispatch();
+    const loggedIn = useSelector(state => !!state.user.isAuth)
+    const setLoggedIn = () => {}
+
+    const { userToken } = useSelector(state => state.user)
+
 
     //
-    const [ loggedIn, setLoggedIn ] = useState(JSON.parse(sessionStorage.getItem('loggedIn')) || false);
+    //const [ loggedIn, setLoggedIn ] = useState(JSON.parse(sessionStorage.getItem('loggedIn')) || false);
     const [ isPopupMenuOpened, setIsPopupMenuOpened] = useState(false);
 
     //const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('movies')));
@@ -78,6 +84,7 @@ function App() {
     }, []);
 
     useEffect(() => {
+        mainApi.setToken(userToken)
         setIsFetchingMainServer(true)
         handleTokenCheck();
         if (loggedIn) {
@@ -96,7 +103,7 @@ function App() {
         } else {
             setIsFetchingMainServer(false);
         }
-    }, [loggedIn, handleTokenCheck])
+    }, [loggedIn, handleTokenCheck, dispatch, userToken])
 
     function handleMovieSave(movie) {
         const formedMovie = formValidProps(movie);

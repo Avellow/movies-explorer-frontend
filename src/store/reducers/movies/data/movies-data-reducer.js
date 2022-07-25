@@ -17,17 +17,7 @@ export const moviesDataReducer = (state = defaultState, action) => {
     }
 }
 // универсальные экшены для разных групп фильмов
+// TODO: переделать payload на объекты типа payload.movies (хорошая практика)
 export const addMoviesAction = (movieType, movies) => ({ type: ADD_MOVIES, payload: movies, name: movieType })
 export const addMovieAction = (movieType, movie) => ({ type: ADD_MOVIE, payload: movie, name: movieType })
 export const removeMovieAction = (movieType, id) => ({ type: REMOVE_MOVIE, payload: id, name: movieType })
-
-// обертка над movies, чтобы не дублировать одинаковые редьсюеры для фильмов
-export function createNamedWrapperReducer(reducerFunction, reducerName) {
-    return (state, action) => {
-        const { name } = action
-        const isInitializationCall = state === undefined
-        if (name !== reducerName && !isInitializationCall) return state
-
-        return reducerFunction(state, action)
-    }
-}

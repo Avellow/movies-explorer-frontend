@@ -3,10 +3,12 @@ import Form from "../Form/Form";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import Logo from "../Logo/Logo";
-import {NavLink} from "react-router-dom";
+import {NavLink, useHistory} from 'react-router-dom';
 import {useFormAndValidation} from "../../hooks/useFormAndValidation";
 import {EMAIL_VALIDATION_ERROR, generateAuthError} from "../../utils/constants";
 import {useEffect} from "react";
+import {useDispatch, useSelector} from 'react-redux';
+import {getUserDetails, userLogin} from '../../store/reducers/auth/user/userAction';
 
 function Login(props) {
     const {
@@ -18,6 +20,18 @@ function Login(props) {
 
     useEffect(() => cleanError(), [cleanError]);
 
+    // redux
+    const { loading, userInfo, error, success } = useSelector(state => state.user)
+
+    const dispatch = useDispatch();
+    const history = useHistory()
+    useEffect(() => {
+        if (userInfo) {
+            //history.push('/profile')
+        }
+    }, [history, userInfo])
+    // end redux
+
     const {
         values,
         errors,
@@ -27,7 +41,8 @@ function Login(props) {
 
     function handleLogin() {
         const { email, password } = values;
-        onLogin(email, password);
+        //onLogin(email, password);
+        dispatch(userLogin({ email, password }))
     }
 
     return (

@@ -11,14 +11,17 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import moviesReducer from './reducers/movies/index'
+import userReducer from './reducers/auth/user/userSlice'
 
 const persistConfig = {
     key: 'root',
     storage,
+    //blacklist: ['user']
 }
 
 const appReducer = combineReducers({
-    movies: moviesReducer
+    movies: moviesReducer,
+    user: userReducer,
 })
 
 const rootReducer = (state, action) => {

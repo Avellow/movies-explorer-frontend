@@ -2,8 +2,10 @@ import {combineReducers} from 'redux';
 import {moviesDataReducer} from './data/movies-data-reducer';
 import {moviesFiltersReducer} from './filters/movies-filter-reducer';
 
+// TODO: рефакторинг при помощи слайсов из RTK
+
 export const moviesReducer = combineReducers({
-    data: moviesDataReducer, // TODO: refactor to moviesDataReducer
+    data: moviesDataReducer,
     filters: moviesFiltersReducer,
 })
 
