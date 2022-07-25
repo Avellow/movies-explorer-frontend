@@ -46,12 +46,12 @@ export const getUserDetails = createAsyncThunk(
         try {
             // get user data from store
             const { user } = getState()
-            console.log(user.userToken)
+
             mainApi.setToken(user.userToken)
             // configure authorization header with user's token
 
             const data = await mainApi.getUserInfo()
-            console.log(data)
+
             return data
         } catch (error) {
             if (error.response && error.response.data.message) {

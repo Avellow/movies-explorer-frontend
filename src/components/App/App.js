@@ -29,6 +29,7 @@ import {userLogoutAction} from '../../store';
 import {getUserDetails} from '../../store/reducers/auth/user/userAction';
 
 function App() {
+    console.log('app render')
     // redux
     const dispatch = useDispatch();
     const loggedIn = useSelector(state => !!state.user.isAuth)
@@ -37,11 +38,9 @@ function App() {
     const { userToken } = useSelector(state => state.user)
 
 
-    //
-    //const [ loggedIn, setLoggedIn ] = useState(JSON.parse(sessionStorage.getItem('loggedIn')) || false);
+    // end redux
     const [ isPopupMenuOpened, setIsPopupMenuOpened] = useState(false);
 
-    //const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('movies')));
     const [savedMovies, setSavedMovies] = useState([]);
 
     const [isFetching, setIsFetching] = useState(false);
@@ -62,48 +61,12 @@ function App() {
     const history = useHistory();
     const location = useLocation();
 
-    const handleTokenCheck = useCallback(() => {
-        if (localStorage.getItem('jwt')) {
-            const jwt = localStorage.getItem('jwt');
-            setIsFetchingMainServer(true);
-            auth
-                .checkToken(jwt)
-                .then((user) => {
-                    setCurrentUser(prevUserInfo => ({...prevUserInfo, ...user}));
-                    setLoggedIn(true);
-                    sessionStorage.setItem('loggedIn', 'true');
-                })
-                .catch((err) => {
-                    showError(err,);
-                    setLoggedIn(false);
-                    sessionStorage.setItem('loggedIn', 'false');
-                    localStorage.removeItem('jwt');
-                })
-                .finally(() => setIsFetchingMainServer(false));
-        }
-    }, []);
-
     useEffect(() => {
-        mainApi.setToken(userToken)
-        setIsFetchingMainServer(true)
-        handleTokenCheck();
         if (loggedIn) {
-            Promise
-                .all([mainApi.getMovies(), mainApi.getUserInfo()])
-                .then(([movies, user]) => {
-                    setSavedMovies(movies);
-                    dispatch(addMoviesAction('userMovies', movies))
-                    setCurrentUser(user);
-                })
-                .catch((err) => {
-                    showError(err, 'Не удалось получить информацию.');
-                    setIsFetchMainServerErrored(true);
-                })
-                .finally(() => setIsFetchingMainServer(false))
-        } else {
-            setIsFetchingMainServer(false);
+            dispatch(getUserDetails())
         }
-    }, [loggedIn, handleTokenCheck, dispatch, userToken])
+    }, [loggedIn, dispatch])
+
 
     function handleMovieSave(movie) {
         const formedMovie = formValidProps(movie);
@@ -150,42 +113,6 @@ function App() {
 
     function openMenuPopup() {
         setIsPopupMenuOpened(true);
-    }
-
-    function onRegister(name, email, password) {
-        setIsFetching(true)
-        auth
-            .register(name, email, password)
-            .then(() => delay(2000))
-            .then(() => {
-                setAuthStatus(prevState => ({...prevState, success: true, err: null}))
-                onLogin(email, password)
-            })
-            .catch(err => {
-                console.log(err);
-                setAuthStatus(prevState => ({...prevState, success: false, err}))
-            })
-            .finally(() => setIsFetching(false))
-    }
-
-    function onLogin(email, password) {
-        setIsFetching(true)
-        auth
-            .authorize(email, password)
-            .then((data) => {
-                if (data.token) {
-                    localStorage.setItem('jwt', data.token);
-                    mainApi.setToken(`Bearer ${data.token}`);
-                    setAuthStatus(prevState => ({...prevState, success: true, err: null}))
-                    setLoggedIn(true);
-                    history.push('/movies');
-                }
-            })
-            .catch(err => {
-                console.log(err);
-                setAuthStatus(prevState => ({...prevState, success: false, err}));
-            })
-            .finally(() => setIsFetching(false))
     }
 
     const cleanErrorMessage = useCallback(() => {
@@ -256,7 +183,6 @@ function App() {
                                 ? (<Redirect to='/'/>)
                                 : (
                                     <Login
-                                        onLogin={onLogin}
                                         isFetching={isFetching}
                                         loginStatus={authStatus}
                                         cleanError={cleanErrorMessage}
@@ -271,7 +197,6 @@ function App() {
                                 ? (<Redirect to='/'/>)
                                 : (
                                     <Register
-                                        onRegister={onRegister}
                                         isFetching={isFetching}
                                         registrationStatus={authStatus}
                                         cleanError={cleanErrorMessage}
