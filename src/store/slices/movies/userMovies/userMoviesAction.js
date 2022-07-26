@@ -24,7 +24,7 @@ export const saveUserMovie = createAsyncThunk(
     async (movie, { rejectWithValue, dispatch }) => {
         try {
             const response = await mainApi.saveMovie(movie)
-            await dispatch(addUserMovie(movie))
+            await dispatch(addUserMovie(response))
         } catch(error) {
             // TODO вынести в отдельную переменную и переиспользовать
             if (error.response && error.response.data.message) {

@@ -4,12 +4,17 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 import {CONNECTION_ERROR} from '../../utils/constants';
 import Preloader from "../Preloader/Preloader";
 import {useDispatch, useSelector} from 'react-redux';
-import {selectMoviesByFilter, selectMoviesFilter} from '../../store/selectors/movies/movies-selectors';
 import {
-    changeQueryStringAction,
-    toggleShortFilmSwitcherAction
-} from '../../store/reducers/movies/filters/movies-filter-reducer';
+    selectIsMoviesLoading,
+    selectMoviesByFilter,
+    selectMoviesFilters
+} from '../../store/selectors/movies/movies-selectors';
 import {useEffect} from 'react';
+import {
+    changeQueryStringOnUserMovies, resetFiltersOnUserMovies,
+    toggleShortFilmOnUserMovies
+} from '../../store/slices/movies/userMovies/userMoviesSlice';
+import {getUserMovies} from '../../store/slices/movies/userMovies/userMoviesAction';
 
 function SavedMovies(props) {
     const {
@@ -21,15 +26,16 @@ function SavedMovies(props) {
     //redux
     const dispatch = useDispatch();
     const filteredUserMovies = useSelector(selectMoviesByFilter('userMovies'))
-    const { isShortFilmActive } = useSelector(selectMoviesFilter('userMovies'))
-    const savedMovies = useSelector(state => state.movies.userMovies.data)
+    const { isShortFilmActive } = useSelector(selectMoviesFilters('userMovies'))
+    const isUserMoviesLoading = useSelector(selectIsMoviesLoading('userMovies'))
 
-    // при unmount очищает значение поисковой строки в хранилище
-    useEffect(() => () => {
-        dispatch(changeQueryStringAction('userMovies', ''))
+    // при монтировании очищает значение фильтров в хранилище
+    useEffect(() => {
+        dispatch(resetFiltersOnUserMovies())
+        dispatch(getUserMovies())
     }, [])
 
-    const moviesElements = savedMovies.map(movie => (
+    const moviesElements = filteredUserMovies.map(movie => (
         <MoviesCard
             key={movie._id}
             id={movie.movieId}
@@ -46,11 +52,11 @@ function SavedMovies(props) {
     // end redux
 
     function onToggleCheck() {
-        dispatch(toggleShortFilmSwitcherAction('userMovies', !isShortFilmActive))
+        dispatch(toggleShortFilmOnUserMovies(!isShortFilmActive))
     }
 
     function onMovieSearch(value) {
-        dispatch(changeQueryStringAction('userMovies', value))
+        dispatch(changeQueryStringOnUserMovies(value))
     }
 
     return (
@@ -59,12 +65,12 @@ function SavedMovies(props) {
                 onSubmit={onMovieSearch}
                 onToggleCheck={onToggleCheck}
                 isToggleChecked={isShortFilmActive}
-                isLoading={isLoading}
+                isLoading={isUserMoviesLoading}
             />
 
             {isFetchErrored && (<h4 className='movies-cards__not-found'>{CONNECTION_ERROR}</h4>)}
 
-            {!isFetchErrored && (isLoading
+            {!isFetchErrored && (isUserMoviesLoading
                 ? (<Preloader/>)
                 : (<MoviesCardList
                       movies={moviesElements}

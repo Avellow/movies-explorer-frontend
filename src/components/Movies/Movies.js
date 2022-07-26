@@ -8,29 +8,30 @@ import {
     MOVIES_SERVER_URL,
 } from "../../utils/constants";
 import MoviesCard from "../MoviesCard/MoviesCard";
-import {useState} from "react";
 import {useDispatch, useSelector} from 'react-redux';
-import {changeQueryStringAction, toggleShortFilmSwitcherAction} from '../../store/reducers/movies/filters/movies-filter-reducer';
-import {selectAllMovies, selectMoviesByFilter, selectMoviesFilter} from '../../store/selectors/movies/movies-selectors';
+
+import {
+    selectAllMovies,
+    selectIsMoviesLoading,
+    selectMoviesByFilter,
+    selectMoviesFilters
+} from '../../store/selectors/movies/movies-selectors';
 import {getMovies} from '../../store/slices/movies/apiMovies/moviesAction';
+import {changeQueryString, toggleShortFilm} from '../../store/slices/movies/apiMovies/moviesSlice';
 
 function Movies(props) {
     const {
-        isLoading,
-        loadMovies,
         isFetchErrored,
         onMovieSave,
         onMovieDelete,
-        savedMovies,
     } = props;
 
     const dispatch = useDispatch();
-    const { queryString, isShortFilmActive } = useSelector(state => state.movies.apiMovies.filters)
+    const { queryString, isShortFilmActive } = useSelector(selectMoviesFilters('apiMovies'))
     const filteredMovies = useSelector(selectMoviesByFilter('apiMovies'))
-    const movies = useSelector(state => state.movies.apiMovies.data)
-
-    // искусственная задержка при фильтрации, временно не используется
-    const [isDelayed, setIsDelayed] = useState(false);
+    const movies = useSelector(selectAllMovies('apiMovies'))
+    const isMoviesLoading = useSelector(selectIsMoviesLoading('apiMovies'))
+    const savedMovies = useSelector(selectAllMovies('userMovies'))
 
     // TODO: перенести генерацию элементов на уровень компонента MoviesCardList
     const newGetMoviesElementsList = filteredMovies.map(movie => (
@@ -44,19 +45,19 @@ function Movies(props) {
             movieProps={movie}
             onMovieSave={onMovieSave}
             onMovieDelete={onMovieDelete}
-            isSaved={false} // checkIdInList(movie.id, savedMovies)
+            isSaved={checkIdInList(movie.id, savedMovies)} // checkIdInList(movie.id, savedMovies)
         />
     )) || []
 
     function onToggleCheck() {
-        dispatch(toggleShortFilmSwitcherAction('apiMovies', !isShortFilmActive))
+        dispatch(toggleShortFilm(!isShortFilmActive))
     }
 
     async function onMovieSearch(value) {
         if (!movies || movies.length === 0) {
             await dispatch(getMovies())
         }
-        dispatch(changeQueryStringAction('apiMovies', value))
+        dispatch(changeQueryString(value))
     }
 
     return (
@@ -65,13 +66,13 @@ function Movies(props) {
                 onSubmit={onMovieSearch}
                 onToggleCheck={onToggleCheck}
                 isToggleChecked={isShortFilmActive}
-                isLoading={isLoading || isDelayed}
+                isLoading={isMoviesLoading}
                 storageKey='queryString'
                 defaultValue={queryString}
             />
             {isFetchErrored && (<h4 className='movies-cards__not-found'>{CONNECTION_ERROR}</h4>)}
 
-            {!isFetchErrored && (isLoading || isDelayed
+            {!isFetchErrored && (isMoviesLoading
                 ? (<Preloader />)
                 : (<MoviesCardList
                         movies={newGetMoviesElementsList}

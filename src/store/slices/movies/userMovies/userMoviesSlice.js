@@ -22,10 +22,18 @@ const userMoviesSlice = createSlice({
             state.data.push(action.payload)
         },
         removeUserMovieLocally(state, action) {
-
             state.data = state.data.filter(movie =>
                 movie.movieId !== action.payload.movieId)
-        }
+        },
+        changeQueryStringOnUserMovies(state, { payload }) {
+            state.filters.queryString = payload
+        },
+        toggleShortFilmOnUserMovies(state, { payload }) {
+            state.filters.isShortFilmActive = payload
+        },
+        resetFiltersOnUserMovies(state) {
+            state.filters = initialState.filters
+        },
     },
     extraReducers: {
         // getting movies from user api
@@ -44,6 +52,12 @@ const userMoviesSlice = createSlice({
     }
 })
 
-export const { addUserMovie, removeUserMovieLocally } = userMoviesSlice.actions;
+export const {
+    addUserMovie,
+    removeUserMovieLocally,
+    changeQueryStringOnUserMovies,
+    toggleShortFilmOnUserMovies,
+    resetFiltersOnUserMovies,
+} = userMoviesSlice.actions;
 
 export default userMoviesSlice.reducer;

@@ -18,7 +18,14 @@ const initialState = {
 const moviesSlice = createSlice({
     name: 'movies',
     initialState,
-    reducers: {},
+    reducers: {
+        changeQueryString(state, { payload }) {
+            state.filters.queryString = payload
+        },
+        toggleShortFilm(state, { payload }) {
+            state.filters.isShortFilmActive = payload
+        },
+    },
     extraReducers: {
         // getting movies from api
         [getMovies.pending]: (state) => {
@@ -35,5 +42,7 @@ const moviesSlice = createSlice({
         }
     }
 })
+
+export const { changeQueryString, toggleShortFilm } = moviesSlice.actions;
 
 export default moviesSlice.reducer;

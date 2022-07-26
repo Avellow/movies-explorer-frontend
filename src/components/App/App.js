@@ -11,45 +11,36 @@ import Login from "../Login/Login";
 import Register from "../Register/Register";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import SideMenu from "../SideMenu/SideMenu";
-import * as auth from '../../utils/auth';
 import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import {
     delay,
     formValidProps, generateError,
     mainApi,
-    moviesApi,
     pagesWithoutFooter,
     pagesWithoutHeader,
 } from "../../utils/constants";
 import PopupWithError from "../PopupWithError/PopupWithError";
 import {useDispatch, useSelector} from 'react-redux';
-import {addMoviesAction} from '../../store/reducers/movies/data/movies-data-reducer';
 import {userLogoutAction} from '../../store';
 import {getUserDetails} from '../../store/slices/user/userAction';
-import {getMovies} from '../../store/slices/movies/apiMovies/moviesAction';
-import {getUserMovies, removeUserMovieFromServer, saveUserMovie} from '../../store/slices/movies/userMovies/userMoviesAction';
-import {removeUserMovieLocally} from '../../store/slices/movies/userMovies/userMoviesSlice';
+import {removeUserMovieFromServer, saveUserMovie} from '../../store/slices/movies/userMovies/userMoviesAction';
+
 
 function App() {
     console.log('app render')
     // redux
+
     const dispatch = useDispatch();
     const loggedIn = useSelector(state => !!state.user.isAuth)
-    const setLoggedIn = () => {}
     const newSavedMovies = useSelector(state => state.movies.userMovies.data)
-    const { userToken } = useSelector(state => state.user)
-
 
     // end redux
     const [ isPopupMenuOpened, setIsPopupMenuOpened] = useState(false);
 
-    const [savedMovies, setSavedMovies] = useState([]);
-
     const [isFetching, setIsFetching] = useState(false);
     const [isFetchErrored, setIsFetchErrored] = useState(false);
 
-    const [isFetchingMainServer, setIsFetchingMainServer] = useState(false);
     const [isFetchMainServerErrored, setIsFetchMainServerErrored] = useState(false);
 
     const [authStatus, setAuthStatus] = useState({success: true, err: null}) //мб оптимизировать - просто err
@@ -67,7 +58,6 @@ function App() {
     useEffect(() => {
         if (loggedIn) {
             dispatch(getUserDetails())
-            dispatch(getUserMovies())
         }
     }, [loggedIn, dispatch])
 
@@ -75,43 +65,11 @@ function App() {
     function handleMovieSave(movie) {
         const formedMovie = formValidProps(movie);
         dispatch(saveUserMovie(formedMovie))
-        /*mainApi
-            .saveMovie(formedMovie)
-            .then((savedMovie) => {
-                setSavedMovies(prevState => [...prevState, savedMovie])
-                dispatch()
-            })
-            .catch(err => showError(err, 'Не удалось сохранить фильм.'))*/
     }
 
     function handleMovieDelete(id) {
         const movieToDelete = newSavedMovies.find(movie => movie.movieId === id)
-        console.log(movieToDelete)
         dispatch(removeUserMovieFromServer(movieToDelete._id))
-        /*mainApi
-            .deleteMovie(movieToDelete._id)
-            .then(({data: movie}) => {
-                setSavedMovies(prevState => prevState.filter(m => m.movieId !== movie.movieId))
-
-            })
-            .catch(err => showError(err, 'Не удалось удалить фильм.'))*/
-    }
-
-    function loadMovies() {
-        setIsFetching(true);
-
-        return moviesApi
-            .getFilms()
-            .then((loadedMovies) => {
-                //dispatch(addMoviesAction('apiMovies', loadedMovies))
-            })
-            .catch((err) => {
-                setIsFetchErrored(true);
-                localStorage.setItem('movies', null)
-                console.log(err)
-            })
-            .finally(() => setIsFetching(false))
-
     }
 
     function closeAllPopups() {
@@ -149,12 +107,9 @@ function App() {
     }
 
     function onSignOut() {
-        setLoggedIn(false);
         dispatch(userLogoutAction())
-        setSavedMovies(null);
         setCurrentUser(null);
         localStorage.clear();
-        sessionStorage.removeItem('loggedIn');
         history.push('/');
     }
 
@@ -217,9 +172,6 @@ function App() {
                         component={Movies}
                         loggedIn={loggedIn}
                         exact path='/movies'
-                        savedMovies={ savedMovies }
-                        loadMovies={loadMovies}
-                        isLoading={isFetching}
                         isFetchErrored={isFetchErrored}
                         onMovieSave={handleMovieSave}
                         onMovieDelete={handleMovieDelete}
@@ -230,7 +182,6 @@ function App() {
                         component={SavedMovies}
                         loggedIn={loggedIn}
                         onMovieDelete={handleMovieDelete}
-                        isLoading={isFetchingMainServer}
                         isFetchErrored={isFetchMainServerErrored}
                     />
 
