@@ -11,7 +11,6 @@ import Login from "../Login/Login";
 import Register from "../Register/Register";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import SideMenu from "../SideMenu/SideMenu";
-import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import {
     delay,
@@ -128,84 +127,84 @@ function App() {
 
     return (
         <div className="app">
-            <CurrentUserContext.Provider value={currentUser}>
-                {shouldHeaderBeShown() && (
-                    <Header
-                        loggedIn={loggedIn}
-                        onBurgerClick={openMenuPopup}
-                    />
-                )}
-                <Switch>
-                    <Route exact path='/'>
-                        <Main />
-                    </Route>
 
-                    <Route path='/signin'>
-                        {
-                            loggedIn
-                                ? (<Redirect to='/'/>)
-                                : (
-                                    <Login
-                                        isFetching={isFetching}
-                                        loginStatus={authStatus}
-                                        cleanError={cleanErrorMessage}
-                                    />
-                                )
-                        }
-                    </Route>
+            {shouldHeaderBeShown() && (
+                <Header
+                    loggedIn={loggedIn}
+                    onBurgerClick={openMenuPopup}
+                />
+            )}
+            <Switch>
+                <Route exact path="/">
+                    <Main/>
+                </Route>
 
-                    <Route path='/signup'>
-                        {
-                            loggedIn
-                                ? (<Redirect to='/'/>)
-                                : (
-                                    <Register
-                                        isFetching={isFetching}
-                                        registrationStatus={authStatus}
-                                        cleanError={cleanErrorMessage}
-                                    />
-                                )
-                        }
-                    </Route>
+                <Route path="/signin">
+                    {
+                        loggedIn
+                            ? (<Redirect to="/"/>)
+                            : (
+                                <Login
+                                    isFetching={isFetching}
+                                    loginStatus={authStatus}
+                                    cleanError={cleanErrorMessage}
+                                />
+                            )
+                    }
+                </Route>
 
-                    <ProtectedRoute
-                        component={Movies}
-                        loggedIn={loggedIn}
-                        exact path='/movies'
-                        isFetchErrored={isFetchErrored}
-                        onMovieSave={handleMovieSave}
-                        onMovieDelete={handleMovieDelete}
-                    />
+                <Route path="/signup">
+                    {
+                        loggedIn
+                            ? (<Redirect to="/"/>)
+                            : (
+                                <Register
+                                    isFetching={isFetching}
+                                    registrationStatus={authStatus}
+                                    cleanError={cleanErrorMessage}
+                                />
+                            )
+                    }
+                </Route>
 
-                    <ProtectedRoute
-                        exact path='/saved-movies'
-                        component={SavedMovies}
-                        loggedIn={loggedIn}
-                        onMovieDelete={handleMovieDelete}
-                        isFetchErrored={isFetchMainServerErrored}
-                    />
-
-                    <ProtectedRoute
-                        exact path='/profile'
-                        component={Profile}
-                        loggedIn={loggedIn}
-                        onUpdate={onUserInfoUpdate}
-                        onLogout={onSignOut}
-                        isUpdateSucceed={isUserUpdateSucceed}
-                        isFetching={isFetching}
-                    />
-
-                    <Route path='/404' component={NotFound} />
-                    <Route path="*"><Redirect to='/404'/></Route>
-                </Switch>
-
-                <SideMenu
-                    isOpened={isPopupMenuOpened}
-                    onClose={closeAllPopups}
+                <ProtectedRoute
+                    component={Movies}
+                    loggedIn={loggedIn}
+                    exact path="/movies"
+                    isFetchErrored={isFetchErrored}
+                    onMovieSave={handleMovieSave}
+                    onMovieDelete={handleMovieDelete}
                 />
 
-                {shouldFooterBeShown() && <Footer/>}
-            </CurrentUserContext.Provider>
+                <ProtectedRoute
+                    exact path="/saved-movies"
+                    component={SavedMovies}
+                    loggedIn={loggedIn}
+                    onMovieDelete={handleMovieDelete}
+                    isFetchErrored={isFetchMainServerErrored}
+                />
+
+                <ProtectedRoute
+                    exact path="/profile"
+                    component={Profile}
+                    loggedIn={loggedIn}
+                    onUpdate={onUserInfoUpdate}
+                    onLogout={onSignOut}
+                    isUpdateSucceed={isUserUpdateSucceed}
+                    isFetching={isFetching}
+                />
+
+                <Route path="/404" component={NotFound}/>
+                <Route path="*"><Redirect to="/404"/></Route>
+            </Switch>
+
+            <SideMenu
+                isOpened={isPopupMenuOpened}
+                onClose={closeAllPopups}
+            />
+
+            {shouldFooterBeShown() && <Footer/>}
+
 
             {errorText && (
                 <PopupWithError
