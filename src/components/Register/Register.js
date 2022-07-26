@@ -9,7 +9,7 @@ import {EMAIL_VALIDATION_ERROR, generateAuthError, NAME_VALIDATION_ERROR} from "
 import Preloader from "../Preloader/Preloader";
 import {useEffect} from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import {registerUser} from '../../store/reducers/auth/user/userAction';
+import {registerUser} from '../../store/slices/user/userAction';
 
 function Register(props) {
     const {

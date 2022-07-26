@@ -8,7 +8,7 @@ import {useFormAndValidation} from "../../hooks/useFormAndValidation";
 import {EMAIL_VALIDATION_ERROR, generateAuthError} from "../../utils/constants";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from 'react-redux';
-import {getUserDetails, userLogin} from '../../store/reducers/auth/user/userAction';
+import {getUserDetails, userLogin} from '../../store/slices/user/userAction';
 
 function Login(props) {
     const {

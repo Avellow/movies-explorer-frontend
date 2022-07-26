@@ -22,13 +22,14 @@ function SavedMovies(props) {
     const dispatch = useDispatch();
     const filteredUserMovies = useSelector(selectMoviesByFilter('userMovies'))
     const { isShortFilmActive } = useSelector(selectMoviesFilter('userMovies'))
+    const savedMovies = useSelector(state => state.movies.userMovies.data)
 
     // при unmount очищает значение поисковой строки в хранилище
     useEffect(() => () => {
         dispatch(changeQueryStringAction('userMovies', ''))
     }, [])
 
-    const moviesElements = filteredUserMovies.map(movie => (
+    const moviesElements = savedMovies.map(movie => (
         <MoviesCard
             key={movie._id}
             id={movie.movieId}

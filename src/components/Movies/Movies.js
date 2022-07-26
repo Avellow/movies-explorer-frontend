@@ -12,6 +12,7 @@ import {useState} from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import {changeQueryStringAction, toggleShortFilmSwitcherAction} from '../../store/reducers/movies/filters/movies-filter-reducer';
 import {selectAllMovies, selectMoviesByFilter, selectMoviesFilter} from '../../store/selectors/movies/movies-selectors';
+import {getMovies} from '../../store/slices/movies/apiMovies/moviesAction';
 
 function Movies(props) {
     const {
@@ -24,9 +25,9 @@ function Movies(props) {
     } = props;
 
     const dispatch = useDispatch();
-    const { queryString, isShortFilmActive } = useSelector(selectMoviesFilter('apiMovies'))
+    const { queryString, isShortFilmActive } = useSelector(state => state.movies.apiMovies.filters)
     const filteredMovies = useSelector(selectMoviesByFilter('apiMovies'))
-    const movies = useSelector(selectAllMovies('apiMovies'))
+    const movies = useSelector(state => state.movies.apiMovies.data)
 
     // искусственная задержка при фильтрации, временно не используется
     const [isDelayed, setIsDelayed] = useState(false);
@@ -53,7 +54,7 @@ function Movies(props) {
 
     async function onMovieSearch(value) {
         if (!movies || movies.length === 0) {
-            await loadMovies();
+            await dispatch(getMovies())
         }
         dispatch(changeQueryStringAction('apiMovies', value))
     }

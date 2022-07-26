@@ -10,8 +10,9 @@ import {
     REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import moviesReducer from './reducers/movies/index'
-import userReducer from './reducers/auth/user/userSlice'
+import moviesReducer from './slices/movies'
+import userReducer from './slices/user/userSlice'
+import rtkMovies from './slices/movies/apiMovies/moviesSlice'
 
 const persistConfig = {
     key: 'root',

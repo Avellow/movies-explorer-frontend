@@ -5,6 +5,7 @@ class MainApi {
     }
 
     setToken(jwt) {
+        // TODO: рефакторинг, добавить Bearer и ниже использовать только this.token
         this._token = jwt;
     }
 

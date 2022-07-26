@@ -26,7 +26,10 @@ import PopupWithError from "../PopupWithError/PopupWithError";
 import {useDispatch, useSelector} from 'react-redux';
 import {addMoviesAction} from '../../store/reducers/movies/data/movies-data-reducer';
 import {userLogoutAction} from '../../store';
-import {getUserDetails} from '../../store/reducers/auth/user/userAction';
+import {getUserDetails} from '../../store/slices/user/userAction';
+import {getMovies} from '../../store/slices/movies/apiMovies/moviesAction';
+import {getUserMovies, removeUserMovieFromServer, saveUserMovie} from '../../store/slices/movies/userMovies/userMoviesAction';
+import {removeUserMovieLocally} from '../../store/slices/movies/userMovies/userMoviesSlice';
 
 function App() {
     console.log('app render')
@@ -34,7 +37,7 @@ function App() {
     const dispatch = useDispatch();
     const loggedIn = useSelector(state => !!state.user.isAuth)
     const setLoggedIn = () => {}
-
+    const newSavedMovies = useSelector(state => state.movies.userMovies.data)
     const { userToken } = useSelector(state => state.user)
 
 
@@ -64,29 +67,34 @@ function App() {
     useEffect(() => {
         if (loggedIn) {
             dispatch(getUserDetails())
+            dispatch(getUserMovies())
         }
     }, [loggedIn, dispatch])
 
 
     function handleMovieSave(movie) {
         const formedMovie = formValidProps(movie);
-        mainApi
+        dispatch(saveUserMovie(formedMovie))
+        /*mainApi
             .saveMovie(formedMovie)
             .then((savedMovie) => {
                 setSavedMovies(prevState => [...prevState, savedMovie])
+                dispatch()
             })
-            .catch(err => showError(err, 'Не удалось сохранить фильм.'))
+            .catch(err => showError(err, 'Не удалось сохранить фильм.'))*/
     }
 
     function handleMovieDelete(id) {
-        const movieToDelete = savedMovies.find(movie => movie.movieId === id)
-
-        mainApi
+        const movieToDelete = newSavedMovies.find(movie => movie.movieId === id)
+        console.log(movieToDelete)
+        dispatch(removeUserMovieFromServer(movieToDelete._id))
+        /*mainApi
             .deleteMovie(movieToDelete._id)
             .then(({data: movie}) => {
                 setSavedMovies(prevState => prevState.filter(m => m.movieId !== movie.movieId))
+
             })
-            .catch(err => showError(err, 'Не удалось удалить фильм.'))
+            .catch(err => showError(err, 'Не удалось удалить фильм.'))*/
     }
 
     function loadMovies() {
@@ -95,7 +103,7 @@ function App() {
         return moviesApi
             .getFilms()
             .then((loadedMovies) => {
-                dispatch(addMoviesAction('apiMovies', loadedMovies))
+                //dispatch(addMoviesAction('apiMovies', loadedMovies))
             })
             .catch((err) => {
                 setIsFetchErrored(true);
