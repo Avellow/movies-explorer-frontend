@@ -148,13 +148,7 @@ function App() {
                     {
                         loggedIn
                             ? (<Redirect to="/"/>)
-                            : (
-                                <Login
-                                    isFetching={isFetching}
-                                    loginStatus={authStatus}
-                                    cleanError={cleanErrorMessage}
-                                />
-                            )
+                            : (<Login />)
                     }
                 </Route>
 

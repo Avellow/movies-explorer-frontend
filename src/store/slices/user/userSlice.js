@@ -17,7 +17,11 @@ const initialState = {
 const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {},
+    reducers: {
+        resetErrorOnUser(state) {
+            state.error = null
+        }
+    },
     extraReducers: {
         // login user
         [userLogin.pending]: (state) => {
@@ -63,5 +67,7 @@ const userSlice = createSlice({
         },
     }
 })
+
+export const { resetErrorOnUser } = userSlice.actions
 
 export default userSlice.reducer;
