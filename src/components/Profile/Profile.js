@@ -2,7 +2,7 @@ import './Profile.css';
 import Form from "../Form/Form";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
-import {useEffect, useState} from "react";
+import {useEffect} from 'react';
 import {useFormAndValidation} from "../../hooks/useFormAndValidation";
 import {
     EMAIL_VALIDATION_ERROR,
@@ -10,20 +10,19 @@ import {
     NAME_VALIDATION_ERROR,
     userInfoUpdateSuccess
 } from "../../utils/constants";
-import {useSelector} from 'react-redux';
-import {selectUserInfo} from '../../store/selectors/user/user-selectors';
+import {useDispatch, useSelector} from 'react-redux';
+import {selectUser} from '../../store/selectors/user/user-selectors';
+import {resetErrorOnUser} from '../../store/slices/user/userSlice';
 
 function Profile(props) {
+    console.log('profile render')
     const {
-        onLogout,
         onUpdate,
-        isUpdateSucceed = null,
-        isFetching,
+        onLogout,
     } = props;
 
-    const userInfo = useSelector(selectUserInfo)
-
-    const [isDataChanged, setIsDataChanged] = useState(false)
+    const dispatch = useDispatch();
+    const { loading, userInfo, error } = useSelector(selectUser)
 
     const {
         resetForm,
@@ -32,6 +31,8 @@ function Profile(props) {
         handleChange,
         isValid,
     } = useFormAndValidation();
+
+    const { name, email } = values
 
     useEffect(() => {
         resetForm(
@@ -44,20 +45,17 @@ function Profile(props) {
         )
     }, [userInfo, resetForm])
 
-    useEffect(() => {
-        if (
-            userInfo.name === values.name &&
-            userInfo.email === values.email
-        ) {
-           setIsDataChanged(false)
-        } else {
-            setIsDataChanged(true)
+    // эффект при unmount
+    useEffect(() => () => {
+        if (error) {
+            dispatch(resetErrorOnUser())
         }
-    }, [values.name, values.email, userInfo.name, userInfo.email])
+    }, [])
+
+    const checkIfUserInfoChanged = () => userInfo.name === name && userInfo.email === email
 
     function handleSubmit() {
-        const {name, email} = values;
-
+        const { name, email } = values;
         onUpdate(name, email);
     }
 
@@ -76,8 +74,8 @@ function Profile(props) {
                     required={true}
                     errored={errors['name']}
                     errorText={NAME_VALIDATION_ERROR}
-                    pattern='[a-zA-Zа-яА-ЯёЁ]+[- a-zA-Zа-яА-ЯёЁ]{1,}'
-                    disabled={isFetching}
+                    pattern='[a-zA-Zа-яА-ЯёЁ]+[- a-zA-Zа-яА-ЯёЁ]{3,}'
+                    disabled={loading}
                 />
                 <Input
                     name='email'
@@ -90,12 +88,11 @@ function Profile(props) {
                     value={values['email'] || ''}
                     onChange={handleChange}
                     errored={errors['email']}
-                    disabled={isFetching}
+                    disabled={loading}
                 />
 
                 {
-                    (isUpdateSucceed === false && (<p className='profile__error'>{generateAuthError()}</p>))
-                    || (isUpdateSucceed === true && (<p className='profile__success'>{userInfoUpdateSuccess}</p>))
+                    error && (<p className='profile__error'>{generateAuthError()}</p>)
                 }
 
                 <Button
@@ -103,7 +100,7 @@ function Profile(props) {
                     theme='edit'
                     type='submit'
                     onClick={handleSubmit}
-                    disabled={!isValid || isFetching || !isDataChanged}
+                    disabled={!isValid || loading || checkIfUserInfoChanged()}
                 />
                 <Button
                     text='Выйти из аккаунта'

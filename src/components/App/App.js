@@ -22,7 +22,7 @@ import {
 import PopupWithError from "../PopupWithError/PopupWithError";
 import {useDispatch, useSelector} from 'react-redux';
 import {userLogoutAction} from '../../store';
-import {getUserDetails} from '../../store/slices/user/userAction';
+import {getUserDetails, updateUserDetails} from '../../store/slices/user/userAction';
 import {
     getUserMovies,
     removeUserMovieFromServer,
@@ -32,23 +32,16 @@ import {
 
 function App() {
     console.log('app render')
-    // redux
 
     const dispatch = useDispatch();
     const loggedIn = useSelector(state => !!state.user.isAuth)
     const newSavedMovies = useSelector(state => state.movies.userMovies.data)
 
-    // end redux
     const [ isPopupMenuOpened, setIsPopupMenuOpened] = useState(false);
 
-    const [isFetching, setIsFetching] = useState(false);
     const [isFetchErrored, setIsFetchErrored] = useState(false);
 
     const [isFetchMainServerErrored, setIsFetchMainServerErrored] = useState(false);
-
-    const [currentUser, setCurrentUser] = useState({})
-
-    const [isUserUpdateSucceed, setIsUserUpdateSucceed] = useState(null);
 
     const [isErrorPopupOpened, setIsErrorPopupOpened] = useState(false);
     const [errorText, setErrorText] = useState(null);
@@ -63,6 +56,9 @@ function App() {
         }
     }, [loggedIn, dispatch])
 
+    function onUserInfoUpdate(name, email) {
+        dispatch(updateUserDetails({ name, email }))
+    }
 
     function handleMovieSave(movie) {
         const formedMovie = formValidProps(movie);
@@ -83,30 +79,8 @@ function App() {
         setIsPopupMenuOpened(true);
     }
 
-    function onUserInfoUpdate(name, email) {
-        setIsFetching(true)
-        mainApi
-            .updateUserInfo(name, email)
-            .then(({name, email}) => {
-                    setCurrentUser(prevState => ({...prevState, name, email}));
-                    setIsUserUpdateSucceed(true);
-                }
-            )
-            .catch((err) => {
-                console.log(err);
-                setIsUserUpdateSucceed(false);
-            })
-            .finally(() => {
-                setIsFetching(false);
-                setTimeout(() => {
-                    setIsUserUpdateSucceed(null)
-                }, 10000)
-            })
-    }
-
     function onSignOut() {
         dispatch(userLogoutAction())
-        setCurrentUser(null);
         localStorage.clear();
         history.push('/');
     }
@@ -172,8 +146,6 @@ function App() {
                     loggedIn={loggedIn}
                     onUpdate={onUserInfoUpdate}
                     onLogout={onSignOut}
-                    isUpdateSucceed={isUserUpdateSucceed}
-                    isFetching={isFetching}
                 />
 
                 <Route path="/404" component={NotFound}/>

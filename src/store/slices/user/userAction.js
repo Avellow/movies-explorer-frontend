@@ -50,10 +50,25 @@ export const getUserDetails = createAsyncThunk(
             mainApi.setToken(user.userToken)
             // configure authorization header with user's token
 
-            const data = await mainApi.getUserInfo()
-
-            return data
+            return await mainApi.getUserInfo()
         } catch (error) {
+            if (error.response && error.response.data.message) {
+                return rejectWithValue(error.response.data.message)
+            } else {
+                return rejectWithValue(error)
+            }
+        }
+    }
+)
+
+export const updateUserDetails = createAsyncThunk(
+    'user/updateUserDetails',
+    async (userInfo, { rejectWithValue }) => {
+        try {
+            const { name, email } = userInfo
+            // вернется объект с именем и email
+            return await mainApi.updateUserInfo(name, email)
+        } catch(error) {
             if (error.response && error.response.data.message) {
                 return rejectWithValue(error.response.data.message)
             } else {
