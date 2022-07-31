@@ -9,7 +9,7 @@ export const moviesApi = new MoviesApi(MOVIES_SERVER_URL + '/beatfilm-movies');
 export const MAIN_SERVER_URL = 'http://127.0.0.1:3000';
 export const mainApi = new MainApi({
     url: MAIN_SERVER_URL,
-    token: `Bearer ${localStorage.getItem('jwt')}`
+    token: localStorage.getItem('userToken')
 });
 
 // сообщения ошибок и результатов операций
