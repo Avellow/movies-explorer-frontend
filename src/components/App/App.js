@@ -46,8 +46,6 @@ function App() {
 
     const [isFetchMainServerErrored, setIsFetchMainServerErrored] = useState(false);
 
-    const [authStatus, setAuthStatus] = useState({success: true, err: null}) //мб оптимизировать - просто err
-
     const [currentUser, setCurrentUser] = useState({})
 
     const [isUserUpdateSucceed, setIsUserUpdateSucceed] = useState(null);
@@ -85,10 +83,6 @@ function App() {
         setIsPopupMenuOpened(true);
     }
 
-    const cleanErrorMessage = useCallback(() => {
-        setAuthStatus(prevState => ({...prevState, success: true, err: null}))
-    }, [setAuthStatus])
-
     function onUserInfoUpdate(name, email) {
         setIsFetching(true)
         mainApi
@@ -115,11 +109,6 @@ function App() {
         setCurrentUser(null);
         localStorage.clear();
         history.push('/');
-    }
-
-    function showError(err, text = '') {
-        setIsErrorPopupOpened(true);
-        setErrorText(generateError(err, text))
     }
 
     function onMainPageReturn() {
@@ -156,13 +145,7 @@ function App() {
                     {
                         loggedIn
                             ? (<Redirect to="/"/>)
-                            : (
-                                <Register
-                                    isFetching={isFetching}
-                                    registrationStatus={authStatus}
-                                    cleanError={cleanErrorMessage}
-                                />
-                            )
+                            : (<Register />)
                     }
                 </Route>
 
