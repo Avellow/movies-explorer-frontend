@@ -14,12 +14,10 @@ import {
     changeQueryStringOnUserMovies, resetFiltersOnUserMovies,
     toggleShortFilmOnUserMovies
 } from '../../store/slices/movies/userMovies/userMoviesSlice';
-import {getUserMovies} from '../../store/slices/movies/userMovies/userMoviesAction';
 
 function SavedMovies(props) {
     const {
         onMovieDelete,
-        isLoading,
         isFetchErrored,
     } = props;
     // TODO: объединить компоненты фильмов и сохраненных фильмов ???
@@ -32,7 +30,6 @@ function SavedMovies(props) {
     // при монтировании очищает значение фильтров в хранилище
     useEffect(() => {
         dispatch(resetFiltersOnUserMovies())
-        dispatch(getUserMovies())
     }, [])
 
     const moviesElements = filteredUserMovies.map(movie => (
@@ -49,7 +46,6 @@ function SavedMovies(props) {
             listType='saved'
         />
     )) || [] // TODO: refactor this
-    // end redux
 
     function onToggleCheck() {
         dispatch(toggleShortFilmOnUserMovies(!isShortFilmActive))

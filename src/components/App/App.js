@@ -23,7 +23,11 @@ import PopupWithError from "../PopupWithError/PopupWithError";
 import {useDispatch, useSelector} from 'react-redux';
 import {userLogoutAction} from '../../store';
 import {getUserDetails} from '../../store/slices/user/userAction';
-import {removeUserMovieFromServer, saveUserMovie} from '../../store/slices/movies/userMovies/userMoviesAction';
+import {
+    getUserMovies,
+    removeUserMovieFromServer,
+    saveUserMovie
+} from '../../store/slices/movies/userMovies/userMoviesAction';
 
 
 function App() {
@@ -57,6 +61,7 @@ function App() {
     useEffect(() => {
         if (loggedIn) {
             dispatch(getUserDetails())
+            dispatch(getUserMovies())
         }
     }, [loggedIn, dispatch])
 
