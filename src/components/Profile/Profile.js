@@ -13,14 +13,14 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import {selectUser} from '../../store/selectors/user/user-selectors';
 import {resetErrorOnUser} from '../../store/slices/user/userSlice';
+import {updateUserDetails} from '../../store/slices/user/userAction';
+import {userLogoutAction} from '../../store';
+import {useHistory} from 'react-router-dom';
 
-function Profile(props) {
+function Profile() {
     console.log('profile render')
-    const {
-        onUpdate,
-        onLogout,
-    } = props;
 
+    const history = useHistory();
     const dispatch = useDispatch();
     const { loading, userInfo, error } = useSelector(selectUser)
 
@@ -56,7 +56,13 @@ function Profile(props) {
 
     function handleSubmit() {
         const { name, email } = values;
-        onUpdate(name, email);
+        dispatch(updateUserDetails({ name, email }))
+    }
+
+    function onSignOut() {
+        dispatch(userLogoutAction())
+        history.push('/')
+        localStorage.clear()
     }
 
     return (
@@ -105,7 +111,7 @@ function Profile(props) {
                 <Button
                     text='Выйти из аккаунта'
                     theme='exit'
-                    onClick={onLogout}
+                    onClick={onSignOut}
                 />
             </Form>
         </section>

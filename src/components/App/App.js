@@ -56,10 +56,6 @@ function App() {
         }
     }, [loggedIn, dispatch])
 
-    function onUserInfoUpdate(name, email) {
-        dispatch(updateUserDetails({ name, email }))
-    }
-
     function handleMovieSave(movie) {
         const formedMovie = formValidProps(movie);
         dispatch(saveUserMovie(formedMovie))
@@ -77,12 +73,6 @@ function App() {
 
     function openMenuPopup() {
         setIsPopupMenuOpened(true);
-    }
-
-    function onSignOut() {
-        dispatch(userLogoutAction())
-        localStorage.clear();
-        history.push('/');
     }
 
     function onMainPageReturn() {
@@ -144,8 +134,6 @@ function App() {
                     exact path="/profile"
                     component={Profile}
                     loggedIn={loggedIn}
-                    onUpdate={onUserInfoUpdate}
-                    onLogout={onSignOut}
                 />
 
                 <Route path="/404" component={NotFound}/>
