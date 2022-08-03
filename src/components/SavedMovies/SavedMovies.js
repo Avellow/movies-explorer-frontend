@@ -1,6 +1,5 @@
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import MoviesCard from "../MoviesCard/MoviesCard";
 import {CONNECTION_ERROR} from '../../utils/constants';
 import Preloader from "../Preloader/Preloader";
 import {useDispatch, useSelector} from 'react-redux';
@@ -20,9 +19,9 @@ function SavedMovies(props) {
         onMovieDelete,
         isFetchErrored,
     } = props;
-    // TODO: объединить компоненты фильмов и сохраненных фильмов ???
-    //redux
+
     const dispatch = useDispatch();
+
     const filteredUserMovies = useSelector(selectMoviesByFilter('userMovies'))
     const { isShortFilmActive } = useSelector(selectMoviesFilters('userMovies'))
     const isUserMoviesLoading = useSelector(selectIsMoviesLoading('userMovies'))
@@ -31,21 +30,6 @@ function SavedMovies(props) {
     useEffect(() => {
         dispatch(resetFiltersOnUserMovies())
     }, [])
-
-    const moviesElements = filteredUserMovies.map(movie => (
-        <MoviesCard
-            key={movie._id}
-            id={movie.movieId}
-            title={movie.nameRU}
-            duration={movie.duration}
-            trailerLink={movie.trailerLink}
-            posterLink={movie.image}
-            movieProps={movie}
-            onMovieDelete={onMovieDelete}
-            isSaved={true}
-            listType='saved'
-        />
-    )) || [] // TODO: refactor this
 
     function onToggleCheck() {
         dispatch(toggleShortFilmOnUserMovies(!isShortFilmActive))
@@ -69,8 +53,9 @@ function SavedMovies(props) {
             {!isFetchErrored && (isUserMoviesLoading
                 ? (<Preloader/>)
                 : (<MoviesCardList
-                      movies={moviesElements}
-                      listType='saved'
+                      movies={filteredUserMovies}
+                      onMovieDelete={onMovieDelete}
+                      type={'userMovies'}
                       shouldAllMoviesBeShown={true}
                    />)
                 )

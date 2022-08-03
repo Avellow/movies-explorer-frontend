@@ -3,11 +3,9 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 import {
-    checkIdInList,
     CONNECTION_ERROR, delay,
     MOVIES_SERVER_URL,
 } from "../../utils/constants";
-import MoviesCard from "../MoviesCard/MoviesCard";
 import {useDispatch, useSelector} from 'react-redux';
 
 import {
@@ -27,27 +25,12 @@ function Movies(props) {
     } = props;
 
     const dispatch = useDispatch();
+
     const { queryString, isShortFilmActive } = useSelector(selectMoviesFilters('apiMovies'))
     const filteredMovies = useSelector(selectMoviesByFilter('apiMovies'))
     const movies = useSelector(selectAllMovies('apiMovies'))
     const isMoviesLoading = useSelector(selectIsMoviesLoading('apiMovies'))
     const savedMovies = useSelector(selectAllMovies('userMovies'))
-
-    // TODO: перенести генерацию элементов на уровень компонента MoviesCardList
-    const newGetMoviesElementsList = filteredMovies.map(movie => (
-        <MoviesCard
-            key={movie.id}
-            id={movie.id}
-            title={movie.nameRU}
-            duration={movie.duration}
-            trailerLink={movie.trailerLink}
-            posterLink={`${MOVIES_SERVER_URL}${movie.image.url}`}
-            movieProps={movie}
-            onMovieSave={onMovieSave}
-            onMovieDelete={onMovieDelete}
-            isSaved={checkIdInList(movie.id, savedMovies)} // checkIdInList(movie.id, savedMovies)
-        />
-    )) || []
 
     function onToggleCheck() {
         dispatch(toggleShortFilm(!isShortFilmActive))
@@ -75,10 +58,12 @@ function Movies(props) {
             {!isFetchErrored && (isMoviesLoading
                 ? (<Preloader />)
                 : (<MoviesCardList
-                        movies={newGetMoviesElementsList}
+                        movies={filteredMovies}
+                        savedMovies={savedMovies}
                         onMovieSave={onMovieSave}
                         onMovieDelete={onMovieDelete}
-                        savedMovies={savedMovies}
+                        type={'apiMovies'}
+                        additionalCardImgDomain={MOVIES_SERVER_URL}
                     />)
                 )
             }

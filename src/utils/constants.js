@@ -42,34 +42,41 @@ export const generateError = (err, defaultText = '') => {
 
 export const userInfoUpdateSuccess = 'Данные профиля успешно обновлены'
 
-// зависимость отрисованных карточек от ширины экрана
-// функционал РАБОТАЕТ но гляну потом свежим взглядом на это безобразие :)
+/* Генерирует количество карточек для отрисовки в зависимости от ширины экрана;
+* count - количество отрисованных карточек в данный момент
+* cardIncrement - количество карточек которое будет дополнительно загружено при клике на кнопку 'Ещё';
+* inListCount - генерирует новое количество отрисованных карточек в зависимости от текущего count (см. выше);
+    (count - count % 2) - формирует равномерное количество карточек в ряду, если они не последние в списке,
+    при изменении ширины экрана количество карточек не будет сбрасываться до стандартного
+*/
 export function generateCardsCount(width, count) {
-
-    const result = {
-        cardIncrement: 3,
-        inListCount: count < 12 ? 12 : count - count % 3
-    }
-
     if (width < 1236 && width > 673) {
-        result.cardIncrement = 2
-        result.inListCount = count < 8 ? 8 : count - count % 2
+        return {
+            cardIncrement: 2,
+            inListCount: count < 8 ? 8 : (count - count % 2)
+        }
     } else if (width <= 673) {
-        result.cardIncrement = 2
-        result.inListCount = count < 5 ? 5 : count - count % 2
+        return {
+            cardIncrement: 2,
+            inListCount: count < 5 ? 5 : (count - count % 2)
+        }
+    } else {
+        return {
+            cardIncrement: 3,
+            inListCount: count < 12 ? 12 : (count - count % 3)
+        }
     }
-    return result;
 }
 
-export const initialCardsCount = (width) => {
-    let result = 12;
-
+// генерирует размер чанка с фильмами при первой отрисовки списка
+export const getInitialChunkSize = (width) => {
     if (width < 1236 && width > 673) {
-        result = 8
+        return 8
     } else if (width <= 673) {
-        result = 5
+        return 5
+    } else {
+        return 12
     }
-    return result;
 };
 
 // отображаемая длительность фильма

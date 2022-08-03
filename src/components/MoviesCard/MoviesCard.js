@@ -5,48 +5,16 @@ import {formDuration} from "../../utils/constants";
 function MoviesCard(props) {
     const {
         title,
-        id,
         duration,
         posterLink,
         trailerLink = '',
-        listType,
-        onMovieSave,
-        onMovieDelete,
-        movieProps,
-        isSaved
+        onButtonClick,
+        buttonConfig
     } = props;
 
     const handleClick = () => {
-        isSaved
-            ? onMovieDelete(id)
-            : onMovieSave(movieProps)
+        onButtonClick()
     };
-
-    function generateButton() {
-        if (listType === 'saved') {
-            return (
-                <Button
-                    theme='delete'
-                    onClick={handleClick}
-                />
-            )
-        } else if (isSaved) {
-            return (
-                <Button
-                    theme='saved'
-                    onClick={handleClick}
-                />
-            )
-        } else {
-            return (
-                <Button
-                    text='Сохранить'
-                    theme='save'
-                    onClick={handleClick}
-                />
-            )
-        }
-    }
 
     return (
         <li className='movies-card'>
@@ -72,7 +40,11 @@ function MoviesCard(props) {
                 />
             </a>
             <div className='movies-card__btn-container'>
-                { generateButton() }
+                <Button
+                    theme={buttonConfig.theme}
+                    text={buttonConfig.text}
+                    onClick={handleClick}
+                />
             </div>
         </li>
     )

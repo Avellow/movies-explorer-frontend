@@ -4,8 +4,8 @@ import Main from '../landing/Main/Main';
 import Footer from "../Footer/Footer";
 import Movies from "../Movies/Movies";
 import NotFound from "../NotFound/NotFound";
-import {useCallback, useEffect, useState} from "react";
-import { Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
+import {useEffect, useState} from "react";
+import { Redirect, Route, Switch, useLocation} from "react-router-dom";
 import Profile from "../Profile/Profile";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
@@ -14,15 +14,13 @@ import SideMenu from "../SideMenu/SideMenu";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import {
     delay,
-    formValidProps, generateError,
-    mainApi,
+    formValidProps,
     pagesWithoutFooter,
     pagesWithoutHeader,
 } from "../../utils/constants";
 import PopupWithError from "../PopupWithError/PopupWithError";
 import {useDispatch, useSelector} from 'react-redux';
-import {userLogoutAction} from '../../store';
-import {getUserDetails, updateUserDetails} from '../../store/slices/user/userAction';
+import {getUserDetails} from '../../store/slices/user/userAction';
 import {
     getUserMovies,
     removeUserMovieFromServer,
@@ -46,7 +44,6 @@ function App() {
     const [isErrorPopupOpened, setIsErrorPopupOpened] = useState(false);
     const [errorText, setErrorText] = useState(null);
 
-    const history = useHistory();
     const location = useLocation();
 
     useEffect(() => {
@@ -57,13 +54,18 @@ function App() {
     }, [loggedIn, dispatch])
 
     function handleMovieSave(movie) {
-        const formedMovie = formValidProps(movie);
-        dispatch(saveUserMovie(formedMovie))
+        return () => {
+            const formedMovie = formValidProps(movie);
+            dispatch(saveUserMovie(formedMovie))
+        }
     }
 
-    function handleMovieDelete(id) {
-        const movieToDelete = newSavedMovies.find(movie => movie.movieId === id)
-        dispatch(removeUserMovieFromServer(movieToDelete._id))
+    function handleMovieDelete(movie) {
+        const id = movie.id || movie.movieId;
+        return () => {
+            const movieToDelete = newSavedMovies.find(movie => movie.movieId === id)
+            dispatch(removeUserMovieFromServer(movieToDelete._id))
+        }
     }
 
     function closeAllPopups() {
