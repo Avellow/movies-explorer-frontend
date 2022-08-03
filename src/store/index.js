@@ -12,12 +12,10 @@ import {
 import storage from 'redux-persist/lib/storage';
 import moviesReducer from './slices/movies'
 import userReducer from './slices/user/userSlice'
-import rtkMovies from './slices/movies/apiMovies/moviesSlice'
 
 const persistConfig = {
     key: 'root',
     storage,
-    //blacklist: ['user']
 }
 
 const appReducer = combineReducers({
