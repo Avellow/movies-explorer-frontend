@@ -197,7 +197,7 @@ export const calculateAge = (birthday) => {
 // отложенные функции обработчики состояний запросов на api
 
 export const beginLoading = (state) => {
-    state.loading = false
+    state.loading = true
     state.error = null
 }
 
