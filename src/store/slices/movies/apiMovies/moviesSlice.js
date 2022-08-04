@@ -5,7 +5,7 @@ import {beginLoading, setMoviesData, setRequestError} from '../../../../utils/co
 
 const initialState = {
     loading: false,
-    data: [],
+    data: null,
     filters: {
         queryString: '',
         isShortFilmActive: false,

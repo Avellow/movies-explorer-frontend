@@ -10,7 +10,7 @@ export const selectMoviesByFilter = (movieType) => createSelector(
     (movies, activeFilter) => {
         const { queryString, isShortFilmActive } = activeFilter;
         return movies
-            .filter(movie => {
+            ?.filter(movie => {
                 const lowerCasedQueryString = queryString.toLowerCase();
                 const lowerCasedMovieName = movie.nameRU.toLowerCase();
 
