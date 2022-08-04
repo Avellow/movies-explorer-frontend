@@ -5,6 +5,7 @@ class MainApi {
     }
 
     setToken(jwt) {
+        // TODO: рефакторинг, добавить Bearer и ниже использовать только this.token
         this._token = jwt;
     }
 
@@ -18,7 +19,7 @@ class MainApi {
         return fetch(`${this._url}/movies`, {
             method: 'GET',
             headers: {
-                authorization: this._token,
+                authorization: `Bearer ${this._token}`,
             }
         })
             .then(this._checkResult)
@@ -28,7 +29,7 @@ class MainApi {
         return fetch(`${this._url}/movies`, {
             method: 'POST',
             headers: {
-                authorization: this._token,
+                authorization: `Bearer ${this._token}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(movie)
@@ -40,7 +41,7 @@ class MainApi {
         return fetch(`${this._url}/movies/${id}`, {
             method: 'DELETE',
             headers: {
-                authorization: this._token,
+                authorization: `Bearer ${this._token}`,
             }
         })
             .then(this._checkResult)
@@ -50,7 +51,7 @@ class MainApi {
         return fetch(`${this._url}/users/me`, {
             method: 'GET',
             headers: {
-                authorization: this._token
+                authorization: `Bearer ${this._token}`
             }
         })
             .then(this._checkResult)
@@ -60,7 +61,7 @@ class MainApi {
         return fetch(`${this._url}/users/me`, {
             method: 'PATCH',
             headers: {
-                authorization: this._token,
+                authorization: `Bearer ${this._token}`,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({name, email})

@@ -36,17 +36,6 @@
     background-size: contain;
 }
 
-.button_theme_delete {
-    border-radius: 30px;
-    width: 100px;
-    height: 29px;
-    background-image: url('../../images/popup/close.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 14px;
-    background-color: #F9F9F9;
-}
-
 .button_theme_edit {
     background: none;
     font-size: 13px;
@@ -84,6 +73,47 @@
     background-image: url('../../images/card/mark.svg');
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.button_theme_delete {
+    border-radius: 30px;
+    width: 100px;
+    height: 29px;
+    background-image: url('../../images/popup/close.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 14px;
+    background-color: #F9F9F9;
+}
+
+.button_theme_apiSavable {
+    border-radius: 30px;
+    background-color: #F9F9F9;
+    font-size: 12px;
+    line-height: 0.92;
+    width: 100px;
+    height: 29px;
+}
+
+.button_theme_apiRemovable {
+    width: 100px;
+    height: 29px;
+    border-radius: 30px;
+    background-color: #FF3055;
+    background-image: url('../../images/card/mark.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.button_theme_userRemovable {
+    border-radius: 30px;
+    width: 100px;
+    height: 29px;
+    background-image: url('../../images/popup/close.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 14px;
+    background-color: #F9F9F9;
 }
 
 .button_theme_search {

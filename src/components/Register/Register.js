@@ -3,21 +3,29 @@ import Form from "../Form/Form";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import Logo from "../Logo/Logo";
-import {NavLink} from "react-router-dom";
+import {NavLink, useHistory} from 'react-router-dom';
 import {useFormAndValidation} from "../../hooks/useFormAndValidation";
 import {EMAIL_VALIDATION_ERROR, generateAuthError, NAME_VALIDATION_ERROR} from "../../utils/constants";
 import Preloader from "../Preloader/Preloader";
 import {useEffect} from "react";
+import { useDispatch, useSelector } from 'react-redux'
+import {registerUser, userLogin} from '../../store/slices/user/userAction';
+import {selectUser} from '../../store/selectors/user/user-selectors';
+import {resetErrorOnUser} from '../../store/slices/user/userSlice';
 
-function Register(props) {
-    const {
-        onRegister,
-        registrationStatus,
-        isFetching,
-        cleanError
-    } = props;
+function Register() {
 
-    useEffect(() => cleanError(), [cleanError]);
+    const { loading, error, success } = useSelector(selectUser)
+
+    // эффект при unmount
+    useEffect(() => () => {
+        if (error) {
+            dispatch(resetErrorOnUser())
+        }
+    }, [])
+
+    const dispatch = useDispatch()
+    const history = useHistory();
 
     const {
         values,
@@ -26,14 +34,16 @@ function Register(props) {
         isValid,
     } = useFormAndValidation();
 
-    function handleRegister() {
-        const {
-            email,
-            password,
-            username: name,
-        } = values;
+    const {email, password, username: name} = values
 
-        onRegister(name, email, password)
+    useEffect(() => {
+        if (success) {
+            dispatch(userLogin({ email, password }))
+        }
+    },[dispatch, email, history, password, success])
+
+    function handleRegister() {
+        dispatch(registerUser({ name, email, password}))
     }
 
     return (
@@ -58,7 +68,7 @@ function Register(props) {
                     required={true}
                     minLength={2}
                     maxLength={30}
-                    disabled={isFetching}
+                    disabled={loading}
                 />
                 <Input
                     labelTitle='E-mail'
@@ -70,7 +80,7 @@ function Register(props) {
                     onChange={handleChange}
                     value={values['email'] || ''}
                     required={true}
-                    disabled={isFetching}
+                    disabled={loading}
                 />
                 <Input
                     labelTitle='Пароль'
@@ -82,18 +92,18 @@ function Register(props) {
                     onChange={handleChange}
                     value={values['password'] || ''}
                     minLength={4}
-                    disabled={isFetching}
+                    disabled={loading}
                 />
-                {isFetching && (<Preloader isSmall={true}/>)}
-                {!registrationStatus.success && (
-                    <p className='register__error'>{generateAuthError(registrationStatus.err)}</p>
+                {loading && (<Preloader isSmall={true}/>)}
+                {error && (
+                    <p className='register__error'>{generateAuthError(error)}</p>
                 )}
                 <Button
                     theme='auth'
                     text='Зарегистрироваться'
                     type='submit'
                     onClick={handleRegister}
-                    disabled={!isValid || isFetching}
+                    disabled={!isValid || loading}
                 />
                 <p className='form__hint'>
                     Уже зарегистрированы?

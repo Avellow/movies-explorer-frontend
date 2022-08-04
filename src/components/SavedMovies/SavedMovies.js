@@ -1,79 +1,62 @@
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import MoviesCard from "../MoviesCard/MoviesCard";
-import {CONNECTION_ERROR, delay, shortDuration} from "../../utils/constants";
+import {CONNECTION_ERROR} from '../../utils/constants';
 import Preloader from "../Preloader/Preloader";
-import {useCallback, useState} from "react";
+import {useDispatch, useSelector} from 'react-redux';
+import {
+    selectIsMoviesLoading,
+    selectMoviesByFilter, selectMoviesError,
+    selectMoviesFilters
+} from '../../store/selectors/movies/movies-selectors';
+import {useEffect} from 'react';
+import {
+    changeQueryStringOnUserMovies, resetFiltersOnUserMovies,
+    toggleShortFilmOnUserMovies
+} from '../../store/slices/movies/userMovies/userMoviesSlice';
 
 function SavedMovies(props) {
     const {
-        movies,
         onMovieDelete,
-        isLoading,
-        isFetchErrored,
     } = props;
 
-    // для того чтобы пользователь видел что поиск выполняется после сабмита его запроса
-    // особенно для моментов когда фильмы фильтруются из локального хранилища
-    const [isDelayed, setIsDelayed] = useState(false);
+    const dispatch = useDispatch();
 
-    const [searchValue, setSearchValue] = useState('');
+    const filteredUserMovies = useSelector(selectMoviesByFilter('userMovies'))
+    const { isShortFilmActive } = useSelector(selectMoviesFilters('userMovies'))
+    const isUserMoviesLoading = useSelector(selectIsMoviesLoading('userMovies'))
 
-    const [isToggleChecked, setIsToggleChecked] = useState(false);
+    const error = useSelector(selectMoviesError('userMovies'))
 
-    const getFilteredMovies = useCallback(() => {
-        return movies
-            .filter(movie => {
-                return isToggleChecked
-                    ? (movie.nameRU.toLowerCase().includes(searchValue) && movie.duration <= shortDuration)
-                    : movie.nameRU.toLowerCase().includes(searchValue)
-            })
-            .map(movie => (
-                    <MoviesCard
-                        key={movie._id}
-                        id={movie.movieId}
-                        title={movie.nameRU}
-                        duration={movie.duration}
-                        trailerLink={movie.trailerLink}
-                        posterLink={movie.image}
-                        movieProps={movie}
-                        onMovieDelete={onMovieDelete}
-                        isSaved={true}
-                        listType='saved'
-                    />
-                )
-            )
-    }, [movies, searchValue, isToggleChecked, onMovieDelete])
+    // при монтировании очищает значение фильтров в хранилище
+    useEffect(() => {
+        dispatch(resetFiltersOnUserMovies())
+    }, [])
 
     function onToggleCheck() {
-        setIsToggleChecked(!isToggleChecked);
+        dispatch(toggleShortFilmOnUserMovies(!isShortFilmActive))
     }
 
-    function handleFilterMovies(value) {
-        const processedValue = value.toLowerCase().trim();
-
-        setIsDelayed(true);
-        delay(500)
-            .then(() => setSearchValue(processedValue))
-            .finally(() => setIsDelayed(false))
+    function onMovieSearch(value) {
+        dispatch(changeQueryStringOnUserMovies(value))
     }
 
     return (
         <main className='movies'>
             <SearchForm
-                onSubmit={handleFilterMovies}
+                onSubmit={onMovieSearch}
                 onToggleCheck={onToggleCheck}
-                isToggleChecked={isToggleChecked}
-                isLoading={isLoading || isDelayed}
+                isToggleChecked={isShortFilmActive}
+                isLoading={isUserMoviesLoading}
             />
 
-            {isFetchErrored && (<h4 className='movies-cards__not-found'>{CONNECTION_ERROR}</h4>)}
+            {error && (<h4 className='movies-cards__not-found'>{CONNECTION_ERROR}</h4>)}
 
-            {!isFetchErrored && (isLoading || isDelayed
+            {!error && (isUserMoviesLoading
                 ? (<Preloader/>)
                 : (<MoviesCardList
-                      movies={getFilteredMovies()}
-                      listType='saved'
+                      movies={filteredUserMovies}
+                      onMovieDelete={onMovieDelete}
+                      type={'userMovies'}
                       shouldAllMoviesBeShown={true}
                    />)
                 )

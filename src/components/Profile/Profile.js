@@ -2,25 +2,25 @@ import './Profile.css';
 import Form from "../Form/Form";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
-import {useContext, useEffect, useState} from "react";
-import {CurrentUserContext} from "../../contexts/CurrentUserContext";
+import {useEffect} from 'react';
 import {useFormAndValidation} from "../../hooks/useFormAndValidation";
 import {
     EMAIL_VALIDATION_ERROR,
     generateAuthError,
     NAME_VALIDATION_ERROR,
-    userInfoUpdateSuccess
 } from "../../utils/constants";
+import {useDispatch, useSelector} from 'react-redux';
+import {selectUser} from '../../store/selectors/user/user-selectors';
+import {resetErrorOnUser} from '../../store/slices/user/userSlice';
+import {updateUserDetails} from '../../store/slices/user/userAction';
+import {userLogoutAction} from '../../store';
+import {useHistory} from 'react-router-dom';
 
-function Profile(props) {
-    const {
-        onLogout,
-        onUpdate,
-        isUpdateSucceed = null,
-        isFetching,
-    } = props;
+function Profile() {
 
-    const [isDataChanged, setIsDataChanged] = useState(false)
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const { loading, userInfo, error } = useSelector(selectUser)
 
     const {
         resetForm,
@@ -30,40 +30,43 @@ function Profile(props) {
         isValid,
     } = useFormAndValidation();
 
-    const currentUser = useContext(CurrentUserContext);
+    const { name, email } = values
 
     useEffect(() => {
         resetForm(
             {
-                name: currentUser.name,
-                email: currentUser.email,
+                name: userInfo.name,
+                email: userInfo.email,
             },
             {},
             true,
         )
-    }, [currentUser, resetForm])
+    }, [userInfo, resetForm])
 
-    useEffect(() => {
-        if (
-            currentUser.name === values.name &&
-            currentUser.email === values.email
-        ) {
-           setIsDataChanged(false)
-        } else {
-            setIsDataChanged(true)
+    // эффект при unmount
+    useEffect(() => () => {
+        if (error && error !== 'Failed to fetch') {
+            dispatch(resetErrorOnUser())
         }
-    }, [values.name, values.email, currentUser.name, currentUser.email])
+    }, [])
+
+    const checkIfUserInfoChanged = () => userInfo.name === name && userInfo.email === email
 
     function handleSubmit() {
-        const {name, email} = values;
+        const { name, email } = values;
+        dispatch(updateUserDetails({ name, email }))
+    }
 
-        onUpdate(name, email);
+    function onSignOut() {
+        dispatch(userLogoutAction())
+        history.push('/')
+        localStorage.clear()
     }
 
     return (
         <section className='profile'>
             <Form
-                title={`Привет, ${currentUser.name}!`}
+                title={`Привет, ${userInfo.name}!`}
                 isTitleCentered={true}
             >
                 <Input
@@ -75,8 +78,8 @@ function Profile(props) {
                     required={true}
                     errored={errors['name']}
                     errorText={NAME_VALIDATION_ERROR}
-                    pattern='[a-zA-Zа-яА-ЯёЁ]+[- a-zA-Zа-яА-ЯёЁ]{1,}'
-                    disabled={isFetching}
+                    pattern='[a-zA-Zа-яА-ЯёЁ]+[- a-zA-Zа-яА-ЯёЁ]{3,}'
+                    disabled={loading}
                 />
                 <Input
                     name='email'
@@ -89,12 +92,11 @@ function Profile(props) {
                     value={values['email'] || ''}
                     onChange={handleChange}
                     errored={errors['email']}
-                    disabled={isFetching}
+                    disabled={loading}
                 />
 
                 {
-                    (isUpdateSucceed === false && (<p className='profile__error'>{generateAuthError()}</p>))
-                    || (isUpdateSucceed === true && (<p className='profile__success'>{userInfoUpdateSuccess}</p>))
+                    error && (<p className='profile__error'>{generateAuthError()}</p>)
                 }
 
                 <Button
@@ -102,12 +104,12 @@ function Profile(props) {
                     theme='edit'
                     type='submit'
                     onClick={handleSubmit}
-                    disabled={!isValid || isFetching || !isDataChanged}
+                    disabled={!isValid || loading || checkIfUserInfoChanged()}
                 />
                 <Button
                     text='Выйти из аккаунта'
                     theme='exit'
-                    onClick={onLogout}
+                    onClick={onSignOut}
                 />
             </Form>
         </section>

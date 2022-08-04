@@ -6,24 +6,27 @@ export const MOVIES_SERVER_URL = 'https://api.nomoreparties.co';
 export const moviesApi = new MoviesApi(MOVIES_SERVER_URL + '/beatfilm-movies');
 
 // api для работы с основным сервером (логин, регистрация, сохраненные фильмы и др)
-export const MAIN_SERVER_URL = 'https://api.movies-expl.nomoredomains.work';
+export const MAIN_SERVER_URL = 'http://127.0.0.1:3000';
 export const mainApi = new MainApi({
     url: MAIN_SERVER_URL,
-    token: `Bearer ${localStorage.getItem('jwt')}`
+    token: localStorage.getItem('userToken')
 });
 
 // сообщения ошибок и результатов операций
 export const CONNECTION_ERROR = 'Во время запроса произошла ошибка. Возможно, ' +
-    'проблема с соединением или сервер недоступен. Подождите немного и ' +
-    'попробуйте ещё раз'
-export const NAME_VALIDATION_ERROR = 'Запоните это поле (разрешаются латиница/кириллица/пробел/дефис)'
+    'проблема с соединением или сервер недоступен. Функции поиска или сохранения фильмов могут не работать.'
+export const NAME_VALIDATION_ERROR = 'Заполните это поле (разрешаются латиница/кириллица/пробел/дефис)'
 export const EMAIL_VALIDATION_ERROR = 'Неправильный формат почты'
 
-export const generateAuthError = (code = 500) => {
-    let result = 'Произошла ошибка на сервере. Пожалуйста, проверьте данные и повторите попытку.'
-    if (code === 409)  result = 'Аккаунт с таким e-mail уже зарегистрирован.'
-    if (code === 401) result = 'Неправильные почта/пароль.'
-    return result;
+export const generateAuthError = (code) => {
+    switch (code) {
+        case 409:
+            return 'Аккаунт с таким e-mail уже зарегистрирован.'
+        case 401:
+            return 'Неправильные почта/пароль.'
+        default:
+            return 'Соединение с сервером потеряно.'
+    }
 }
 
 export const generateError = (err, defaultText = '') => {
@@ -42,34 +45,41 @@ export const generateError = (err, defaultText = '') => {
 
 export const userInfoUpdateSuccess = 'Данные профиля успешно обновлены'
 
-// зависимость отрисованных карточек от ширины экрана
-// функционал РАБОТАЕТ но гляну потом свежим взглядом на это безобразие :)
+/* Генерирует количество карточек для отрисовки в зависимости от ширины экрана;
+* count - количество отрисованных карточек в данный момент
+* cardIncrement - количество карточек которое будет дополнительно загружено при клике на кнопку 'Ещё';
+* inListCount - генерирует новое количество отрисованных карточек в зависимости от текущего count (см. выше);
+    (count - count % 2) - формирует равномерное количество карточек в ряду, если они не последние в списке,
+    при изменении ширины экрана количество карточек не будет сбрасываться до стандартного
+*/
 export function generateCardsCount(width, count) {
-
-    const result = {
-        cardIncrement: 3,
-        inListCount: count < 12 ? 12 : count - count % 3
-    }
-
     if (width < 1236 && width > 673) {
-        result.cardIncrement = 2
-        result.inListCount = count < 8 ? 8 : count - count % 2
+        return {
+            cardIncrement: 2,
+            inListCount: count < 8 ? 8 : (count - count % 2)
+        }
     } else if (width <= 673) {
-        result.cardIncrement = 2
-        result.inListCount = count < 5 ? 5 : count - count % 2
+        return {
+            cardIncrement: 2,
+            inListCount: count < 5 ? 5 : (count - count % 2)
+        }
+    } else {
+        return {
+            cardIncrement: 3,
+            inListCount: count < 12 ? 12 : (count - count % 3)
+        }
     }
-    return result;
 }
 
-export const initialCardsCount = (width) => {
-    let result = 12;
-
+// генерирует размер чанка с фильмами при первой отрисовки списка
+export const getInitialChunkSize = (width) => {
     if (width < 1236 && width > 673) {
-        result = 8
+        return 8
     } else if (width <= 673) {
-        result = 5
+        return 5
+    } else {
+        return 12
     }
-    return result;
 };
 
 // отображаемая длительность фильма
@@ -185,4 +195,59 @@ export const calculateAge = (birthday) => {
     const ageDifMs = Date.now() - new Date(birthday).getTime();
     const ageDate = new Date(ageDifMs);
     return Math.abs(ageDate.getUTCFullYear() - 1970);
+}
+
+// отложенные функции обработчики состояний запросов на api
+
+export const beginLoading = (state) => {
+    state.loading = true
+    state.error = null
+}
+
+export const setMoviesData = (state, { payload }) => {
+    state.loading = false
+    state.data = payload
+}
+
+export const pushMovieData = (state, { payload }) => {
+    state.loading = false
+    state.data.push(payload)
+}
+
+export const removeMovieFromStore = (state, { payload }) => {
+    state.data = state.data.filter(movie =>
+        movie.movieId !== payload.movieId)
+}
+
+export const onAuthSuccess = (state, { payload }) => {
+    state.loading = false
+    state.userToken = payload.token
+    state.isAuth = true
+}
+
+export const onRegisterSuccess = (state, { payload }) => {
+    state.loading = false
+    state.success = true // registration successful
+}
+
+export const setUserInfo = (state, { payload }) => {
+    state.loading = false
+    state.userInfo = payload
+}
+
+export const updateUserInfo = (state, { payload }) => {
+    state.loading = false
+    state.userInfo.name = payload.name
+    state.userInfo.email = payload.email
+}
+
+export const setRequestError = (state, { payload }) => {
+    state.loading = false
+    state.error = payload
+}
+
+export const errorHandlerOnAsyncThunk = (error, handler) => {
+    if (error.message) return handler(error.message)
+
+    return handler(error)
 }

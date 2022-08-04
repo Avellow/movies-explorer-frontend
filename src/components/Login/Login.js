@@ -3,20 +3,27 @@ import Form from "../Form/Form";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import Logo from "../Logo/Logo";
-import {NavLink} from "react-router-dom";
+import {NavLink} from 'react-router-dom';
 import {useFormAndValidation} from "../../hooks/useFormAndValidation";
 import {EMAIL_VALIDATION_ERROR, generateAuthError} from "../../utils/constants";
 import {useEffect} from "react";
+import {useDispatch, useSelector} from 'react-redux';
+import {userLogin} from '../../store/slices/user/userAction';
+import {selectUser} from '../../store/selectors/user/user-selectors';
+import {resetErrorOnUser} from '../../store/slices/user/userSlice';
 
-function Login(props) {
-    const {
-        onLogin,
-        loginStatus,
-        isFetching,
-        cleanError,
-    } = props;
+function Login() {
 
-    useEffect(() => cleanError(), [cleanError]);
+    const { loading: isLoading, error } = useSelector(selectUser)
+
+    // эффект при unmount
+    useEffect(() => () => {
+        if (error) {
+            dispatch(resetErrorOnUser())
+        }
+    }, [])
+
+    const dispatch = useDispatch();
 
     const {
         values,
@@ -27,7 +34,7 @@ function Login(props) {
 
     function handleLogin() {
         const { email, password } = values;
-        onLogin(email, password);
+        dispatch(userLogin({ email, password }))
     }
 
     return (
@@ -48,7 +55,7 @@ function Login(props) {
                     value={values['email'] || ''}
                     errored={errors['email']}
                     errorText={EMAIL_VALIDATION_ERROR}
-                    disabled={isFetching}
+                    disabled={isLoading}
                 />
                 <Input
                     labelTitle='Пароль'
@@ -60,17 +67,17 @@ function Login(props) {
                     minLength={4}
                     errored={errors['password']}
                     errorText={errors['password']}
-                    disabled={isFetching}
+                    disabled={isLoading}
                 />
-                {!loginStatus.success && (
-                    <p className='login__error'>{generateAuthError(loginStatus.err)}</p>
+                {error && (
+                    <p className='login__error'>{generateAuthError(error)}</p>
                 )}
                 <Button
                     theme='auth'
                     text='Войти'
                     onClick={handleLogin}
                     type='submit'
-                    disabled={!isValid || isFetching}
+                    disabled={!isValid || isLoading}
                 />
                 <p className='form__hint'>
                     Ещё не зарегистрированы?
