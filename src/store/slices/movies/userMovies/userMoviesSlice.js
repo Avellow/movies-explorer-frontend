@@ -1,5 +1,12 @@
 import {createSlice} from '@reduxjs/toolkit';
-import { getUserMovies } from './userMoviesAction';
+import {getUserMovies, removeUserMovie, saveUserMovie} from './userMoviesAction';
+import {
+    beginLoading,
+    pushMovieData,
+    removeMovieFromStore,
+    setMoviesData,
+    setRequestError
+} from '../../../../utils/constants';
 
 const initialState = {
     loading: false,
@@ -11,20 +18,13 @@ const initialState = {
     error: null,
 }
 
-// TODO: объединить логику для фильмов с разных api, чтобы убрать дублирование
+// может пригодиться
 // https://github.com/reduxjs/redux-toolkit/issues/715
 
 const userMoviesSlice = createSlice({
     name: 'userMovies',
     initialState,
     reducers: {
-        addUserMovie(state, action) {
-            state.data.push(action.payload)
-        },
-        removeUserMovieLocally(state, action) {
-            state.data = state.data.filter(movie =>
-                movie.movieId !== action.payload.movieId)
-        },
         changeQueryStringOnUserMovies(state, { payload }) {
             state.filters.queryString = payload
         },
@@ -37,24 +37,23 @@ const userMoviesSlice = createSlice({
     },
     extraReducers: {
         // getting movies from user api
-        [getUserMovies.pending]: (state) => {
-            state.loading = true
-            state.error = null
-        },
-        [getUserMovies.fulfilled]: (state, { payload }) => {
-            state.loading = false
-            state.data = payload
-        },
-        [getUserMovies.rejected]: (state, { payload }) => {
-            state.loading = false
-            state.error = payload
-        }
+        [getUserMovies.pending]: beginLoading,
+        [getUserMovies.fulfilled]: setMoviesData,
+        [getUserMovies.rejected]: setRequestError,
+
+        // saving user movie
+        [saveUserMovie.pending]: beginLoading,
+        [saveUserMovie.fulfilled]: pushMovieData,
+        [saveUserMovie.rejected]: setRequestError,
+
+        // removing user movie
+        [removeUserMovie.pending]: beginLoading,
+        [removeUserMovie.fulfilled]: removeMovieFromStore,
+        [removeUserMovie.rejected]: setRequestError,
     }
 })
 
 export const {
-    addUserMovie,
-    removeUserMovieLocally,
     changeQueryStringOnUserMovies,
     toggleShortFilmOnUserMovies,
     resetFiltersOnUserMovies,

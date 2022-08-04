@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {getMovies} from './moviesAction';
+import {beginLoading, setMoviesData, setRequestError} from '../../../../utils/constants';
 
 
 const initialState = {
@@ -11,9 +12,6 @@ const initialState = {
     },
     error: null,
 }
-
-// TODO: объединить логику для фильмов с разных api
-// https://github.com/reduxjs/redux-toolkit/issues/715
 
 const moviesSlice = createSlice({
     name: 'movies',
@@ -28,18 +26,9 @@ const moviesSlice = createSlice({
     },
     extraReducers: {
         // getting movies from api
-        [getMovies.pending]: (state) => {
-            state.loading = true
-            state.error = null
-        },
-        [getMovies.fulfilled]: (state, { payload }) => {
-            state.loading = false
-            state.data = payload
-        },
-        [getMovies.rejected]: (state, { payload }) => {
-            state.loading = false
-            state.error = payload
-        }
+        [getMovies.pending]: beginLoading,
+        [getMovies.fulfilled]: setMoviesData,
+        [getMovies.rejected]: setRequestError,
     }
 })
 

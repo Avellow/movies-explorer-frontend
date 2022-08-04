@@ -1,5 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {registerUser, userLogin, getUserDetails, updateUserDetails} from './userAction';
+import {
+    beginLoading,
+    onAuthSuccess,
+    onRegisterSuccess,
+    setRequestError,
+    setUserInfo,
+    updateUserInfo
+} from '../../../utils/constants';
 
 const userToken = localStorage.getItem('userToken')
 
@@ -22,60 +30,24 @@ const userSlice = createSlice({
     },
     extraReducers: {
         // login user
-        [userLogin.pending]: (state) => {
-            state.loading = true
-            state.error = null
-        },
-        [userLogin.fulfilled]: (state, { payload }) => {
-            state.loading = false
-            state.userToken = payload.token
-            state.isAuth = true
-        },
-        [userLogin.rejected]: (state, { payload }) => {
-            state.loading = false
-            state.error = payload
-        },
+        [userLogin.pending]: beginLoading,
+        [userLogin.fulfilled]: onAuthSuccess,
+        [userLogin.rejected]: setRequestError,
 
         // register user
-        [registerUser.pending]: (state) => {
-            state.loading = true
-            state.error = null
-        },
-        [registerUser.fulfilled]: (state, { payload }) => {
-            state.loading = false
-            state.success = true // registration successful
-        },
-        [registerUser.rejected]: (state, { payload }) => {
-            state.loading = false
-            state.error = payload
-        },
+        [registerUser.pending]: beginLoading,
+        [registerUser.fulfilled]: onRegisterSuccess,
+        [registerUser.rejected]: setRequestError,
 
         // get user details
-        [getUserDetails.pending]: (state) => {
-            state.loading = true
-        },
-        [getUserDetails.fulfilled]: (state, { payload }) => {
-            state.loading = false
-            state.userInfo = payload
-        },
-        [getUserDetails.rejected]: (state, { payload }) => {
-            state.loading = false
-            state.error = payload
-        },
+        [getUserDetails.pending]: beginLoading,
+        [getUserDetails.fulfilled]: setUserInfo,
+        [getUserDetails.rejected]: setRequestError,
 
         // update user details
-        [updateUserDetails.pending]: (state) => {
-            state.loading = true
-        },
-        [updateUserDetails.fulfilled]: (state, { payload }) => {
-            state.loading = false
-            state.userInfo.name = payload.name
-            state.userInfo.email = payload.email
-        },
-        [updateUserDetails.rejected]: (state, { payload }) => {
-            state.loading = false
-            state.error = payload
-        }
+        [updateUserDetails.pending]: beginLoading,
+        [updateUserDetails.fulfilled]: updateUserInfo,
+        [updateUserDetails.rejected]: setRequestError
     }
 })
 

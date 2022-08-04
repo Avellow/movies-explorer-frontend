@@ -193,3 +193,52 @@ export const calculateAge = (birthday) => {
     const ageDate = new Date(ageDifMs);
     return Math.abs(ageDate.getUTCFullYear() - 1970);
 }
+
+// отложенные функции обработчики состояний запросов на api
+
+export const beginLoading = (state) => {
+    state.loading = false
+    state.error = null
+}
+
+export const setMoviesData = (state, { payload }) => {
+    state.loading = false
+    state.data = payload
+}
+
+export const pushMovieData = (state, { payload }) => {
+    state.loading = false
+    state.data.push(payload)
+}
+
+export const removeMovieFromStore = (state, { payload }) => {
+    state.data = state.data.filter(movie =>
+        movie.movieId !== payload.movieId)
+}
+
+export const onAuthSuccess = (state, { payload }) => {
+    state.loading = false
+    state.userToken = payload.token
+    state.isAuth = true
+}
+
+export const onRegisterSuccess = (state, { payload }) => {
+    state.loading = false
+    state.success = true // registration successful
+}
+
+export const setUserInfo = (state, { payload }) => {
+    state.loading = false
+    state.userInfo = payload
+}
+
+export const updateUserInfo = (state, { payload }) => {
+    state.loading = false
+    state.userInfo.name = payload.name
+    state.userInfo.email = payload.email
+}
+
+export const setRequestError = (state, { payload }) => {
+    state.loading = false
+    state.error = payload
+}

@@ -23,7 +23,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getUserDetails} from '../../store/slices/user/userAction';
 import {
     getUserMovies,
-    removeUserMovieFromServer,
+    removeUserMovie,
     saveUserMovie
 } from '../../store/slices/movies/userMovies/userMoviesAction';
 
@@ -64,7 +64,7 @@ function App() {
         const id = movie.id || movie.movieId;
         return () => {
             const movieToDelete = newSavedMovies.find(movie => movie.movieId === id)
-            dispatch(removeUserMovieFromServer(movieToDelete._id))
+            dispatch(removeUserMovie(movieToDelete._id))
         }
     }
 
