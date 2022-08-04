@@ -7,14 +7,8 @@ export const registerUser = createAsyncThunk(
     async({ name, email, password }, { rejectWithValue }) => {
         try {
             await auth.register(name, email, password)
-        } catch(error) {
-            console.log('ошибочка ' + error)
-            // TODO: рефакторинг приходящей ошибки в auth.js (а не только код статуса)
-            if (error.response && error.response.data.message) {
-                return rejectWithValue(error.response.data.message)
-            } else {
-                return rejectWithValue(error)
-            }
+        } catch (error) {
+            return rejectWithValue(error)
         }
     }
 )
@@ -30,12 +24,7 @@ export const userLogin = createAsyncThunk(
 
             return data
         } catch (error) {
-            // return custom error message from API if any
-            if (error.response && error.response.data.message) {
-                return rejectWithValue(error.response.data.message)
-            } else {
-                return rejectWithValue(error)
-            }
+            return rejectWithValue(error)
         }
     }
 )
@@ -48,15 +37,10 @@ export const getUserDetails = createAsyncThunk(
             const { user } = getState()
 
             mainApi.setToken(user.userToken)
-            // configure authorization header with user's token
 
             return await mainApi.getUserInfo()
         } catch (error) {
-            if (error.response && error.response.data.message) {
-                return rejectWithValue(error.response.data.message)
-            } else {
-                return rejectWithValue(error)
-            }
+            return rejectWithValue(error)
         }
     }
 )
@@ -69,11 +53,7 @@ export const updateUserDetails = createAsyncThunk(
             // вернется объект с именем и email
             return await mainApi.updateUserInfo(name, email)
         } catch(error) {
-            if (error.response && error.response.data.message) {
-                return rejectWithValue(error.response.data.message)
-            } else {
-                return rejectWithValue(error)
-            }
+            return rejectWithValue(error)
         }
     }
 )
