@@ -17,7 +17,6 @@ import {userLogoutAction} from '../../store';
 import {useHistory} from 'react-router-dom';
 
 function Profile() {
-    console.log('profile render')
 
     const history = useHistory();
     const dispatch = useDispatch();

@@ -18,7 +18,6 @@ import {
     pagesWithoutFooter,
     pagesWithoutHeader,
 } from "../../utils/constants";
-import PopupWithError from "../PopupWithError/PopupWithError";
 import {useDispatch, useSelector} from 'react-redux';
 import {getUserDetails} from '../../store/slices/user/userAction';
 import {
@@ -29,16 +28,11 @@ import {
 
 
 function App() {
-    console.log('app render')
-
     const dispatch = useDispatch();
     const loggedIn = useSelector(state => !!state.user.isAuth)
     const newSavedMovies = useSelector(state => state.movies.userMovies.data)
 
     const [ isPopupMenuOpened, setIsPopupMenuOpened] = useState(false);
-
-    const [isErrorPopupOpened, setIsErrorPopupOpened] = useState(false);
-    const [errorText, setErrorText] = useState(null);
 
     const location = useLocation();
 
@@ -66,16 +60,10 @@ function App() {
 
     function closeAllPopups() {
         setIsPopupMenuOpened(false);
-        setIsErrorPopupOpened(false);
     }
 
     function openMenuPopup() {
         setIsPopupMenuOpened(true);
-    }
-
-    function onMainPageReturn() {
-        setErrorText(null)
-        closeAllPopups();
     }
 
     const shouldHeaderBeShown = () => !pagesWithoutHeader.includes(location.pathname);
@@ -143,15 +131,6 @@ function App() {
 
             {shouldFooterBeShown() && <Footer/>}
 
-
-            {errorText && (
-                <PopupWithError
-                    onClose={closeAllPopups}
-                    isOpened={isErrorPopupOpened}
-                    errorText={errorText}
-                    onReturn={onMainPageReturn}
-                />)
-            }
         </div>
     );
 }
