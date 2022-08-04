@@ -30,6 +30,7 @@ function Movies(props) {
     const movies = useSelector(selectAllMovies('apiMovies'))
     const isMoviesLoading = useSelector(selectIsMoviesLoading('apiMovies'))
     const error = useSelector(selectMoviesError('apiMovies'))
+    const errorOnUserMovies = useSelector(selectMoviesError('userMovies'))
 
     const savedMovies = useSelector(selectAllMovies('userMovies'))
 
@@ -54,7 +55,7 @@ function Movies(props) {
                 storageKey='queryString'
                 defaultValue={queryString}
             />
-            {error && (<h4 className='movies-cards__not-found'>{CONNECTION_ERROR}</h4>)}
+            {(error || errorOnUserMovies) && (<h4 className='movies-cards__not-found'>{CONNECTION_ERROR}</h4>)}
 
             {!error && (isMoviesLoading
                 ? (<Preloader />)
