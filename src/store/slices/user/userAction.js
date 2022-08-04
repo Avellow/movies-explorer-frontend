@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import * as auth from '../../../utils/auth';
-import {mainApi} from '../../../utils/constants';
+import {errorHandlerOnAsyncThunk, mainApi} from '../../../utils/constants';
 
 export const registerUser = createAsyncThunk(
     'user/register',
@@ -8,7 +8,7 @@ export const registerUser = createAsyncThunk(
         try {
             await auth.register(name, email, password)
         } catch (error) {
-            return rejectWithValue(error)
+            return errorHandlerOnAsyncThunk(error, rejectWithValue)
         }
     }
 )
@@ -24,7 +24,7 @@ export const userLogin = createAsyncThunk(
 
             return data
         } catch (error) {
-            return rejectWithValue(error)
+            return errorHandlerOnAsyncThunk(error, rejectWithValue)
         }
     }
 )
@@ -40,7 +40,7 @@ export const getUserDetails = createAsyncThunk(
 
             return await mainApi.getUserInfo()
         } catch (error) {
-            return rejectWithValue(error)
+            return errorHandlerOnAsyncThunk(error, rejectWithValue)
         }
     }
 )
@@ -53,7 +53,7 @@ export const updateUserDetails = createAsyncThunk(
             // вернется объект с именем и email
             return await mainApi.updateUserInfo(name, email)
         } catch(error) {
-            return rejectWithValue(error)
+            return errorHandlerOnAsyncThunk(error, rejectWithValue)
         }
     }
 )

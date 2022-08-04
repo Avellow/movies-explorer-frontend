@@ -8,7 +8,6 @@ import {
     EMAIL_VALIDATION_ERROR,
     generateAuthError,
     NAME_VALIDATION_ERROR,
-    userInfoUpdateSuccess
 } from "../../utils/constants";
 import {useDispatch, useSelector} from 'react-redux';
 import {selectUser} from '../../store/selectors/user/user-selectors';
@@ -47,7 +46,7 @@ function Profile() {
 
     // эффект при unmount
     useEffect(() => () => {
-        if (error) {
+        if (error && error !== 'Failed to fetch') {
             dispatch(resetErrorOnUser())
         }
     }, [])

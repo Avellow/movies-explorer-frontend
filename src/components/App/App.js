@@ -37,10 +37,6 @@ function App() {
 
     const [ isPopupMenuOpened, setIsPopupMenuOpened] = useState(false);
 
-    const [isFetchErrored, setIsFetchErrored] = useState(false);
-
-    const [isFetchMainServerErrored, setIsFetchMainServerErrored] = useState(false);
-
     const [isErrorPopupOpened, setIsErrorPopupOpened] = useState(false);
     const [errorText, setErrorText] = useState(null);
 
@@ -119,7 +115,6 @@ function App() {
                     component={Movies}
                     loggedIn={loggedIn}
                     exact path="/movies"
-                    isFetchErrored={isFetchErrored}
                     onMovieSave={handleMovieSave}
                     onMovieDelete={handleMovieDelete}
                 />
@@ -129,7 +124,6 @@ function App() {
                     component={SavedMovies}
                     loggedIn={loggedIn}
                     onMovieDelete={handleMovieDelete}
-                    isFetchErrored={isFetchMainServerErrored}
                 />
 
                 <ProtectedRoute

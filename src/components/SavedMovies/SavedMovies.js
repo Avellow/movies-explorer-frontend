@@ -5,7 +5,7 @@ import Preloader from "../Preloader/Preloader";
 import {useDispatch, useSelector} from 'react-redux';
 import {
     selectIsMoviesLoading,
-    selectMoviesByFilter,
+    selectMoviesByFilter, selectMoviesError,
     selectMoviesFilters
 } from '../../store/selectors/movies/movies-selectors';
 import {useEffect} from 'react';
@@ -17,7 +17,6 @@ import {
 function SavedMovies(props) {
     const {
         onMovieDelete,
-        isFetchErrored,
     } = props;
 
     const dispatch = useDispatch();
@@ -25,6 +24,8 @@ function SavedMovies(props) {
     const filteredUserMovies = useSelector(selectMoviesByFilter('userMovies'))
     const { isShortFilmActive } = useSelector(selectMoviesFilters('userMovies'))
     const isUserMoviesLoading = useSelector(selectIsMoviesLoading('userMovies'))
+
+    const error = useSelector(selectMoviesError('userMovies'))
 
     // при монтировании очищает значение фильтров в хранилище
     useEffect(() => {
@@ -48,9 +49,9 @@ function SavedMovies(props) {
                 isLoading={isUserMoviesLoading}
             />
 
-            {isFetchErrored && (<h4 className='movies-cards__not-found'>{CONNECTION_ERROR}</h4>)}
+            {error && (<h4 className='movies-cards__not-found'>{CONNECTION_ERROR}</h4>)}
 
-            {!isFetchErrored && (isUserMoviesLoading
+            {!error && (isUserMoviesLoading
                 ? (<Preloader/>)
                 : (<MoviesCardList
                       movies={filteredUserMovies}

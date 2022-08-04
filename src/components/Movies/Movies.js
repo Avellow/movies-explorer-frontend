@@ -11,7 +11,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
     selectAllMovies,
     selectIsMoviesLoading,
-    selectMoviesByFilter,
+    selectMoviesByFilter, selectMoviesError,
     selectMoviesFilters
 } from '../../store/selectors/movies/movies-selectors';
 import {getMovies} from '../../store/slices/movies/apiMovies/moviesAction';
@@ -19,7 +19,6 @@ import {changeQueryString, toggleShortFilm} from '../../store/slices/movies/apiM
 
 function Movies(props) {
     const {
-        isFetchErrored,
         onMovieSave,
         onMovieDelete,
     } = props;
@@ -30,6 +29,8 @@ function Movies(props) {
     const filteredMovies = useSelector(selectMoviesByFilter('apiMovies'))
     const movies = useSelector(selectAllMovies('apiMovies'))
     const isMoviesLoading = useSelector(selectIsMoviesLoading('apiMovies'))
+    const error = useSelector(selectMoviesError('apiMovies'))
+
     const savedMovies = useSelector(selectAllMovies('userMovies'))
 
     function onToggleCheck() {
@@ -53,9 +54,9 @@ function Movies(props) {
                 storageKey='queryString'
                 defaultValue={queryString}
             />
-            {isFetchErrored && (<h4 className='movies-cards__not-found'>{CONNECTION_ERROR}</h4>)}
+            {error && (<h4 className='movies-cards__not-found'>{CONNECTION_ERROR}</h4>)}
 
-            {!isFetchErrored && (isMoviesLoading
+            {!error && (isMoviesLoading
                 ? (<Preloader />)
                 : (<MoviesCardList
                         movies={filteredMovies}

@@ -1,5 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {moviesApi} from '../../../../utils/constants';
+import {errorHandlerOnAsyncThunk, moviesApi} from '../../../../utils/constants';
 
 export const getMovies = createAsyncThunk(
     'movies/getMovies',
@@ -7,7 +7,7 @@ export const getMovies = createAsyncThunk(
         try {
             return await moviesApi.getFilms()
         } catch(error) {
-            return rejectWithValue(error)
+            return errorHandlerOnAsyncThunk(error, rejectWithValue)
         }
     }
 )

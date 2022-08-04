@@ -1,7 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import { mainApi } from '../../../../utils/constants';
-import {addUserMovie, removeUserMovieLocally} from './userMoviesSlice';
-
+import {errorHandlerOnAsyncThunk, mainApi} from '../../../../utils/constants';
 
 export const getUserMovies = createAsyncThunk(
     'userMovies/getUserMovies',
@@ -9,30 +7,30 @@ export const getUserMovies = createAsyncThunk(
         try {
             return await mainApi.getMovies()
         } catch(error) {
-            return rejectWithValue(error)
+            return errorHandlerOnAsyncThunk(error, rejectWithValue)
         }
     }
 )
 
 export const saveUserMovie = createAsyncThunk(
     'userMovies/saveUserMovie',
-    async (movie, { rejectWithValue, dispatch }) => {
+    async (movie, { rejectWithValue }) => {
         try {
             return await mainApi.saveMovie(movie)
         } catch(error) {
-            return rejectWithValue(error)
+            return errorHandlerOnAsyncThunk(error, rejectWithValue)
         }
     }
 )
 
 export const removeUserMovie = createAsyncThunk(
     'userMovies/removeUserMovie',
-    async (id, { rejectWithValue, dispatch }) => {
+    async (id, { rejectWithValue }) => {
         try {
             const response = await mainApi.deleteMovie(id)
             return response.data
         } catch(error) {
-            return rejectWithValue(error)
+            return errorHandlerOnAsyncThunk(error, rejectWithValue)
         }
     }
 )

@@ -14,7 +14,10 @@ const userToken = localStorage.getItem('userToken')
 const initialState = {
     loading: false,
     isAuth: false,
-    userInfo: {},
+    userInfo: {
+        name: null,
+        email: null,
+    },
     userToken, // jwt
     error: null,
     success: false, // мониторинг процесса регистрации

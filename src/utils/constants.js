@@ -19,11 +19,15 @@ export const CONNECTION_ERROR = 'Во время запроса произошл
 export const NAME_VALIDATION_ERROR = 'Запоните это поле (разрешаются латиница/кириллица/пробел/дефис)'
 export const EMAIL_VALIDATION_ERROR = 'Неправильный формат почты'
 
-export const generateAuthError = (code = 500) => {
-    let result = 'Произошла ошибка на сервере. Пожалуйста, проверьте данные и повторите попытку.'
-    if (code === 409)  result = 'Аккаунт с таким e-mail уже зарегистрирован.'
-    if (code === 401) result = 'Неправильные почта/пароль.'
-    return result;
+export const generateAuthError = (code) => {
+    switch (code) {
+        case 409:
+            return 'Аккаунт с таким e-mail уже зарегистрирован.'
+        case 401:
+            return 'Неправильные почта/пароль.'
+        default:
+            return 'Соединение с сервером потеряно.'
+    }
 }
 
 export const generateError = (err, defaultText = '') => {
@@ -241,4 +245,10 @@ export const updateUserInfo = (state, { payload }) => {
 export const setRequestError = (state, { payload }) => {
     state.loading = false
     state.error = payload
+}
+
+export const errorHandlerOnAsyncThunk = (error, handler) => {
+    if (error.message) return handler(error.message)
+
+    return handler(error)
 }
