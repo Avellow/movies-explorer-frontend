@@ -215,6 +215,7 @@ export const pushMovieData = (state, { payload }) => {
 }
 
 export const removeMovieFromStore = (state, { payload }) => {
+    state.loading = false
     state.data = state.data.filter(movie =>
         movie.movieId !== payload.movieId)
 }
