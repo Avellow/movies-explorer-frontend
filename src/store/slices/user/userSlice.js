@@ -29,6 +29,9 @@ const userSlice = createSlice({
     reducers: {
         resetErrorOnUser(state) {
             state.error = null
+        },
+        resetRegisterSuccessStatus(state) {
+            state.success = false
         }
     },
     extraReducers: {
@@ -54,6 +57,6 @@ const userSlice = createSlice({
     }
 })
 
-export const { resetErrorOnUser } = userSlice.actions
+export const { resetErrorOnUser, resetRegisterSuccessStatus } = userSlice.actions
 
 export default userSlice.reducer;

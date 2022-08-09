@@ -1,117 +1,126 @@
-import './Register.css';
-import Form from "../Form/Form";
-import Input from "../Input/Input";
-import Button from "../Button/Button";
-import Logo from "../Logo/Logo";
-import {NavLink, useHistory} from 'react-router-dom';
-import {useFormAndValidation} from "../../hooks/useFormAndValidation";
-import {EMAIL_VALIDATION_ERROR, generateAuthError, NAME_VALIDATION_ERROR} from "../../utils/constants";
-import Preloader from "../Preloader/Preloader";
-import {useEffect} from "react";
-import { useDispatch, useSelector } from 'react-redux'
-import {registerUser, userLogin} from '../../store/slices/user/userAction';
+import {useForm} from 'react-hook-form';
+import {AuthInputField} from '../AuthInputField/AuthInputField';
+import {AuthForm} from '../AuthForm/AuthForm';
+import {useDispatch, useSelector} from 'react-redux';
 import {selectUser} from '../../store/selectors/user/user-selectors';
-import {resetErrorOnUser} from '../../store/slices/user/userSlice';
+import {useEffect} from 'react';
+import {resetErrorOnUser, resetRegisterSuccessStatus} from '../../store/slices/user/userSlice';
+import {useHistory} from 'react-router-dom';
+import {registerUser} from '../../store/slices/user/userAction';
 
-function Register() {
+export default function Register() {
+    // react-hook-form
+    const {
+        register,
+        handleSubmit,
+        formState: {
+            errors,
+            isValid,
+        },
+        reset,
+        getValues,
+    } = useForm({
+        mode: 'onChange'
+    })
 
+    // redux && user register status
+    const dispatch = useDispatch();
     const { loading, error, success } = useSelector(selectUser)
 
-    // эффект при unmount
+    // эффект при unmount - очищает отображаемую ошибку регистрации от сервера
     useEffect(() => () => {
         if (error) {
             dispatch(resetErrorOnUser())
         }
     }, [])
 
-    const dispatch = useDispatch()
+
     const history = useHistory();
-
-    const {
-        values,
-        errors,
-        handleChange,
-        isValid,
-    } = useFormAndValidation();
-
-    const {email, password, username: name} = values
-
+    // redirect на страницу логина при успешной регистрации и очищает через 3 секунды статус success (state.user)
     useEffect(() => {
         if (success) {
-            dispatch(userLogin({ email, password }))
+            setTimeout(() => {
+                history.push('/signin');
+                dispatch(resetRegisterSuccessStatus())
+            }, 3000)
         }
-    },[dispatch, email, history, password, success])
+    }, [dispatch, history, success])
 
-    function handleRegister() {
-        dispatch(registerUser({ name, email, password}))
+    const onSubmit = () => {
+        const { firstName, email, password } = getValues()
+        dispatch(registerUser({ name: firstName, email, password }))
+        reset()
     }
 
     return (
-        <section className='register'>
-            <Logo
-                marginBottom={40}
+        <AuthForm
+            onSubmit={handleSubmit(onSubmit)}
+            title='Добро пожаловать!'
+            submitDisabled={!isValid}
+            hintProps={{
+                text: 'Уже зарегистрированы?',
+                linkTo: '/signin',
+                linkText: 'Войти'
+            }}
+
+        >
+            <AuthInputField
+                label='Ваше имя'
+                name='firstName'
+                register={register}
+                validationRules={{
+                    required: 'Поле обязательно к заполнению!',
+                    minLength: {
+                        value: 4,
+                        message: 'Минимум 4 символа'
+                    },
+                    pattern: {
+                        value: /[a-zA-Zа-яА-ЯёЁ]+[- a-zA-Zа-яА-ЯёЁ]{1,}/,
+                        message: 'Допускаются только буквенные символы'
+                    }
+                }}
+                errors={errors}
+                disabled={loading}
             />
-            <Form
-                title='Добро пожаловать!'
-                buttonText='Зарегистрироваться'
-                hintText='Уже зарегистрированы?'
-                hintLinkText='Войти'
-            >
-                <Input
-                    labelTitle='Имя'
-                    name='username'
-                    onChange={handleChange}
-                    value={values['username'] || ''}
-                    pattern='[a-zA-Zа-яА-ЯёЁ]+[- a-zA-Zа-яА-ЯёЁ]{1,}'
-                    errored={errors['username']}
-                    errorText={NAME_VALIDATION_ERROR}
-                    required={true}
-                    minLength={2}
-                    maxLength={30}
-                    disabled={loading}
-                />
-                <Input
-                    labelTitle='E-mail'
-                    name='email'
-                    type='email'
-                    pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'
-                    errored={errors['email']}
-                    errorText={EMAIL_VALIDATION_ERROR}
-                    onChange={handleChange}
-                    value={values['email'] || ''}
-                    required={true}
-                    disabled={loading}
-                />
-                <Input
-                    labelTitle='Пароль'
-                    name='password'
-                    type='password'
-                    required={true}
-                    errored={errors['password']}
-                    errorText={errors['password']}
-                    onChange={handleChange}
-                    value={values['password'] || ''}
-                    minLength={4}
-                    disabled={loading}
-                />
-                {loading && (<Preloader isSmall={true}/>)}
-                {error && (
-                    <p className='register__error'>{generateAuthError(error)}</p>
-                )}
-                <Button
-                    theme='auth'
-                    text='Зарегистрироваться'
-                    type='submit'
-                    onClick={handleRegister}
-                    disabled={!isValid || loading}
-                />
-                <p className='form__hint'>
-                    Уже зарегистрированы?
-                    <NavLink className='form__hint-link' to='/signin'> Войти</NavLink>
-                </p>
-            </Form>
-        </section>
+
+            <AuthInputField
+                label='Email'
+                name='email'
+                register={register}
+                validationRules={{
+                    required: 'Поле обязательно к заполнению!',
+                    minLength: {
+                        value: 4,
+                        message: 'Минимум 4 символа'
+                    },
+                    pattern: {
+                        value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/,
+                        message: 'Введенный email невалиден'
+                    }
+                }}
+                errors={errors}
+                type='email'
+                disabled={loading}
+            />
+
+            <AuthInputField
+                label='Пароль'
+                name='password'
+                register={register}
+                validationRules={{
+                    required: 'Поле обязательно к заполнению!',
+                    minLength: {
+                        value: 4,
+                        message: 'Минимум 4 символа'
+                    }
+                }}
+                errors={errors}
+                type='password'
+                disabled={loading}
+            />
+
+            {success && <p>Вы успешно зарегистрировались и будете перенаправлены на страницу логина</p>}
+
+        </AuthForm>
     )
 }
-
-export default Register;

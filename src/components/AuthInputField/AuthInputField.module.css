@@ -1,0 +1,44 @@
+.field {
+
+}
+
+.label {
+    font-size: 10px;
+    line-height: 1.2;
+    color: #a0a0a0;
+}
+
+.input {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 5px 0 0;
+    padding: 0 0 10px;
+    font-size: 14px;
+    line-height: 1.2;
+    font-weight: 500;
+    border: none;
+    border-bottom: 1px solid #E8E8E8;
+}
+
+.input:focus {
+    border-color: #3456F3;
+    outline: none;
+}
+
+.errorContainer {
+    height: 24px;
+    display: flex;
+    align-items: center;
+}
+
+.error {
+    padding: 0;
+    margin: 0;
+    font-size: 10px;
+    line-height: 1.2;
+    color: #FF3055;
+}
+
+.field:last-of-type {
+    margin-bottom: 30px;
+}
