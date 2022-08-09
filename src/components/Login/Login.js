@@ -1,89 +1,98 @@
 import './Login.css';
-import Form from "../Form/Form";
-import Input from "../Input/Input";
-import Button from "../Button/Button";
-import Logo from "../Logo/Logo";
-import {NavLink} from 'react-router-dom';
-import {useFormAndValidation} from "../../hooks/useFormAndValidation";
 import {EMAIL_VALIDATION_ERROR, generateAuthError} from "../../utils/constants";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import {userLogin} from '../../store/slices/user/userAction';
 import {selectUser} from '../../store/selectors/user/user-selectors';
 import {resetErrorOnUser} from '../../store/slices/user/userSlice';
+import {useForm} from 'react-hook-form';
+import {AuthForm} from '../AuthForm/AuthForm';
+import {AuthInputField} from '../AuthInputField/AuthInputField';
 
 function Login() {
-
-    const { loading: isLoading, error } = useSelector(selectUser)
-
-    // эффект при unmount
-    useEffect(() => () => {
-        if (error) {
-            dispatch(resetErrorOnUser())
-        }
-    }, [])
-
-    const dispatch = useDispatch();
-
+    // react-hook-form
     const {
-        values,
-        errors,
-        handleChange,
-        isValid,
-    } = useFormAndValidation();
+        register,
+        handleSubmit,
+        formState: {
+            errors,
+            isValid,
+        },
+        getValues,
+    } = useForm({
+        mode: 'onChange'
+    })
+
+    // redux && user register status
+    const dispatch = useDispatch();
+    const { loading, error } = useSelector(selectUser)
+
+    // сбрасывает отображаемые ошибки через 3 секунды
+    useEffect(() => {
+        if (error) {
+            setTimeout(() => dispatch(resetErrorOnUser()), 3000)
+        }
+    }, [dispatch, error])
+
 
     function handleLogin() {
-        const { email, password } = values;
+        const { email, password } = getValues()
         dispatch(userLogin({ email, password }))
     }
 
     return (
         <section className='login'>
-            <Logo
-                marginBottom={40}
-            />
-            <Form
-                title='Рады видеть!'
+            <AuthForm
+                onSubmit={handleSubmit(handleLogin)}
+                title='Рады видеть'
+                buttonText='Войти'
+                submitDisabled={!isValid}
+                hintProps={{
+                    text: 'Ещё не зарегистрированы?',
+                    linkTo: '/signup',
+                    linkText: 'Регистрация'
+                }}
             >
-                <Input
-                    labelTitle='E-mail'
+                <AuthInputField
+                    label='Email'
                     name='email'
+                    register={register}
+                    validationRules={{
+                        required: 'Поле обязательно к заполнению!',
+                        minLength: {
+                            value: 4,
+                            message: 'Минимум 4 символа'
+                        },
+                        pattern: {
+                            value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/,
+                            message: EMAIL_VALIDATION_ERROR
+                        }
+                    }}
+                    errors={errors}
                     type='email'
-                    required={true}
-                    pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'
-                    onChange={handleChange}
-                    value={values['email'] || ''}
-                    errored={errors['email']}
-                    errorText={EMAIL_VALIDATION_ERROR}
-                    disabled={isLoading}
+                    disabled={loading}
                 />
-                <Input
-                    labelTitle='Пароль'
+
+                <AuthInputField
+                    label='Пароль'
                     name='password'
+                    register={register}
+                    validationRules={{
+                        required: 'Поле обязательно к заполнению!',
+                        minLength: {
+                            value: 4,
+                            message: 'Минимум 4 символа'
+                        }
+                    }}
+                    errors={errors}
                     type='password'
-                    required={true}
-                    onChange={handleChange}
-                    value={values['password'] || ''}
-                    minLength={4}
-                    errored={errors['password']}
-                    errorText={errors['password']}
-                    disabled={isLoading}
+                    disabled={loading}
                 />
+
                 {error && (
                     <p className='login__error'>{generateAuthError(error)}</p>
                 )}
-                <Button
-                    theme='auth'
-                    text='Войти'
-                    onClick={handleLogin}
-                    type='submit'
-                    disabled={!isValid || isLoading}
-                />
-                <p className='form__hint'>
-                    Ещё не зарегистрированы?
-                    <NavLink className='form__hint-link' to='/signup'> Регистрация</NavLink>
-                </p>
-            </Form>
+            </AuthForm>
         </section>
     )
 }
