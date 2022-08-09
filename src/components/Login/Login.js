@@ -8,6 +8,7 @@ import {resetErrorOnUser} from '../../store/slices/user/userSlice';
 import {useForm} from 'react-hook-form';
 import {AuthForm} from '../AuthForm/AuthForm';
 import {AuthInputField} from '../AuthInputField/AuthInputField';
+import Preloader from '../Preloader/Preloader';
 
 function Login() {
     // react-hook-form
@@ -88,7 +89,7 @@ function Login() {
                     type='password'
                     disabled={loading}
                 />
-
+                {loading && <Preloader isSmall={true} />}
                 {error && (
                     <p className='login__error'>{generateAuthError(error)}</p>
                 )}
