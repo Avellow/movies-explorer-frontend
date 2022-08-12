@@ -1,119 +1,99 @@
-import './Profile.css';
-import Form from "../Form/Form";
-import Input from "../Input/Input";
-import Button from "../Button/Button";
-import {useEffect} from 'react';
-import {useFormAndValidation} from "../../hooks/useFormAndValidation";
-import {
-    EMAIL_VALIDATION_ERROR,
-    generateAuthError,
-    NAME_VALIDATION_ERROR,
-} from "../../utils/constants";
+import ProfileForm from '../ProfileForm/ProfileForm';
+import {useForm} from 'react-hook-form';
+import ProfileInputField from '../ProfileInputField/ProfileInputField';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectUser} from '../../store/selectors/user/user-selectors';
-import {resetErrorOnUser} from '../../store/slices/user/userSlice';
 import {updateUserDetails} from '../../store/slices/user/userAction';
-import {userLogoutAction} from '../../store';
-import {useHistory} from 'react-router-dom';
+import Preloader from '../Preloader/Preloader';
+import {CONNECTION_ERROR} from '../../utils/constants';
 
-function Profile() {
+export default function Profile() {
 
-    const history = useHistory();
+    // redux && user register status
     const dispatch = useDispatch();
-    const { loading, userInfo, error } = useSelector(selectUser)
+    const { loading, error, userInfo } = useSelector(selectUser)
 
+    // react-hook-form
     const {
-        resetForm,
-        values,
-        errors,
-        handleChange,
-        isValid,
-    } = useFormAndValidation();
+        register,
+        handleSubmit,
+        formState: {
+            errors,
+            isValid,
+            isDirty
+        },
+        getValues,
+        reset,
+    } = useForm({
+        mode: 'onChange',
+        defaultValues: {
+            profileName: userInfo.name,
+            profileEmail: userInfo.email
+        },
+    })
 
-    const { name, email } = values
-
-    useEffect(() => {
-        resetForm(
-            {
-                name: userInfo.name,
-                email: userInfo.email,
-            },
-            {},
-            true,
-        )
-    }, [userInfo, resetForm])
-
-    // эффект при unmount
-    useEffect(() => () => {
-        if (error && error !== 'Failed to fetch') {
-            dispatch(resetErrorOnUser())
-        }
-    }, [])
-
-    const checkIfUserInfoChanged = () => userInfo.name === name && userInfo.email === email
-
-    function handleSubmit() {
-        const { name, email } = values;
+    // reset устанавливает новые дефолтные значения, при этом кнопка редактирования становится недоступна
+    function onSubmit() {
+        const { profileName: name, profileEmail: email } = getValues();
         dispatch(updateUserDetails({ name, email }))
-    }
 
-    function onSignOut() {
-        dispatch(userLogoutAction())
-        history.push('/')
-        localStorage.clear()
+        reset({
+            profileName: name,
+            profileEmail: email
+        });
     }
 
     return (
-        <section className='profile'>
-            <Form
+        <section>
+            <ProfileForm
+                onSubmit={handleSubmit(onSubmit)}
                 title={`Привет, ${userInfo.name}!`}
-                isTitleCentered={true}
+                buttonText='Редактировать'
+                submitDisabled={!isValid || !isDirty}
             >
-                <Input
-                    name='name'
-                    className='profile-input'
-                    labelTitle='Имя'
-                    value={values['name'] || ''}
-                    onChange={handleChange}
-                    required={true}
-                    errored={errors['name']}
-                    errorText={NAME_VALIDATION_ERROR}
-                    pattern='[a-zA-Zа-яА-ЯёЁ]+[- a-zA-Zа-яА-ЯёЁ]{3,}'
-                    disabled={loading}
-                />
-                <Input
-                    name='email'
-                    type='email'
-                    className='profile-input'
-                    labelTitle='Почта'
-                    pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'
-                    errorText={EMAIL_VALIDATION_ERROR}
-                    required={true}
-                    value={values['email'] || ''}
-                    onChange={handleChange}
-                    errored={errors['email']}
+                <ProfileInputField
+                    label='Имя'
+                    name='profileName'
+                    register={register}
+                    validationRules={{
+                        required: 'Поле обязательно к заполнению!',
+                        minLength: {
+                            value: 4,
+                            message: 'Минимум 4 символа'
+                        },
+                        pattern: {
+                            value: /[a-zA-Zа-яА-ЯёЁ]+[- a-zA-Zа-яА-ЯёЁ]+/,
+                            message: 'Допускаются только буквенные символы'
+                        }
+                    }}
+                    errors={errors}
                     disabled={loading}
                 />
 
-                {
-                    error && (<p className='profile__error'>{generateAuthError()}</p>)
-                }
+                <ProfileInputField
+                    label="Email"
+                    name="profileEmail"
+                    register={register}
+                    validationRules={{
+                        required: 'Поле обязательно к заполнению!',
+                        minLength: {
+                            value: 4,
+                            message: 'Минимум 4 символа'
+                        },
+                        pattern: {
+                            value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/,
+                            message: 'Введенный email невалиден'
+                        }
+                    }}
+                    errors={errors}
+                    type="email"
+                    disabled={loading}
+                />
 
-                <Button
-                    text='Редактировать'
-                    theme='edit'
-                    type='submit'
-                    onClick={handleSubmit}
-                    disabled={!isValid || loading || checkIfUserInfoChanged()}
-                />
-                <Button
-                    text='Выйти из аккаунта'
-                    theme='exit'
-                    onClick={onSignOut}
-                />
-            </Form>
+                {loading && <Preloader isSmall={true}/>}
+
+                {error && <p className='register__error'>{CONNECTION_ERROR}</p>}
+            </ProfileForm>
         </section>
     )
 }
-
-export default Profile;

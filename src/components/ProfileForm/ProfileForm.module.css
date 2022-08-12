@@ -1,0 +1,55 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 396px;
+    margin: auto;
+    height: 80vh;
+    max-height: 650px;
+}
+
+.title {
+    margin: 40px 0 120px;
+    text-align: center;
+    font-size: 24px;
+    line-height: 1.2;
+    font-weight: 500;
+}
+
+.submit {
+    padding: 10px 20px;
+    border-radius: 3px;
+    border: none;
+    font-size: 14px;
+    line-height: 1.33;
+    font-weight: 500;
+    background-color: rgba(0,0,0,0);
+    height: 45px;
+    margin: auto 0 0;
+    width: fit-content;
+    align-self: center;
+}
+
+.submit:hover {
+    cursor: pointer;
+    opacity: .6;
+}
+
+.submit:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+.logout {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.2;
+    background-color: rgba(0,0,0,0);
+    color: #FF3055;
+    width: fit-content;
+    align-self: center;
+    border: none;
+}
+
+.logout:hover {
+    opacity: .8;
+}
