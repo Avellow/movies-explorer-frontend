@@ -9,6 +9,7 @@ import {useHistory} from 'react-router-dom';
 import {registerUser} from '../../store/slices/user/userAction';
 import Preloader from '../Preloader/Preloader';
 import {generateAuthError} from '../../utils/constants';
+import {emailRules, firstNameRule, passwordRules} from '../../utils/inputValidationRules';
 
 export default function Register() {
     // react-hook-form
@@ -71,17 +72,7 @@ export default function Register() {
                     label="Ваше имя"
                     name="firstName"
                     register={register}
-                    validationRules={{
-                        required: 'Поле обязательно к заполнению!',
-                        minLength: {
-                            value: 4,
-                            message: 'Минимум 4 символа'
-                        },
-                        pattern: {
-                            value: /[a-zA-Zа-яА-ЯёЁ]+[- a-zA-Zа-яА-ЯёЁ]{1,}/,
-                            message: 'Допускаются только буквенные символы'
-                        }
-                    }}
+                    validationRules={firstNameRule}
                     errors={errors}
                     disabled={loading}
                 />
@@ -90,17 +81,7 @@ export default function Register() {
                     label="Email"
                     name="email"
                     register={register}
-                    validationRules={{
-                        required: 'Поле обязательно к заполнению!',
-                        minLength: {
-                            value: 4,
-                            message: 'Минимум 4 символа'
-                        },
-                        pattern: {
-                            value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/,
-                            message: 'Введенный email невалиден'
-                        }
-                    }}
+                    validationRules={emailRules}
                     errors={errors}
                     type="email"
                     disabled={loading}
@@ -110,13 +91,7 @@ export default function Register() {
                     label="Пароль"
                     name="password"
                     register={register}
-                    validationRules={{
-                        required: 'Поле обязательно к заполнению!',
-                        minLength: {
-                            value: 4,
-                            message: 'Минимум 4 символа'
-                        }
-                    }}
+                    validationRules={passwordRules}
                     errors={errors}
                     type="password"
                     disabled={loading}

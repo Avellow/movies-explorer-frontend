@@ -9,6 +9,7 @@ import {useForm} from 'react-hook-form';
 import {AuthForm} from '../AuthForm/AuthForm';
 import {AuthInputField} from '../AuthInputField/AuthInputField';
 import Preloader from '../Preloader/Preloader';
+import {emailRules, passwordRules} from '../../utils/inputValidationRules';
 
 function Login() {
     // react-hook-form
@@ -58,17 +59,7 @@ function Login() {
                     label='Email'
                     name='email'
                     register={register}
-                    validationRules={{
-                        required: 'Поле обязательно к заполнению!',
-                        minLength: {
-                            value: 4,
-                            message: 'Минимум 4 символа'
-                        },
-                        pattern: {
-                            value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/,
-                            message: EMAIL_VALIDATION_ERROR
-                        }
-                    }}
+                    validationRules={emailRules}
                     errors={errors}
                     type='email'
                     disabled={loading}
@@ -78,13 +69,7 @@ function Login() {
                     label='Пароль'
                     name='password'
                     register={register}
-                    validationRules={{
-                        required: 'Поле обязательно к заполнению!',
-                        minLength: {
-                            value: 4,
-                            message: 'Минимум 4 символа'
-                        }
-                    }}
+                    validationRules={passwordRules}
                     errors={errors}
                     type='password'
                     disabled={loading}

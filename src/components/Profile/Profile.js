@@ -6,6 +6,7 @@ import {selectUser} from '../../store/selectors/user/user-selectors';
 import {updateUserDetails} from '../../store/slices/user/userAction';
 import Preloader from '../Preloader/Preloader';
 import {CONNECTION_ERROR} from '../../utils/constants';
+import {emailRules, firstNameRule} from '../../utils/inputValidationRules';
 
 export default function Profile() {
 
@@ -55,17 +56,7 @@ export default function Profile() {
                     label='Имя'
                     name='profileName'
                     register={register}
-                    validationRules={{
-                        required: 'Поле обязательно к заполнению!',
-                        minLength: {
-                            value: 4,
-                            message: 'Минимум 4 символа'
-                        },
-                        pattern: {
-                            value: /[a-zA-Zа-яА-ЯёЁ]+[- a-zA-Zа-яА-ЯёЁ]+/,
-                            message: 'Допускаются только буквенные символы'
-                        }
-                    }}
+                    validationRules={firstNameRule}
                     errors={errors}
                     disabled={loading}
                 />
@@ -74,17 +65,7 @@ export default function Profile() {
                     label="Email"
                     name="profileEmail"
                     register={register}
-                    validationRules={{
-                        required: 'Поле обязательно к заполнению!',
-                        minLength: {
-                            value: 4,
-                            message: 'Минимум 4 символа'
-                        },
-                        pattern: {
-                            value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/,
-                            message: 'Введенный email невалиден'
-                        }
-                    }}
+                    validationRules={emailRules}
                     errors={errors}
                     type="email"
                     disabled={loading}
