@@ -6,6 +6,7 @@ export default function ProfileForm(props) {
         children,
         buttonText = 'Отправить',
         onSubmit,
+        onLogout,
         submitDisabled,
     } = props
 
@@ -21,6 +22,7 @@ export default function ProfileForm(props) {
             />
             <button
                 className={style.logout}
+                onClick={onLogout}
             >Выйти из аккаунта</button>
         </form>
     )

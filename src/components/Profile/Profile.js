@@ -7,6 +7,7 @@ import {updateUserDetails} from '../../store/slices/user/userAction';
 import Preloader from '../Preloader/Preloader';
 import {CONNECTION_ERROR} from '../../utils/constants';
 import {emailRules, firstNameRule} from '../../utils/inputValidationRules';
+import {userLogoutAction} from '../../store';
 
 export default function Profile() {
 
@@ -44,10 +45,15 @@ export default function Profile() {
         });
     }
 
+    function onLogout() {
+        dispatch(userLogoutAction())
+    }
+
     return (
         <section>
             <ProfileForm
                 onSubmit={handleSubmit(onSubmit)}
+                onLogout={onLogout}
                 title={`Привет, ${userInfo.name}!`}
                 buttonText='Редактировать'
                 submitDisabled={!isValid || !isDirty}
