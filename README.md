@@ -46,7 +46,7 @@ Frontend часть приложения 'Movies-Explorer'
 2) Внутри клонированного проекта введите в терминале `npm install`
 3) Для запуска проекта введите `npm run start`
 * Измените порт или адрес сервера приложения в src/utils/constants (строка 5) в переменной MAIN_SERVER_URL, если это требуется
-  (сервер приложения доступен по ссылке [https://github.com/Avellow/movies-explorer-api](https://github.com/Avellow/movies-explorer-api))
+  (репозиторий сервера доступен по ссылке [https://github.com/Avellow/movies-explorer-api](https://github.com/Avellow/movies-explorer-api))
 
 ## Планы по доработке
 - [X] ~~оптимизировать размер карточек под разную ширину окон браузера (минимизировать ширину боковых "ушей")~~
