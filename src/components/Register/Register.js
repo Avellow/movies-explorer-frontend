@@ -1,3 +1,4 @@
+import './Register.css';
 import {useForm} from 'react-hook-form';
 import InputField from '../InputField/InputField';
 import {AuthForm} from '../AuthForm/AuthForm';
