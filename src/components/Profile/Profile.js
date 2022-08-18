@@ -1,6 +1,6 @@
 import ProfileForm from '../ProfileForm/ProfileForm';
 import {useForm} from 'react-hook-form';
-import ProfileInputField from '../ProfileInputField/ProfileInputField';
+import InputField from '../InputField/InputField';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectUser} from '../../store/selectors/user/user-selectors';
 import {updateUserDetails} from '../../store/slices/user/userAction';
@@ -58,16 +58,17 @@ export default function Profile() {
                 buttonText='Редактировать'
                 submitDisabled={!isValid || !isDirty}
             >
-                <ProfileInputField
+                <InputField
                     label='Имя'
                     name='profileName'
                     register={register}
                     validationRules={firstNameRule}
                     errors={errors}
                     disabled={loading}
+                    styleType='profile'
                 />
 
-                <ProfileInputField
+                <InputField
                     label="Email"
                     name="profileEmail"
                     register={register}
@@ -75,6 +76,7 @@ export default function Profile() {
                     errors={errors}
                     type="email"
                     disabled={loading}
+                    styleType='profile'
                 />
 
                 {loading && <Preloader isSmall={true}/>}

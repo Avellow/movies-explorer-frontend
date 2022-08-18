@@ -1,5 +1,5 @@
 import {useForm} from 'react-hook-form';
-import {AuthInputField} from '../AuthInputField/AuthInputField';
+import InputField from '../InputField/InputField';
 import {AuthForm} from '../AuthForm/AuthForm';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectUser} from '../../store/selectors/user/user-selectors';
@@ -68,16 +68,17 @@ export default function Register() {
                 }}
 
             >
-                <AuthInputField
+                <InputField
                     label="Ваше имя"
                     name="firstName"
                     register={register}
                     validationRules={firstNameRule}
                     errors={errors}
                     disabled={loading}
+                    styleType='auth'
                 />
 
-                <AuthInputField
+                <InputField
                     label="Email"
                     name="email"
                     register={register}
@@ -85,9 +86,10 @@ export default function Register() {
                     errors={errors}
                     type="email"
                     disabled={loading}
+                    styleType='auth'
                 />
 
-                <AuthInputField
+                <InputField
                     label="Пароль"
                     name="password"
                     register={register}
@@ -95,6 +97,7 @@ export default function Register() {
                     errors={errors}
                     type="password"
                     disabled={loading}
+                    styleType='auth'
                 />
 
                 {success && <p>Вы успешно зарегистрировались и будете перенаправлены на страницу логина</p>}

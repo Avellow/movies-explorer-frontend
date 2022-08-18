@@ -1,5 +1,5 @@
 import './Login.css';
-import {EMAIL_VALIDATION_ERROR, generateAuthError} from "../../utils/constants";
+import {generateAuthError} from "../../utils/constants";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import {userLogin} from '../../store/slices/user/userAction';
@@ -7,7 +7,7 @@ import {selectUser} from '../../store/selectors/user/user-selectors';
 import {resetErrorOnUser} from '../../store/slices/user/userSlice';
 import {useForm} from 'react-hook-form';
 import {AuthForm} from '../AuthForm/AuthForm';
-import {AuthInputField} from '../AuthInputField/AuthInputField';
+import InputField from '../InputField/InputField';
 import Preloader from '../Preloader/Preloader';
 import {emailRules, passwordRules} from '../../utils/inputValidationRules';
 
@@ -55,7 +55,7 @@ function Login() {
                     linkText: 'Регистрация'
                 }}
             >
-                <AuthInputField
+                <InputField
                     label='Email'
                     name='email'
                     register={register}
@@ -63,9 +63,10 @@ function Login() {
                     errors={errors}
                     type='email'
                     disabled={loading}
+                    styleType='auth'
                 />
 
-                <AuthInputField
+                <InputField
                     label='Пароль'
                     name='password'
                     register={register}
@@ -73,6 +74,7 @@ function Login() {
                     errors={errors}
                     type='password'
                     disabled={loading}
+                    styleType='auth'
                 />
                 {loading && <Preloader isSmall={true} />}
                 {error && (

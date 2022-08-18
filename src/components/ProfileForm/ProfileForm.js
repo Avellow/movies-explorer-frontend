@@ -23,6 +23,7 @@ export default function ProfileForm(props) {
             <button
                 className={style.logout}
                 onClick={onLogout}
+                type='button'
             >Выйти из аккаунта</button>
         </form>
     )
