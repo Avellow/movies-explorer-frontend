@@ -1,0 +1,17 @@
+.hint {
+    font-size: 14px;
+    line-height: 1.21;
+    font-weight: 400;
+    color: #A0A0A0;
+    text-align: center;
+    margin: 16px 0 0;
+}
+
+.link {
+    text-decoration: none;
+    color: #3456F3;
+}
+
+.link:hover {
+    opacity: .8;
+}

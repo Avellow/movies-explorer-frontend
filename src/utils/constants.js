@@ -14,7 +14,7 @@ export const mainApi = new MainApi({
 
 // сообщения ошибок и результатов операций
 export const CONNECTION_ERROR = 'Во время запроса произошла ошибка. Возможно, ' +
-    'проблема с соединением или сервер недоступен. Функции поиска или сохранения фильмов могут не работать.'
+    'проблема с соединением или сервер недоступен.'
 export const NAME_VALIDATION_ERROR = 'Заполните это поле (разрешаются латиница/кириллица/пробел/дефис)'
 export const EMAIL_VALIDATION_ERROR = 'Неправильный формат почты'
 
@@ -215,6 +215,7 @@ export const pushMovieData = (state, { payload }) => {
 }
 
 export const removeMovieFromStore = (state, { payload }) => {
+    state.loading = false
     state.data = state.data.filter(movie =>
         movie.movieId !== payload.movieId)
 }
