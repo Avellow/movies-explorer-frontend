@@ -53,3 +53,9 @@
 .logout:hover {
     opacity: .8;
 }
+
+@media screen and (max-width: 525px) {
+    .form {
+        width: 300px;
+    }
+}

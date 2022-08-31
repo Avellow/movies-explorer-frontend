@@ -29,9 +29,3 @@
         --card-width: calc(100vw * 300 / 420);
     }
 }
-
-@media screen and (max-width: 525px) {
-    :root {
-        --form-side-padding: calc(50% - 130px);
-    }
-}

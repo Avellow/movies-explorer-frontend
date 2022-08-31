@@ -35,3 +35,9 @@
     background-color: #E8E8E8;
     cursor: not-allowed;
 }
+
+@media screen and (max-width: 525px) {
+    .form {
+        width: 300px;
+    }
+}
